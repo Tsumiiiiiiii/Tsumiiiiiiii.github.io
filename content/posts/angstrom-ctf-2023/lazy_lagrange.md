@@ -23,8 +23,10 @@ Writeup for the Lazy Lagrange Cryptography challenge.
 
 ## Overview
 
-Angstrom is without a doubt my most favorite CTF competition. The problems are of high quality, and I learn a lot everytime I solve a challenge. This year's competition was no different.
-I played with my default team IUT GENESIS and managed to sovle 6/8 Cryptography challenges. Allthough millionaires was the most difficult challenge I solved, lazy lagrange was which I enjoyed the most solving.
+Angstrom is without a doubt my favorite CTF competition. The problems are of high quality, and I learn a lot every time I solve a challenge. This year's competition was no different.
+
+I played with my default team IUT GENESIS and managed to solve 6/8 Cryptography challenges. Although millionaires was the most difficult challenge I solved, lazy lagrange was which I enjoyed the most solving.
+
 So I'll be making a writeup for lazy lagrange(also because I'm too lazy to make writeups🤡).
 
 ## The challenge
@@ -39,7 +41,7 @@ So I'll be making a writeup for lazy lagrange(also because I'm too lazy to make 
 
 {{< /admonition >}}
 
-Note that the intended solution for this problem was much simpler and intuitive. I somehow missed that obsevration during the contest and opted for a meet in the middle solution instead
+Note that the intended solution for this problem was much simpler and intuitive. I somehow missed that observation during the contest and opted for a meet-in-the-middle solution instead
 
 Before I go to my solution, I would explain some approaches that I tried and why they failed. This is the code that we were provided with
 ```python
@@ -183,11 +185,11 @@ The complexity for this part is $O(n^5)$ which is affordable.
 
 Let's say 
 $$z \ = \ g_1(p) \ + \ g_2(p)$$
-Since we have all permuations for $g_1$, we can write the above equation as 
+Since we have all permutations for $g_1$, we can write the above equation as 
 $$g_1(p) \ = \ z \ - \ g_2(p)$$
 
-Now we brute force all permuations and combinations of length 4 and find different values of $g_2(p)$ <br>
-For each value of $g_2(p)$, we check if $z \ - \ g_2(p)$ is in dictionary ```d1```. If yes, we have found the proper combinations of co-efficients for $a_0, a_2, a_4, ...., a_{14}, a_{16}$ <br>
+Now we brute force all permutations and combinations of length 4 and find different values of $g_2(p)$ <br>
+For each value of $g_2(p)$, we check if $z \ - \ g_2(p)$ is in dictionary ```d1```. If yes, we have found the proper combinations of coefficients for $a_0, a_2, a_4, ...., a_{14}, a_{16}$ <br>
 
 ```python
 RHS = [r1, r2] # r1 = query1(p) r2 = query1(M - p)
@@ -204,14 +206,14 @@ for perm in tqdm(perms4):
         break
 ```
 
-How much time does it take? The brute forcing take $O(n^4)$ and the search to see if a values belongs in the dictionary takes $O(\log{} n)$. 
+How much time does it take? The brute forcing take $O(n^4)$ and the search to see if a value belongs in the dictionary takes $O(\log{} n)$. 
 In total it is $O(n^4 \log{} n)$ which is way faster than $O(n^9)$
 
-The exact same approach is repeated to recover the odd indexed co-efficients
+The exact same approach is repeated to recover the odd indexed coefficients
 $$a_{1}x + a_{3}x^3 + a_{5}x^5 + a_{7}x^7 + ... + a_{15}x^{15} + a_{17}x^{17}$$ 
 
-After all the co-efficients are recovered, we send them to ```query2``` in order to get the permuations revealed. <br>
-Using that, we can rearrange the co-efficients and hence, recover the flag.
+After all the coefficients are recovered, we send them to ```query2``` in order to get the permutations revealed. <br>
+Using that, we can rearrange the coefficients and hence, recover the flag.
 
 ```python
 flag = [0 for _ in range(len(coeffs))]
