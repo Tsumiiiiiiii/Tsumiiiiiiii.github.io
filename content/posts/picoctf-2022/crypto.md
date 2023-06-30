@@ -8,7 +8,7 @@ author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
 description: "Short, descriptive write-ups for challenges I did from the competition."
 
-tags: ["Crypto", "pico CTF", "english"]
+tags: ["crypto", "pico CTF", "english"]
 categories: ["Writeups"]
 
 lightgallery: true
