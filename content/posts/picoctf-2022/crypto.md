@@ -23,9 +23,9 @@ Short, descriptive write-ups for challenges I did from the competition.
 
 ## Overview
 
-It has been more than 1 year afther the competition. But better late than never 👾
+It has been more than 1 year since the competition. But better late than never 👾
 
-I managed to solve all the Cryptography problems (they were very easy). But this had been a very important milsetone for me, getting me hooked strongly on this field. 
+I managed to solve all the Cryptography problems (they were very easy). But this had been a very important milestone for me, getting me hooked strongly on this field. 
 
 ## basic-mod1
 
@@ -83,9 +83,9 @@ Download the leak [here](https://artifacts.picoctf.net/c/151/leak.tar).
 The first user in usernames.txt corresponds to the first password in passwords.txt. The second user corresponds to the second password, and so on.
 {{< /admonition >}}
 
-We copy paste the contents of `usernames.txt` in a code editor and search for the username **cultiris** and find that it is in line no. 378. Now that we know this informaiton, we can say that the 378th line of `passwords.txt` will contain the password for that particular user.  
+We copy-paste the contents of `usernames.txt` in a code editor and search for the username **cultiris** and find that it is in line no. 378. Now that we know this information, we can say that the 378th line of `passwords.txt` will contain the password for that particular user.  
 The password is : `cvpbPGS{P7e1S_54I35_71Z3}`  
-It is giving us instant ROT cipher vibe. Trying ROT 13 indeed reveals the flag.  
+It is giving us an instant ROT cipher vibe. Trying ROT 13 indeed reveals the flag.  
   
 Flag: **picoCTF{C7r1F_54V35_71M3}**
 
