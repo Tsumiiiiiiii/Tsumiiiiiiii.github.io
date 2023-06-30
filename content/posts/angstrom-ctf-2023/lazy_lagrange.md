@@ -8,7 +8,7 @@ author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
 description: "Writeup for the Lazy Lagrange Cryptography challenge."
 
-tags: ["Crypto", "angstrom CTF", "meet-in-the-middle", "english"]
+tags: ["crypto", "angstrom CTF", "meet-in-the-middle", "english"]
 categories: ["Writeups"]
 
 lightgallery: true
