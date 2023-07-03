@@ -49,7 +49,7 @@ for m in ct:
     ans += c[m % 37]
 print("picoCTF{" + ans + "}")
 ```
-Flag: **picoCTF{R0UND_N_R0UND_CE58A3A0}**
+> Flag: **picoCTF{R0UND_N_R0UND_CE58A3A0}**
 
 ## basic-mod2
 
@@ -72,7 +72,7 @@ for m in ct:
     ans += c[m - 1]
 print("picoCTF{" + ans + "}")
 ```
-Flag: **picoCTF{1NV3R53LY_H4RD_B7FB947C}** 
+> Flag: **picoCTF{1NV3R53LY_H4RD_B7FB947C}** 
 
 ## credstuff
 
@@ -87,7 +87,7 @@ We copy-paste the contents of `usernames.txt` in a code editor and search for th
 The password is : `cvpbPGS{P7e1S_54I35_71Z3}`  
 It is giving us an instant ROT cipher vibe. Trying ROT 13 indeed reveals the flag.  
   
-Flag: **picoCTF{C7r1F_54V35_71M3}**
+> Flag: **picoCTF{C7r1F_54V35_71M3}**
 
 ## morse-code
 
@@ -98,7 +98,7 @@ Download the file [here](https://artifacts.picoctf.net/c/79/morse_chal.wav).
 Wrap your answer with picoCTF{}, put underscores in place of pauses, and use all lowercase.
 {{< /admonition >}}
 
-Flag: **picoCTF{WH47_H47H_90D_W20U9H7}**
+> Flag: **picoCTF{WH47_H47H_90D_W20U9H7}**
 
 ## rail-fence
 
@@ -112,7 +112,7 @@ Put the decoded message in the picoCTF flag format, picoCTF{decoded_message}.
 Classic rail fence cipher.  
 Using an online decrypter like [this](https://www.boxentriq.com/code-breaking/rail-fence-cipher) and setting the `Rails` to 4 reveals the secret to be `The flag is: WH3R3_D035_7H3_F3NC3_8361N_4ND_3ND_83F6D8D7`.  
   
-Flag: **picoCTF{WH3R3_D035_7H3_F3NC3_8361N_4ND_3ND_83F6D8D7}**
+> Flag: **picoCTF{WH3R3_D035_7H3_F3NC3_8361N_4ND_3ND_83F6D8D7}**
 
 ## substitution0
 
@@ -124,7 +124,7 @@ Download the message [here](https://artifacts.picoctf.net/c/153/message.txt).
 
 [This](https://www.guballa.de/substitution-solver) particular website is always my first choice for problems related to substitution cipher.  
   
-Flag: **picoCTF{5UB5717U710N_3V0LU710N_03055505}**
+> Flag: **picoCTF{5UB5717U710N_3V0LU710N_03055505}**
 
 ## substitution1
 
@@ -136,7 +136,7 @@ Download the message [here](https://artifacts.picoctf.net/c/181/message.txt).
 
 The same approach is followed once again. There is a single catch here though. We get `picoCTF{FR3JU3NCY_4774CK5_4R3_C001_7AA384BC}` but the part `FR3JU3NCY` doesn't make any sense. We changed it to `FR3QU3NCY1` and voila!  
   
-Flag: **picoCTF{FR3JU3NCY_4774CK5_4R3_C001_7AA384BC}**
+> Flag: **picoCTF{FR3JU3NCY_4774CK5_4R3_C001_7AA384BC}**
 
 ## substitution2
 
@@ -148,7 +148,7 @@ Download the message [here](https://artifacts.picoctf.net/c/112/message.txt).
 
 Same as before, and with no catches. 
   
-Flag: **picoCTF{N6R4M_4N41Y515_15_73D10U5_702F03FC}**
+> Flag: **picoCTF{N6R4M_4N41Y515_15_73D10U5_702F03FC}**
 
 ## transposition-trial
 
@@ -173,7 +173,7 @@ ans += cur[2] + cur[0] + cur[1]
 print(ans)
 ```
   
-Flag: **picoCTF{7R4N5P051N6_15_3XP3N51V3_AE131DBD}**
+> Flag: **picoCTF{7R4N5P051N6_15_3XP3N51V3_AE131DBD}**
 
 ## Vignere
 
@@ -186,7 +186,7 @@ Decrypt this [message](https://artifacts.picoctf.net/c/158/cipher.txt) using thi
 Another very classic cipher.  
 We plug the ciphertext and the key in [this](https://www.dcode.fr/vigenere-cipher) website and the flag is found. 
 
-Flag: **picoCTF{D0NT_US3_V1G3N3R3_C1PH3R_d85729g7}**
+> Flag: **picoCTF{D0NT_US3_V1G3N3R3_C1PH3R_d85729g7}**
 
 ## Very Smooth
 
@@ -225,7 +225,7 @@ m = pow(c, d, n)
 print(long_to_bytes(m))
 ```
 
-Flag: **picoCTF{7c8625a1}**
+> Flag: **picoCTF{7c8625a1}**
 
 ## Sequences
 
@@ -346,7 +346,7 @@ if __name__ == "__main__":
             break
 ```
 
-Flag: **picoCTF{b1g_numb3rs_4ebc92cc}**
+> Flag: **picoCTF{b1g_numb3rs_4ebc92cc}**
 
 ## Sum-O-Primes
 
@@ -378,7 +378,7 @@ d = pow(e, -1, phi)
 m = pow(c, d, n)
 print(long_to_bytes(m))
 ```
-Flag: **picoCTF{674b189f}**
+> Flag: **picoCTF{674b189f}**
 
 ## NSA Backdoor
 
@@ -421,4 +421,4 @@ x2 = discrete_log(Q(c), Q(3))
 m = crt([x1, x2],[p - 1, q - 1])
 print(long_to_bytes(m))
 ```
-Flag: **picoCTF{99f38837}**
+> Flag: **picoCTF{99f38837}**
