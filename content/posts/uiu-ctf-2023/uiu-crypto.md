@@ -37,7 +37,7 @@ Artifacts are [c1](https://2023.uiuc.tf/files/4daf6f657250c79cf8d500fc16d805d7/c
 Simple XOR challenge. We are given 3 encrypted files `c1, c2, c3` all encrypted with the same key `K`. The original second file `p2` has been given too. 
 So it's trivial to retrieve the key now.
 ```
-K = p2 ^ c2$$
+K = p2 ^ c2
 p1 = K ^ c1
 p3 = K ^ c3
 ```
