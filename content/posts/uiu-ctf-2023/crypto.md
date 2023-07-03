@@ -22,6 +22,7 @@ Writeup for the Cryptography challenges.
 <!--more-->
 
 ## Overview
+UIU CTF ended just a few hours back. This year's Crypto was easier than las year's. But it was very fun to solve, specially `group projection` and `morphing time`. I managed to solve 5/6 problems. Failed to solve `crack-the-safe` because I had some mistakes in my formulas, also because I could not make cado run on my pc 🤡. Anyways, here are the writeups of the challenges I solved. 
 
 ## Three-Time Pad
 
@@ -101,7 +102,7 @@ Flag: **uiuctf{W3_hav3_R5A_@_h0m3}**
 Artifacts are [chal.py](https://2023.uiuc.tf/files/9e2a52e6e934a0de1bb0e5502c5010a5/chal.py)
 {{< /admonition >}}
 
-Let's have a look on the source code, we are gven a classic implementation of diffie hellman cryptosystem.
+Let's have a look at the source code, we are given a classic implementation of **diffie hellman cryptosystem**.
 ```python
 def main():
     print("[$] Did no one ever tell you to mind your own business??")
@@ -192,4 +193,264 @@ if k == 1 or k == p - 1 or k == (p - 1) // 2 or k <= 0 or k >= p:
 ```
 We can't set `k = 0` anymore. What can we do then? Is there a way to force `S` to be 1 like before?
 
-Since `p` is a prime, we could have set `k = p - 1` and `S` would have been 1.
+Since `p` is a prime, we could have set `k = p - 1` and `S` would have been 1, due to Fermat's little theorem.
+$$Bk = B^{p-1} \mod\ p \equiv\ 1 \mod\ p$$
+$$S = 1 ^ a \mod\ p \equiv\ 1 \mod\ p$$ 
+
+But we can't set `k = p - 1` due to constraints, sadly. What if we send `k =  (p - 1) / 4` instead?
+
+Now, when such a case comes so that $p - 1 \mod\ 4 \equiv\ 0$ and also $a*b \mod\ 4 \equiv\ 0$, what happens?
+
+Since `a*b` is a multiple of 4, we can write it as $a * b = 4*i$ for some integer `i`.
+$$S \equiv\ g^{a * b * k} \mod\ p$$
+$$S \equiv\ g^{4i * \frac{p-1}{4}} \mod\ p$$
+$$S \equiv\ ({g^{p-1}})^k \mod\ p$$
+$$S \equiv\ 1^k \mod\ p \equiv\ 1 \mod\ p$$
+
+Yep, the math adds up and we have `S = 1`.
+
+We keep running the instance until the required conditions are fulfilled, and once we get such an instance, we can decrypt the flag.
+```python
+from Crypto.Util.number import getPrime, long_to_bytes
+from random import randint
+import hashlib
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
+from pwn import *
+
+def attempt():
+    io = remote('group-projection.chal.uiuc.tf', 1337)
+
+    key = hashlib.md5(long_to_bytes(1)).digest()
+    cipher = AES.new(key, AES.MODE_ECB)
+
+    io.recvuntil(b'??')
+    io.recvline()
+    io.recvline()
+
+    g = int(io.recvline().decode().strip().split('=')[1])
+    p = int(io.recvline().decode().strip().split('=')[1])
+    A = int(io.recvline().decode().strip().split('=')[1])
+
+    if (p - 1) % 4 != 0:
+        return True
+    
+    print('Maybe???')
+
+    k = (p - 1) // 4
+
+    io.recvuntil(b'= ')
+    io.sendline(str(k).encode())
+    io.recvuntil(b'= ')
+    enc = int(io.recvline().decode().strip())
+    flag = cipher.decrypt(long_to_bytes(enc))
+    if b"uiuctf" in flag:
+        print(flag)
+        return False
+    else:
+        print('Oh no!!')
+        return True
+
+while attempt():
+    continue
+```
+
+After running around a minute or so, we get the flag.
+
+Flag: **uiuctf{brut3f0rc3_w0rk3d_b3f0r3_but_n0t_n0w!!11!!!}**
+
+## Morphing Time
+
+{{< admonition note "Challenge Information" >}}
+* **Points:** 50
+* **Description:** The all revealing Oracle may be revealing a little too much...
+
+`nc morphing.chal.uiuc.tf 1337`
+
+Artifacts are [chal.py](https://2023.uiuc.tf/files/1f2fbbc0bc1392a6bfb48ed876885324/chal.py)
+{{< /admonition >}}
+
+Let's go through the given script
+```python
+def setup():
+    # Get group prime + generator
+    p = getPrime(512)
+    g = 2
+
+    return g, p
+
+
+def key(g, p):
+    # generate key info
+    a = randint(2, p - 1)
+    A = pow(g, a, p)
+
+    return a, A
+
+
+def encrypt_setup(p, g, A):
+    def encrypt(m):
+        k = randint(2, p - 1)
+        c1 = pow(g, k, p)
+        c2 = pow(A, k, p)
+        c2 = (m * c2) % p
+
+        return c1, c2
+
+    return encrypt
+
+
+def decrypt_setup(a, p):
+    def decrypt(c1, c2):
+        m = pow(c1, a, p)
+        m = pow(m, -1, p)
+        m = (c2 * m) % p
+
+        return m
+
+    return decrypt
+
+
+def main():
+    print("[$] Welcome to Morphing Time")
+
+    g, p = 2, getPrime(512)
+    a = randint(2, p - 1)
+    A = pow(g, a, p)
+    decrypt = decrypt_setup(a, p)
+    encrypt = encrypt_setup(p, g, A)
+    print("[$] Public:")
+    print(f"[$]     {g = }")
+    print(f"[$]     {p = }")
+    print(f"[$]     {A = }")
+
+    c1, c2 = encrypt(flag)
+    print("[$] Eavesdropped Message:")
+    print(f"[$]     {c1 = }")
+    print(f"[$]     {c2 = }")
+
+    print("[$] Give A Ciphertext (c1_, c2_) to the Oracle:")
+    try:
+        c1_ = input("[$]     c1_ = ")
+        c1_ = int(c1_)
+        assert 1 < c1_ < p - 1
+
+        c2_ = input("[$]     c2_ = ")
+        c2_ = int(c2_)
+        assert 1 < c2_ < p - 1
+    except:
+        print("!! You've Lost Your Chance !!")
+        exit(1)
+
+    print("[$] Decryption of You-Know-What:")
+    m = decrypt((c1 * c1_) % p, (c2 * c2_) % p)
+    print(f"[$]     {m = }")
+
+    # !! NOTE !!
+    # Convert your final result to plaintext using
+    # long_to_bytes
+
+    exit(0)
+```
+
+This is the **Elgamal Cryptosystem**, which is **homomorphic** under multiplication. We have,
+$$c_1 = g^k \mod\ p$$
+$$c_2 = g^{ak} * m \mod\ p$$
+
+To take advantage of the homomorphic property, we send `c1_ = c1` and `c2_ = c2`.
+
+So now we have,
+$$c_1 = g^{2k} \mod\ p$$
+$$c_2 = g^{2ak} * m^2 \mod\ p$$
+
+And they decrypt to,
+$$c_1 ^ {-1} * c_2 \mod\ p \equiv\ g^{-2ak} * g^{2ak} * m^2 \mod\ p \equiv\ m^2 \mod\ p$$
+
+This gives us the flag squared modulo p. To retrieve the flag, we can use **tonelli shanks** algorithm.
+
+But the problem is, the result does not decrypt to a valid string. This made me think that maybe `flag > p`, and that's why we are losing information.
+
+As a fix, we can run the instance multiple times, collect the square root and modulus pairs and run **CRT** on each of those pairs to see which gives us the flag.
+```python
+from Crypto.Util.number import long_to_bytes
+from sympy.ntheory.modular import crt
+from pwn import *
+
+def legendre(a, p):
+    return pow(a, (p - 1) // 2, p)
+
+def tonelli(n, p):
+    assert legendre(n, p) == 1, "not a square (mod p)"
+    q = p - 1
+    s = 0
+    while q % 2 == 0:
+        q //= 2
+        s += 1
+    if s == 1:
+        return pow(n, (p + 1) // 4, p)
+    for z in range(2, p):
+        if p - 1 == legendre(z, p):
+            break
+    c = pow(z, q, p)
+    r = pow(n, (q + 1) // 2, p)
+    t = pow(n, q, p)
+    m = s
+    t2 = 0
+    while (t - 1) % p != 0:
+        t2 = (t * t) % p
+        for i in range(1, m):
+            if (t2 - 1) % p == 0:
+                break
+            t2 = (t2 * t2) % p
+        b = pow(c, 1 << (m - i - 1), p)
+        r = (r * b) % p
+        c = (b * b) % p
+        t = (t * c) % p
+        m = i
+    return r
+
+
+def get_params():
+    io = remote('morphing.chal.uiuc.tf', 1337)
+    io.recvuntil(b'Public:\n')
+
+    g = int(io.recvline().decode().strip().split('=')[1])
+    p = int(io.recvline().decode().strip().split('=')[1])
+    A = int(io.recvline().decode().strip().split('=')[1])
+
+    io.recvline()
+    c1 = int(io.recvline().decode().strip().split('=')[1])
+    c2 = int(io.recvline().decode().strip().split('=')[1])
+
+    io.recvline()
+    io.recvuntil(b'= ')
+    io.sendline(str(c1).encode())
+    io.recvuntil(b'= ')
+    io.sendline(str(c2).encode())
+
+    io.recvline()
+    m = int(io.recvline().decode().strip().split('=')[1])
+
+    return p, m
+
+mods = []
+vals = []
+
+for i in range(10):
+  p, m = get_params()
+  res = tonelli(m, p)
+  mods.append(p)
+  vals.append(res)
+
+sz = len(mods)
+
+print('Will start doing the CRTS')
+
+for i in range(sz - 1):
+    for j in range(i + 1, sz):
+        ans = long_to_bytes(crt([mods[i], mods[j]], [vals[i], vals[j]])[0])
+        if b'uiuctf' in ans:
+            print(ans)
+            exit(2)
+```
+Flag: **uiuctf{h0m0m0rpi5sms_ar3_v3ry_fun!!11!!11!!}**
