@@ -107,12 +107,12 @@ while True:
 ```
 ## Some failed approaches
 
-This is a classic interpolation problem(almost). The 18 characters of the flag ($a_0, a_1, a_2, .., a_{16}, a_{17}$) are used as coefficients of a 17 degree polynomial like this:
+This is a classic interpolation problem(almost). The 18 characters of the flag ($a_0, a_1, a_2, .., a_{16}, a_{17}$) are used as coefficients of a 17-degree polynomial like this:
 $$a_0 + a_1x + a_2x^2 + a_3x^3 + a_4x^4 + ... + a_{16}x^{16} + a_{17}x^{17} $$
-All too simple, if we could just get values at 18 points. But there is a catch, we can get values at maximum of 10 points from each ```query1```. That too would not have been a problem, we could have just obtained the remaining 8 points from a second call to ```query1```. What makes this approach infeasible, is that everytime we call ```query1```, the co-efficiets are randomly
+All too simple, if we could just get values at 18 points. But there is a catch, we can get values at a maximum of 10 points from each ```query1```. That too would not have been a problem, we could have just obtained the remaining 8 points from a second call to ```query1```. What makes this approach infeasible, is that every time we call ```query1```, the co-efficient are randomly
 shifted and so we get a different polynomial each time.
 
-I wrote a script for ```query1('0')``` to check what are the characters of my flag. ```quer1('0')``` means the $a_0$ of the polynomial, which gives us the first character of the permutation. Running it a few hundred times ensures that all the constituent characters witll be spit out. Here is the script :
+I wrote a script for ```query1('0')``` to check what are the characters of my flag. ```quer1('0')``` means the $a_0$ of the polynomial, which gives us the first character of the permutation. Running it a few hundred times ensures that all the constituent characters will spit out. Here is the script :
 
 ```python
 from pwn import *
@@ -139,9 +139,9 @@ for _ in tqdm(range(100)):
 
 print(so_far)
 ```
-The ouput was ```{'8', 'b', 't', '}', '7', '{', 'f', 'c', '6', 'a', '0'}```
+The output was ```{'8', 'b', 't', '}', '7', '{', 'f', 'c', '6', 'a', '0'}```
 
-Not much, just 11 unique characters. Using them, I tried to write a partial burte force using ```z3```. Since I can have 10 equations, I bruteforced for the 8 remaining characters. Later I tried a similar approach using matrices. Brute-forcing for the 8 remaining characters, I formed a ```10 by 10``` matrix and solving it under GF(M). But both the approaches were too slow and hence, not feasible.
+Not much, just 11 unique characters. Using them, I tried to write a partial brute force using ```z3```. Since I can have 10 equations, I brute-forced for the 8 remaining characters. Later I tried a similar approach using matrices. Brute-forcing for the 8 remaining characters, I formed a ```10 by 10``` matrix and solving it under GF(M). But both approaches were too slow and hence, not feasible.
 
 
 ## The working approach
@@ -162,7 +162,7 @@ Instead, we can divide it into two parts,
 $$g_1(x) \ = \ a_0 + a_2x^2 + a_4x^4 + a_6x^6 + a_8x^8$$ 
 $$g_2(x) \ = \ a_{10}x^{10} + a_{12}x^{12} + a_{14}x^{14} + a_{16}x^{16} $$
 
-We now brute force all combinations of ```g1(p)``` where the ```p``` is fixed(supposedly a prime) and ($a_0, a_2, a_4, a_6, a_8$) are chosen from the flag characters which we got initially. The values are stored in a dictionary where ```g1(p)``` is the key and the combination of co-efficients is the value.
+We now brute force all combinations of ```g1(p)``` where the ```p``` is fixed(supposedly a prime) and ($a_0, a_2, a_4, a_6, a_8$) are chosen from the flag characters which we got initially. The values are stored in a dictionary where ```g1(p)``` is the key and the combination of coefficients is the value.
 
 ```python
 import itertools
@@ -209,7 +209,7 @@ for perm in tqdm(perms4):
 How much time does it take? The brute forcing take $O(n^4)$ and the search to see if a value belongs in the dictionary takes $O(\log{} n)$. 
 In total it is $O(n^4 \log{} n)$ which is way faster than $O(n^9)$
 
-The exact same approach is repeated to recover the odd indexed coefficients
+The exact same approach is repeated to recover the odd-indexed coefficients
 $$a_{1}x + a_{3}x^3 + a_{5}x^5 + a_{7}x^7 + ... + a_{15}x^{15} + a_{17}x^{17}$$ 
 
 After all the coefficients are recovered, we send them to ```query2``` in order to get the permutations revealed. <br>
