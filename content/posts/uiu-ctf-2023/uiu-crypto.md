@@ -204,8 +204,8 @@ Now, when such a case comes so that $p - 1 \mod\ 4 \equiv\ 0$ and also $a*b \mod
 Since `a*b` is a multiple of 4, we can write it as $a * b = 4*i$ for some integer `i`.
 $$S \equiv\ g^{a * b * k} \mod\ p$$
 $$S \equiv\ g^{4i * \frac{p-1}{4}} \mod\ p$$
-$$S \equiv\ ({g^{p-1}})^k \mod\ p$$
-$$S \equiv\ 1^k \mod\ p \equiv\ 1 \mod\ p$$
+$$S \equiv\ ({g^{p-1}})^i \mod\ p$$
+$$S \equiv\ 1^i \mod\ p \equiv\ 1 \mod\ p$$
 
 Yep, the math adds up and we have `S = 1`.
 
