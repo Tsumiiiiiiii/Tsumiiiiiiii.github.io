@@ -65,7 +65,7 @@ m2 = xor(c3, key)
 print(m1)
 print(m2)
 ```
-Flag: **uiuctf{burn_3ach_k3y_aft3r_us1ng_1t}**
+> Flag: **uiuctf{burn_3ach_k3y_aft3r_us1ng_1t}**
 
 ## At Home
 
@@ -89,7 +89,7 @@ from Crypto.Util.number import long_to_bytes as l2b
 flag  = (c * pow(e, -1, n)) % n
 flag = l2b(flag)
 ```
-Flag: **uiuctf{W3_hav3_R5A_@_h0m3}**
+> Flag: **uiuctf{W3_hav3_R5A_@_h0m3}**
 
 ## Group project
 
@@ -172,7 +172,7 @@ enc = int(io.recvline().decode().strip())
 flag = cipher.decrypt(long_to_bytes(enc))
 print(flag)
 ```
-Flag: **uiuctf{brut3f0rc3_a1n't_s0_b4d_aft3r_all!!11!!}**
+> Flag: **uiuctf{brut3f0rc3_a1n't_s0_b4d_aft3r_all!!11!!}**
 
 ## Group projection
 
@@ -257,7 +257,7 @@ while attempt():
 
 After running around a minute or so, we get the flag.
 
-Flag: **uiuctf{brut3f0rc3_w0rk3d_b3f0r3_but_n0t_n0w!!11!!!}**
+> Flag: **uiuctf{brut3f0rc3_w0rk3d_b3f0r3_but_n0t_n0w!!11!!!}**
 
 ## Morphing Time
 
@@ -453,4 +453,4 @@ for i in range(sz - 1):
             print(ans)
             exit(2)
 ```
-Flag: **uiuctf{h0m0m0rpi5sms_ar3_v3ry_fun!!11!!11!!}**
+> Flag: **uiuctf{h0m0m0rpi5sms_ar3_v3ry_fun!!11!!11!!}**
