@@ -22,7 +22,7 @@ Writeup for the Cryptography challenges.
 <!--more-->
 
 ## Overview
-UIU CTF ended just a few hours back. This year's Crypto was easier than las year's. But it was very fun to solve, specially `group projection` and `morphing time`. I managed to solve 5/6 problems. Failed to solve `crack-the-safe` because I had some mistakes in my formulas, also because I could not make cado run on my pc 🤡. Anyways, here are the writeups of the challenges I solved. 
+UIU CTF ended just a few hours back. This year's Crypto was easier than last year's. But it was very fun to solve, especially `group projection` and `morphing time`. I managed to solve 5/6 problems. Failed to solve `crack-the-safe` because I had some mistakes in my formulas, and also because I could not make Cado run on my pc 🤡. Anyways, here are the writeups of the challenges I solved. 
 
 ## Three-Time Pad
 
