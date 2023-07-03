@@ -16,11 +16,11 @@ I am **Sumit Alam Khan** (aka lolipop 🍭), a Crypto player from team [IUT GENE
 
 Started playing CTFs regularly since **June 2021**, currently, I am focused on learning in the **Cryptography** field of CTF.
 
-Also a competitive programmer(**used to be** actually). My coding profiles are [codeforces](https://codeforces.com/profile/sad_panda), [codechef](https://www.codechef.com/users/sumitalamkhan), [atcoder](https://atcoder.jp/users/iloveSNP)
+Also a competitive programmer(**used to be** actually). My coding profiles are [codeforces](https://codeforces.com/profile/sad_panda), [codechef](https://www.codechef.com/users/sumitalamkhan), [atcoder](https://atcoder.jp/users/iloveSNP).
 
 Currently an intern at [Tree plus plus](http://treepp.org), I am also looking forward to learning more about **Blockchain** in the future.
 
-I want to pursue a career in cryptographic research in the future(even though I am terrible at math 😫)
+I want to pursue a career in cryptographic research in the future(even though I am terrible at math 😫).
 
 ## Noticeable Achievements
 
