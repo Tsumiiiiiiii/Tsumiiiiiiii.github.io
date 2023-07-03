@@ -182,7 +182,7 @@ Flag: **uiuctf{brut3f0rc3_a1n't_s0_b4d_aft3r_all!!11!!}**
 
 `nc group-projection.chal.uiuc.tf 1337`
 
-Artifacts are [chal.py] https://2023.uiuc.tf/files/57e4b21396687f7959ef3ee1b5264138/chal.py)
+Artifacts are [chal.py](https://2023.uiuc.tf/files/57e4b21396687f7959ef3ee1b5264138/chal.py)
 {{< /admonition >}}
 
 Almost the same problem as before, but with some extra constraints.
