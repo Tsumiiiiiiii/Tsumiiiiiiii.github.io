@@ -12,7 +12,7 @@ math:
 
 ## Some Background Information
 
-I am **Sumit Alam Khan** (aka lolipop 🍭), a Crypto player from team [IUT GENESIS](https://ctftime.org/team/175924), Islamic University of Technology. I have been studying in Computer Science, Islamic University of Technology since **January 2020**. 
+I am **Sumit Alam Khan** (aka lolipop 🍭), a Crypto player from team [IUT GENESIS](https://ctftime.org/team/175924), Islamic University of Technology. I have been studying Computer Science and Engineering, Islamic University of Technology since **January 2020**. 
 
 Started playing CTFs regularly since **June 2021**, currently, I am focused on learning in the **Cryptography** field of CTF.
 
