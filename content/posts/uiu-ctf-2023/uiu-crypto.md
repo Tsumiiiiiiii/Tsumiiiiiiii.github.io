@@ -364,7 +364,7 @@ $$c_1 = g^{2k} \mod\ p$$
 $$c_2 = g^{2ak} * m^2 \mod\ p$$
 
 And they decrypt to,
-$$c_1 ^ {-1} * c_2 \mod\ p \equiv\ g^{-2ak} * g^{2ak} * m^2 \mod\ p \equiv\ m^2 \mod\ p$$
+$$({c_1 ^ a}) ^ {-1} * c_2 \mod\ p \equiv\ g^{-2ak} * g^{2ak} * m^2 \mod\ p \equiv\ m^2 \mod\ p$$
 
 This gives us the flag squared modulo p. To retrieve the flag, we can use **tonelli shanks** algorithm.
 
