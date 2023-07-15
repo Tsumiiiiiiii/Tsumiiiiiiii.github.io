@@ -29,6 +29,8 @@ I played with my default team IUT GENESIS and managed to solve 6/8 Cryptography 
 
 So I'll be making a writeup for lazy lagrange(also because I'm too lazy to make writeups🤡).
 
+![Crypto Solve status](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/angstrom-ctf-2023/crypto-status.png?raw=true)
+
 ## The challenge
 
 {{< admonition note "Challenge Information" >}}
