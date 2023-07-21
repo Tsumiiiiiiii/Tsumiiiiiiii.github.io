@@ -105,12 +105,12 @@ The code starts with the `LCG` class, meaning we have to crack LCG somehow. But 
 
 `recipe`: A list of what flavors used so far.
 
->### make_bowl:
+### make_bowl:
 We can choose from 4 options: `add`, `combine`, `finish bowl`, and `finish`. Depending on the chosen option, the effect on the `bowl` varies.
 
->### add:
+### add:
 We can add any of the 6 flavors to any of the 3 bowls. But the condition is we cannot use a flavor more than 4 times.
 
->### combine_bowl:
+### combine_bowl:
 We can perform `addition`, `subtraction`, `multiplication`, or `division` operation between 2 bowls. But the catch is that after the operation is done,
 the 2nd bowl is set to 0.
