@@ -23,7 +23,7 @@ Writeup for the Ice cream generator Cryptography challenge.
 
 ## Overview
 
-This was the first edition of Amateurs CTF and I absolutely loved the challenges. Managed to solve 7/12 crypto challenges. They were really fun and educational. 
+This was the first edition of Amateurs CTF and I absolutely loved the challenges. Managed to solve [7]/[12] crypto challenges. They were really fun and educational. 
 But `Ice cream generator` was the most beautiful of them all (also my favorite problem of this year so far) 😍. I plan to make a detailed writeup of it.
 
 ## The challenge
@@ -93,3 +93,24 @@ $$X_2 \ = \ aX_1 + c\mod\ m$$
 $$c \equiv\ X_2 - aX_1 \mod\ m$$
 
 ## Let's dive into the given code
+
+It was difficult trying to understand the monstrosity of a code. Let us try to understand the code function by function. 
+
+The code starts with the `LCG` class, meaning we have to crack LCG somehow. But where are the generated random numbers? A quick check reveals that under
+`Order` class, 1337 random numbers are generated through the LCG and dropped. The later 1338 numbers($X_{1338}$ to $X_{2675}$) are generated and stored in the `flavors` array. 2 corresponding dictionaries (`flavor_map` and `private`) are generated using values of the `flavors` array. Some other variables are also there like,
+
+`bowls`: A list of 3 bowls containing 0.
+
+`used`: A dictionary showing how many times each flavor is used.
+
+`recipe`: A list of what flavors used so far.
+
+>### make_bowl:
+We can choose from 4 options: `add`, `combine`, `finish bowl`, and `finish`. Depending on the chosen option, the effect on the `bowl` varies.
+
+>### add:
+We can add any of the 6 flavors to any of the 3 bowls. But the condition is we cannot use a flavor more than 4 times.
+
+>### combine_bowl:
+We can perform `addition`, `subtraction`, `multiplication`, or `division` operation between 2 bowls. But the catch is that after the operation is done,
+the 2nd bowl is set to 0.
