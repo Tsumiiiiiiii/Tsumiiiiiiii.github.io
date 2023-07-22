@@ -410,7 +410,7 @@ while True:
 ```
 We have to give `1` as our choice since a user must be created first. Let's see the functionalities of this `make_bowl` function that is called after the user is created. 
 
-### make_bowl:
+### make_bowl
 ```python
 while True:
     command = input("\nAdd, combine, or finish? ")
@@ -442,7 +442,7 @@ while True:
 * We can choose from 4 options: `add`, `combine`, `finish bowl`, and `finish`. 
 * Depending on the chosen option, the effect on the `bowl` varies.
 
-### add:
+### add
 ```python
 try:
     flavor = int(flavor)
@@ -459,7 +459,7 @@ except:
 * Adding a flavor means adding a value from the flavor_map dictionary. That's how we can leak values from the flavor list (random numbers generated from the LCG). 
 * But we cannot use a flavor more than 4 times.
 
-### combine_bowl:
+### combine_bowl
 ```python
 a = int(a) - 1
 b = int(b) - 1
@@ -508,7 +508,7 @@ return True
 * The unique variable ensures we use 3 different flavors that we haven't used before.
 * Once a flavor is used, its use count is set to 1337, so that if we use it again, it won't contribute to uniqueness.
 
-### verify:
+### verify
 ```python
 bowls = [0, 0, 0]
 for i in recipe:
@@ -556,7 +556,7 @@ We will leak the `p`, `a`, and `c` step-by-step. Let flavor_map = $[X_1, X_2, X_
 The initial state of the bowls $[b_1, b_2, b_3]$ is:
 $$\underbrace{0} \ \ \underbrace{0} \ \ \underbrace{0} $$
 
-### Recovering `a`:
+### Recovering `a`
 * move $X_2$ to $b_1$ 
 $$\underbrace{X_2} \ \ \underbrace{0} \ \ \underbrace{0} $$
 * move $X_3$ to $b_2$
@@ -574,7 +574,7 @@ $$\underbrace{\frac{X_2 - X_3}{X_1 - X_2} \mod\ p} \ \ \underbrace{0} \ \ \under
 
 Bowl 1 now contains the value of `a`. Since we have used 3 flavors, this is unique enough to use `finish bowl`. The signature will be the value of `a`. 
 
-### Recovering `c`:
+### Recovering `c`
 Since we have already used $X_1, X_2, X_3$, using them again won't contribute anything to uniqueness. So we are going to use $X_4, X_5, X_6$ instead to recover `c`.
 * move $X_5$ to $b_1$ 
 $$\underbrace{X_5} \ \ \underbrace{0} \ \ \underbrace{0} $$
@@ -602,7 +602,7 @@ $$\underbrace{X_5 - aX_4} \ \ \underbrace{0} \ \ \underbrace{0}$$
 
 So bowl 1 now has `c`. Using `finish bowl` will give `c` as the signature.
 
-### Recovering the `flavors` list:
+### Recovering the `flavors` list
 We can simulate the generation process to get the required sign and the `flavors` list.
 ```python
 lcg = LCG(a, c, p)
