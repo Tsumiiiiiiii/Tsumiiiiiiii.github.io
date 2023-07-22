@@ -38,6 +38,8 @@ But `Ice cream generator` was the most beautiful of them all (also my favorite p
 
 {{< /admonition >}}
 
+Let's take a look at the given code (you can skip it though, looks scary).
+
 ```python
 #!/usr/local/bin/python
 from Crypto.Util.number import *
