@@ -23,7 +23,7 @@ Writeup for the Ice cream generator Cryptography challenge.
 
 ## Overview
 
-This was the first edition of Amateurs CTF and I absolutely loved the challenges. Managed to solve [7]/[12] crypto challenges. They were really fun and educational. 
+This was the first edition of Amateurs CTF and I absolutely loved the challenges. Managed to solve **[7]/[12]** crypto challenges. They were really fun and educational. 
 But `Ice cream generator` was the most beautiful of them all (also my favorite problem of this year so far) 😍. I plan to make a detailed writeup of it.
 
 ## The challenge
