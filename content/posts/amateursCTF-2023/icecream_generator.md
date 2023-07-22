@@ -97,13 +97,15 @@ $$c \equiv\ X_2 - aX_1 \mod\ m$$
 It was difficult trying to understand the monstrosity of a code. Let us try to understand the code function by function. 
 
 The code starts with the `LCG` class, meaning we have to crack LCG somehow. But where are the generated random numbers? A quick check reveals that under
-`Order` class, 1337 random numbers are generated through the LCG and dropped. The later 1338 numbers($X_{1338}$ to $X_{2675}$) are generated and stored in the `flavors` array. 2 corresponding dictionaries (`flavor_map` and `private`) are generated using values of the `flavors` array. Some other variables are also there like,
+`Order` class, 1337 random numbers are generated through the LCG and dropped. The later 1338 numbers($X_{1338}$ to $X_{2675}$) are generated and stored in the `flavors` array. 2 corresponding dictionaries (`flavor_map` and `private`) are generated using values of the `flavors` array. 
 ```python
 self.flavors = [self.inner_lcg.gen_next() for i in range(1338)]
 
 self.flavor_map = {i:self.flavors[i] for i in [1,2,3,4,5,6]}
 self.private = {i:self.flavors[i] for i in [1,2,3,4,5,6,1337]}
 ```
+Some other variables are also there like,
+
 `bowls`: A list of 3 bowls containing 0.
 
 `used`: A dictionary showing how many times each flavor is used.
@@ -112,34 +114,35 @@ self.private = {i:self.flavors[i] for i in [1,2,3,4,5,6,1337]}
 
 ### make_bowl:
 ```python
-  while True:
-      command = input("\nAdd, combine, or finish? ")
-      if command.lower() == "add":
-          try:
-              add = input("\nGive a flavor and a bowl: ").rsplit(" ", 1)
-              self.add(*add)
-          except Exception as e:
-              print()
-              print(e)
-      elif command.lower() == "combine":
-          try:
-              combination = input("\nGive two bowls and an operation: ").split()
-              assert len(combination) == 3, "Invalid Input Length"
-              self.combine_bowl(*combination)
-          except Exception as e:
-              print()
-              print(e)
-      elif command.lower() == "finish bowl":
-          self.finish_bowl()
-      elif command.lower() == "finish":
-          self.finish()
-          break
-      elif command.lower() == "exit":
-          exit(1)
-      else:
-          print("\nPlease give a valid input.")
+while True:
+    command = input("\nAdd, combine, or finish? ")
+    if command.lower() == "add":
+        try:
+            add = input("\nGive a flavor and a bowl: ").rsplit(" ", 1)
+            self.add(*add)
+        except Exception as e:
+            print()
+            print(e)
+    elif command.lower() == "combine":
+        try:
+            combination = input("\nGive two bowls and an operation: ").split()
+            assert len(combination) == 3, "Invalid Input Length"
+            self.combine_bowl(*combination)
+        except Exception as e:
+            print()
+            print(e)
+    elif command.lower() == "finish bowl":
+        self.finish_bowl()
+    elif command.lower() == "finish":
+        self.finish()
+        break
+    elif command.lower() == "exit":
+        exit(1)
+    else:
+        print("\nPlease give a valid input.")
 ```
-We can choose from 4 options: `add`, `combine`, `finish bowl`, and `finish`. Depending on the chosen option, the effect on the `bowl` varies.
+* We can choose from 4 options: `add`, `combine`, `finish bowl`, and `finish`. 
+* Depending on the chosen option, the effect on the `bowl` varies.
 
 ### add:
 ```python
@@ -154,26 +157,89 @@ try:
 except:
     print("\nInvalid Flavor")
 ```
-We can add any of the 6 flavors to any of the 3 bowls. But the condition is we cannot use a flavor more than 4 times.
+* We can add any of the 6 flavors to any of the 3 bowls.
+* Adding a flavor means adding a value from the flavor_map dictionary. That's how we can leak values from the flavor list (random numbers generated from the LCG). 
+* But we cannot use a flavor more than 4 times.
 
 ### combine_bowl:
 ```python
-  a = int(a) - 1
-  b = int(b) - 1
-  if op == 'add':
-      self.bowls[a] += self.bowls[b]
-  elif op == 'sub':
-      self.bowls[a] -= self.bowls[b]
-  elif op == 'mult':
-      self.bowls[a] *= self.bowls[b]
-  elif op == 'div':
-      assert self.bowls[b] != 0, "Empty Bowl for Division"
-      self.bowls[a] *= pow(self.bowls[b], -1, self.p)
-  else:
-      print("\nwtf")
-      exit(1)
-  self.recipe += [[op, a, b]]
-  self.bowls[b] = 0
+a = int(a) - 1
+b = int(b) - 1
+if op == 'add':
+    self.bowls[a] += self.bowls[b]
+elif op == 'sub':
+    self.bowls[a] -= self.bowls[b]
+elif op == 'mult':
+    self.bowls[a] *= self.bowls[b]
+elif op == 'div':
+    assert self.bowls[b] != 0, "Empty Bowl for Division"
+    self.bowls[a] *= pow(self.bowls[b], -1, self.p)
+else:
+    print("\nwtf")
+    exit(1)
+self.recipe += [[op, a, b]]
+self.bowls[b] = 0
 ```
-We can perform `addition`, `subtraction`, `multiplication`, or `division` operation between 2 bowls. But the catch is that after the operation is done,
-the 2nd bowl is set to 0.
+* We can perform `addition`, `subtraction`, `multiplication`, or `division` operation between 2 bowls.
+* The catch is that after an operation is done, the 2nd bowl is set to 0.
+
+### finish_bowl:
+```python
+unique = 0
+for i, n in self.used.items():
+    if n and n != 1337:
+        unique += 1
+if unique < min(3, len(self.used)):
+    print("\nAdd more flavor!")
+    return False
+recipe = str(self.recipe).replace(' ', '')
+signature = sum(self.bowls) % self.p
+self.bowls = [0, 0, 0]
+self.recipe = []
+for i in self.used:
+    if self.used[i]:
+        self.used[i] = 1337
+print(f"\nUser #: {self.p}")
+print(f"\nRecipe: \n{recipe}")
+print(f"\n\nSignature: \n{signature}")
+return True
+```
+* Prints `p` which is the modulus of the LCG.
+* Prints recipe, although it has no use.
+* Prints signature. Here signature denotes the sum of 3 bowls.
+* The unique variable ensures we use 3 different flavors that we haven't used before.
+* Once a flavor is used, its use count is set to 1337, so that if we use it again, it won't contribute to uniqueness.
+
+## My initial incorrect approach
+
+* `Add` a flavor to a bowl.
+* Print the value on that bowl using `finish bowl`.
+* Repeat the above 2 steps to leak all 6 flavors.
+* Then use those values to crack the LCG.
+
+But the problem with this idea is that we have to use at least 3 flavors to use `finish bowl`. If we do that, we will get a sum of 3 flavors. This does not contribute much to leaking the random values.
+
+## Correct approach
+
+We will leak the `p`, `a`, and `b` step-by-step. Let flavor_map = $[X_1, X_2, X_3, X_4, X_5, X_6]$.
+
+The initial state of the bowls $[b_1, b_2, b_3]$ is:
+$$\underbrace{0} \ \ \underbrace{0} \ \ \underbrace{0} $$
+
+### Recovering `a`:
+1. move $X_2$ to $b_1$ 
+$$\underbrace{X_2} \ \ \underbrace{0} \ \ \underbrace{0} $$
+2. move $X_3$ to $b_2$
+$$\underbrace{X_2} \ \ \underbrace{X_3} \ \ \underbrace{0} $$
+3. subtract $b_2$ from $b_1$
+$$\underbrace{X_2 - X_3} \ \ \underbrace{0} \ \ \underbrace{0} $$
+4. move $X_1$ to $b_2$
+$$\underbrace{X_2 - X_3} \ \ \underbrace{X_1} \ \ \underbrace{0} $$
+5. move $X_2$ to $b_3$
+$$\underbrace{X_2 - X_3} \ \ \underbrace{X_1} \ \ \underbrace{X_2} $$
+6. subtract $b_3$ from $b_2$
+$$\underbrace{X_2 - X_3} \ \ \underbrace{X_1 - X_2} \ \ \underbrace{0} $$
+7. divide $b_1$ by $b_2$
+$$\underbrace{\frac{X_2 - X_3}{X_1 - X_2} \mod\ m} \ \ \underbrace{0} \ \ \underbrace{0} $$
+
+Bowl 1 now contains the value of `a`. Since we have used 3 flavors, this is unique enough to use `finish bowl`. The signature will be the value of `a`. 
