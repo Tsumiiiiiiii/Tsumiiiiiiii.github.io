@@ -210,6 +210,38 @@ return True
 * The unique variable ensures we use 3 different flavors that we haven't used before.
 * Once a flavor is used, its use count is set to 1337, so that if we use it again, it won't contribute to uniqueness.
 
+### verify:
+```python
+bowls = [0, 0, 0]
+for i in recipe:
+    try:
+        if len(i) == 2:
+            bowls[i[1]] += self.private[i[0]]
+        elif len(i) == 3:
+            if i[0] == 'add':
+                bowls[i[1]] += bowls[i[2]]
+            elif i[0] == 'sub':
+                bowls[i[1]] -= bowls[i[2]]
+            elif i[0] == 'mult':
+                bowls[i[1]] *= bowls[i[2]]
+            elif i[0] == 'div':
+                bowls[i[1]] *= pow(bowls[i[2]], -1, self.p)
+            bowls[i[2]] = 0
+        bowls = [i % self.p for i in bowls]
+    except:
+        exit("\nInvalid Recipe")
+try:
+    assert sum(bowls) % self.p == signature, "\nInvalid Signature"
+    print("\nYou have successfully redeemed your lce cream!")
+    if signature == self.private[1337]:
+        print(flag)
+except Exception as e:
+    print(e)
+```
+* Out given recipe is simulated and stored in the bowls.
+* After the simulation is complete, if the 3 bowls sum to `private[1337]`, we get the flag.
+That means we have to somehow recover the `flavors` list. Only then we can know what value `private[1337]` contains since `flavors[1337] = private[1337]`.
+
 ## My initial incorrect approach
 
 * `Add` a flavor to a bowl.
@@ -227,19 +259,59 @@ The initial state of the bowls $[b_1, b_2, b_3]$ is:
 $$\underbrace{0} \ \ \underbrace{0} \ \ \underbrace{0} $$
 
 ### Recovering `a`:
-1. move $X_2$ to $b_1$ 
+* move $X_2$ to $b_1$ 
 $$\underbrace{X_2} \ \ \underbrace{0} \ \ \underbrace{0} $$
-2. move $X_3$ to $b_2$
+* move $X_3$ to $b_2$
 $$\underbrace{X_2} \ \ \underbrace{X_3} \ \ \underbrace{0} $$
-3. subtract $b_2$ from $b_1$
+* subtract $b_2$ from $b_1$
 $$\underbrace{X_2 - X_3} \ \ \underbrace{0} \ \ \underbrace{0} $$
-4. move $X_1$ to $b_2$
+* move $X_1$ to $b_2$
 $$\underbrace{X_2 - X_3} \ \ \underbrace{X_1} \ \ \underbrace{0} $$
-5. move $X_2$ to $b_3$
+* move $X_2$ to $b_3$
 $$\underbrace{X_2 - X_3} \ \ \underbrace{X_1} \ \ \underbrace{X_2} $$
-6. subtract $b_3$ from $b_2$
+* subtract $b_3$ from $b_2$
 $$\underbrace{X_2 - X_3} \ \ \underbrace{X_1 - X_2} \ \ \underbrace{0} $$
-7. divide $b_1$ by $b_2$
+* divide $b_1$ by $b_2$
 $$\underbrace{\frac{X_2 - X_3}{X_1 - X_2} \mod\ m} \ \ \underbrace{0} \ \ \underbrace{0} $$
 
 Bowl 1 now contains the value of `a`. Since we have used 3 flavors, this is unique enough to use `finish bowl`. The signature will be the value of `a`. 
+
+### Recovering `b`:
+Since we have already used $X_1, X_2, X_3$, using them again won't contribute anything to uniqueness. So we are going to use $X_4, X_5, X_6$ instead to recover `b`.
+* move $X_5$ to $b_1$ 
+$$\underbrace{X_5} \ \ \underbrace{0} \ \ \underbrace{0} $$
+* move $X_6$ to $b_2$
+$$\underbrace{X_5} \ \ \underbrace{X_6} \ \ \underbrace{0} $$
+* subtract $b_2$ from $b_1$
+$$\underbrace{X_5 - X_6} \ \ \underbrace{0} \ \ \underbrace{0} $$
+* move $X_4$ to $b_2$
+$$\underbrace{X_5 - X_6} \ \ \underbrace{X_4} \ \ \underbrace{0} $$
+* move $X_5$ to $b_3$
+$$\underbrace{X_5 - X_6} \ \ \underbrace{X_4} \ \ \underbrace{X_5} $$
+* subtract $b_3$ from $b_2$
+$$\underbrace{X_5 - X_6} \ \ \underbrace{X_4 - X_5} \ \ \underbrace{0} $$
+* divide $b_1$ by $b_2$
+$$\underbrace{\frac{X_5 - X_6}{X_4 - X_5} \mod\ m} \ \ \underbrace{0} \ \ \underbrace{0} $$
+$$\underbrace{a} \ \ \underbrace{0} \ \ \underbrace{0}$$
+* move $X_4$ to $b_2$
+$$\underbrace{a} \ \ \underbrace{X_4} \ \ \underbrace{0}$$
+* multiply $b_2$ with $b_1$
+$$\underbrace{0} \ \ \underbrace{aX_4} \ \ \underbrace{0}$$
+* move $X_5$ to $b_1$
+$$\underbrace{X_5} \ \ \underbrace{aX_4} \ \ \underbrace{0}$$
+* subtract $b_2$ from $b_1$
+$$\underbrace{X_5 - aX_4} \ \ \underbrace{0} \ \ \underbrace{0}$$
+
+So bowl 1 now has `b`. Using `finish bowl` will give `b` as the signature.
+
+### Recovering the random numbers and the flavors list:
+We can simulate the generation process to get the required sign and the `flavors` list.
+```python
+lcg = LCG(a, b, p)
+
+for i in range(1337):
+    lcg.gen_next()
+
+flavors = [lcg.gen_next() for i in range(1338)]
+sign = flavors[1337]
+```
