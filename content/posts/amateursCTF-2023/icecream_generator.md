@@ -602,7 +602,7 @@ $$\underbrace{X_5 - aX_4} \ \ \underbrace{0} \ \ \underbrace{0}$$
 
 So bowl 1 now has `c`. Using `finish bowl` will give `c` as the signature.
 
-### Recovering the random numbers and the flavors list:
+### Recovering the `flavors` list:
 We can simulate the generation process to get the required sign and the `flavors` list.
 ```python
 lcg = LCG(a, c, p)
