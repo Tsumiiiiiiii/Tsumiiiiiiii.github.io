@@ -551,7 +551,7 @@ But the problem with this idea is that we have to use at least 3 flavors to use 
 
 ## Correct approach
 
-We will leak the `p`, `a`, and `b` step-by-step. Let flavor_map = $[X_1, X_2, X_3, X_4, X_5, X_6]$.
+We will leak the `p`, `a`, and `c` step-by-step. Let flavor_map = $[X_1, X_2, X_3, X_4, X_5, X_6]$.
 
 The initial state of the bowls $[b_1, b_2, b_3]$ is:
 $$\underbrace{0} \ \ \underbrace{0} \ \ \underbrace{0} $$
@@ -574,8 +574,8 @@ $$\underbrace{\frac{X_2 - X_3}{X_1 - X_2} \mod\ m} \ \ \underbrace{0} \ \ \under
 
 Bowl 1 now contains the value of `a`. Since we have used 3 flavors, this is unique enough to use `finish bowl`. The signature will be the value of `a`. 
 
-### Recovering `b`:
-Since we have already used $X_1, X_2, X_3$, using them again won't contribute anything to uniqueness. So we are going to use $X_4, X_5, X_6$ instead to recover `b`.
+### Recovering `c`:
+Since we have already used $X_1, X_2, X_3$, using them again won't contribute anything to uniqueness. So we are going to use $X_4, X_5, X_6$ instead to recover `c`.
 * move $X_5$ to $b_1$ 
 $$\underbrace{X_5} \ \ \underbrace{0} \ \ \underbrace{0} $$
 * move $X_6$ to $b_2$
@@ -600,12 +600,12 @@ $$\underbrace{X_5} \ \ \underbrace{aX_4} \ \ \underbrace{0}$$
 * subtract $b_2$ from $b_1$
 $$\underbrace{X_5 - aX_4} \ \ \underbrace{0} \ \ \underbrace{0}$$
 
-So bowl 1 now has `b`. Using `finish bowl` will give `b` as the signature.
+So bowl 1 now has `c`. Using `finish bowl` will give `c` as the signature.
 
 ### Recovering the random numbers and the flavors list:
 We can simulate the generation process to get the required sign and the `flavors` list.
 ```python
-lcg = LCG(a, b, p)
+lcg = LCG(a, c, p)
 
 for i in range(1337):
     lcg.gen_next()
@@ -685,7 +685,7 @@ p, a = finish_bowl()
 
 print(a, p)
 
-#recover b, p
+#recover c, p
 add('5', '1')
 add('6', '2')
 combine_bowl('1', '2', 'sub')
@@ -697,12 +697,12 @@ add('4', '2')
 combine_bowl('2', '1', 'mult')
 add('5', '1')
 combine_bowl('1', '2', 'sub')
-p, b = finish_bowl()
-print(b, p)
+p, c = finish_bowl()
+print(c, p)
 
 finish()
 
-lcg = LCG(a, b, p)
+lcg = LCG(a, c, p)
 
 for i in range(1337):
     lcg.gen_next()
