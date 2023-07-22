@@ -614,7 +614,7 @@ flavors = [lcg.gen_next() for i in range(1338)]
 sign = flavors[1337]
 ```
 
-## Sending the parameters in verify and retrieving the flag
+## Sending the parameters in `verify` and retrieving the flag
 
 Since we have recovered the target signature, we send it to the verify function using `Option 3`. As a recipe, we send `[[1337,0]]`. Then after the simulation is done in the verify function, the state of the 3 bowls will be:
 $$\underbrace{private[1337]} \ \ \underbrace{0} \ \ \underbrace{0}$$
@@ -624,7 +624,7 @@ The sum of the 3 bowls will hence be, `private[1337]` which is what we need to r
 
 What a beautiful problem, innit? 
 
-Below is my solution script.
+### Solution script
 ```python
 from pwn import *
 
