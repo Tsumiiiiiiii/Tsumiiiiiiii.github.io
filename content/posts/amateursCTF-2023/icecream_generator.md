@@ -112,6 +112,50 @@ Some other variables are also there like,
 
 `recipe`: A list of what flavors used so far.
 
+When the code is run, the following portion comes first:
+```python
+options = \
+"""
+OPTIONS:
+(1) Generate order
+(2) View flavors
+(3) Redeem a reciept
+(4) Exit
+Choice: """
+
+print(intro)
+
+while True:
+    choice = input(options)
+    if choice == "1":
+        if 'user' in vars():
+            print("\nYou already ordered.")
+            continue
+        user = order(getPrime(128))
+        user.make_bowl()
+        print()
+    elif choice == "2":
+        print("\nThe only valid flavors are: ")
+        [print(f"Flavor {i} - {n}") for i, n in flavor_indices.items() if i != 1337]
+    elif choice == "3":
+        if 'user' not in vars():
+            print("\nNo user.")
+        else:
+            userid = int(input("\nENTER NUMBER: "))
+            assert userid == user.p, "You seem to have lost your reciept."
+            recipe = input("\nENTER RECIPE: ")
+            assert all([i in "[,]01234567abdilmstuv'" for i in recipe]), "\n\nSir, please don't put junk in my lce cream machine!"
+            recipe = eval(recipe, {"__builtins__": {}}, {"__builtins__": {}}) # screw json or ast.literal_eval
+            signature = input("\nENTER SIGNATURE: ")
+            user.verify(recipe, int(signature))
+            exit("\nGoodbye.")
+    elif choice == "4":
+        exit("\nGoodbye.")
+    else:
+        print("\nINVALID CHOICE. Please input '1', '2', '3', or '4'")
+```
+We have to give `1` as our choice since a user must be created first. Let's see the functionalities of this `make_bowl` function that is called after an user is created. 
+
 ### make_bowl:
 ```python
 while True:
@@ -315,3 +359,13 @@ for i in range(1337):
 flavors = [lcg.gen_next() for i in range(1338)]
 sign = flavors[1337]
 ```
+
+## Sending the parameters in verify and retrieving the flag
+
+Since we have recovered the target signature, we send it to the verify function. As a recipe, we send `[[1337,0]]`. Then after the simulation is done in the verify function, the state of the 3 bowls will be:
+$$\underbrace{private[1337]} \ \ \underbrace{0} \ \ \underbrace{0}$$
+The sum of the 3 blows will hence be, `private[1337]` which is what we need to recover the flag.
+
+> Flag: **amateursCTF{bruh_why_would_you_use_lcg_for_signature}**
+
+What a beautiful problem, innit? 
