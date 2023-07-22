@@ -481,7 +481,7 @@ self.bowls[b] = 0
 * We can perform `addition`, `subtraction`, `multiplication`, or `division` operation between 2 bowls.
 * The catch is that after an operation is done, the 2nd bowl is set to 0.
 
-### finish_bowl:
+### finish_bowl
 ```python
 unique = 0
 for i, n in self.used.items():
