@@ -154,7 +154,7 @@ while True:
     else:
         print("\nINVALID CHOICE. Please input '1', '2', '3', or '4'")
 ```
-We have to give `1` as our choice since a user must be created first. Let's see the functionalities of this `make_bowl` function that is called after an user is created. 
+We have to give `1` as our choice since a user must be created first. Let's see the functionalities of this `make_bowl` function that is called after the user is created. 
 
 ### make_bowl:
 ```python
