@@ -310,7 +310,7 @@ $a$ is the multiplier
 
 $c$ is the increment
 
-$m$ is the modulus
+$m$ is the modulus (though it's denoted by $p$ in this problem)
 
 Note that all values are bounded by the modulus $m$.
 
@@ -570,7 +570,7 @@ $$\underbrace{X_2 - X_3} \ \ \underbrace{X_1} \ \ \underbrace{X_2} $$
 * subtract $b_3$ from $b_2$
 $$\underbrace{X_2 - X_3} \ \ \underbrace{X_1 - X_2} \ \ \underbrace{0} $$
 * divide $b_1$ by $b_2$
-$$\underbrace{\frac{X_2 - X_3}{X_1 - X_2} \mod\ m} \ \ \underbrace{0} \ \ \underbrace{0} $$
+$$\underbrace{\frac{X_2 - X_3}{X_1 - X_2} \mod\ p} \ \ \underbrace{0} \ \ \underbrace{0} $$
 
 Bowl 1 now contains the value of `a`. Since we have used 3 flavors, this is unique enough to use `finish bowl`. The signature will be the value of `a`. 
 
@@ -589,7 +589,7 @@ $$\underbrace{X_5 - X_6} \ \ \underbrace{X_4} \ \ \underbrace{X_5} $$
 * subtract $b_3$ from $b_2$
 $$\underbrace{X_5 - X_6} \ \ \underbrace{X_4 - X_5} \ \ \underbrace{0} $$
 * divide $b_1$ by $b_2$
-$$\underbrace{\frac{X_5 - X_6}{X_4 - X_5} \mod\ m} \ \ \underbrace{0} \ \ \underbrace{0} $$
+$$\underbrace{\frac{X_5 - X_6}{X_4 - X_5} \mod\ p} \ \ \underbrace{0} \ \ \underbrace{0} $$
 $$\underbrace{a} \ \ \underbrace{0} \ \ \underbrace{0}$$
 * move $X_4$ to $b_2$
 $$\underbrace{a} \ \ \underbrace{X_4} \ \ \underbrace{0}$$
@@ -618,7 +618,7 @@ sign = flavors[1337]
 
 Since we have recovered the target signature, we send it to the verify function using `Option 3`. As a recipe, we send `[[1337,0]]`. Then after the simulation is done in the verify function, the state of the 3 bowls will be:
 $$\underbrace{private[1337]} \ \ \underbrace{0} \ \ \underbrace{0}$$
-The sum of the 3 blows will hence be, `private[1337]` which is what we need to recover the flag.
+The sum of the 3 bowls will hence be, `private[1337]` which is what we need to recover the flag.
 
 > Flag: **amateursCTF{bruh_why_would_you_use_lcg_for_signature}**
 
