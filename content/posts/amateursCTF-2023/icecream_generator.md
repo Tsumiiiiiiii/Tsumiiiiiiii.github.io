@@ -554,7 +554,7 @@ But the problem with this idea is that we have to use at least 3 flavors to use 
 We will leak the `p`, `a`, and `c` step-by-step. Let flavor_map = $[X_1, X_2, X_3, X_4, X_5, X_6]$.
 
 The initial state of the bowls $[b_1, b_2, b_3]$ is:
-$$\underbrace{0}_{\text{b_0}} \ \ \underbrace{0}_{\text{b_1}}  \ \ \underbrace{0}_{\text{b_2}} $$
+$$\underbrace{0} \ \ \underbrace{0}  \ \ \underbrace{0} $$
 
 ### Recovering `a`
 * move $X_2$ to $b_1$ 
