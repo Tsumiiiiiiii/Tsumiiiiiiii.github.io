@@ -318,11 +318,11 @@ A simple python implementation of LCG follows
 
 ```python
 class LCG:
-    def __init__(self, a, b, p, seed):
-        self.a, self.b, self.p, self.seed = a, b, p, seed
+    def __init__(self, a, c, m, seed):
+        self.a, self.c, self.p, self.seed = a, c, m, seed
 
     def gen_next(self):
-        self.seed = (self.a*self.seed + self.b) % self.p
+        self.seed = (self.a*self.seed + self.c) % self.m
         return self.seed
 ```
 
@@ -629,13 +629,13 @@ What a beautiful problem, innit?
 from pwn import *
 
 class LCG:
-    def __init__(self, a, b, p):
-        self.a, self.b, self.p = a, b, p
+    def __init__(self, a, c, p):
+        self.a, self.c, self.p = a, c, p
     
     seed = 1337
 
     def gen_next(self):
-        self.seed = (self.a*self.seed + self.b) % self.p
+        self.seed = (self.a*self.seed + self.c) % self.p
         return self.seed
 
 io = remote('amt.rs', 31310)
