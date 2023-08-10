@@ -21,6 +21,10 @@ Writeup for the Ice cream generator Cryptography challenge.
 
 <!--more-->
 
+{{< admonition type=success title="Hurray" open=true >}}
+This writeup was one of the 5 winners of Amateurs CTF writeups prize
+{{< /admonition >}}
+
 ## Overview
 
 This was the first edition of Amateurs CTF and I absolutely loved the challenges. Managed to solve **[7]/[12]** crypto challenges. They were really fun and educational. 
