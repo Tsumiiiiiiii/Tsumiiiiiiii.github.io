@@ -21,7 +21,7 @@ Writeup for the Ice cream generator Cryptography challenge.
 
 <!--more-->
 
-{{< admonition type=success title="Hurray" open=true >}}
+{{< admonition type=success title="Note" open=true >}}
 This writeup was one of the 5 winners of Amateurs CTF writeups prize
 {{< /admonition >}}
 
