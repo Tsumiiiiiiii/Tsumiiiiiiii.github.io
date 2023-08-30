@@ -98,7 +98,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # you can add extra information before the name (HTML format is supported), such as icons
       pre = ""
       # you can add extra information after the name (HTML format is supported), such as icons
-      post = ""
+      post = "<i class="fa-sharp fa-light fa-lollipop"></i>"
       #  whether to use typeit animation for title name
       typeit = false
 
