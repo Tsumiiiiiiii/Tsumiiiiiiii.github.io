@@ -4,7 +4,7 @@ baseURL = "https://tsumiiiiiiii.github.io/"
 theme = "LoveIt"
 
 # website title
-title = "lolipop Blogs"
+title = "lolipop's Blog"
 
 # language code ["en", "zh-CN", "fr", "pl", ...]
 languageCode = "en"
@@ -86,7 +86,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # Header config
   [params.header]
     # desktop header mode ["fixed", "normal", "auto"]
-    desktopMode = "normal"
+    desktopMode = "auto"
     # mobile header mode ["fixed", "normal", "auto"]
     mobileMode = "auto"
     #  Header title config
@@ -118,7 +118,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     # ICP info only in China (HTML format is supported)
     icp = ""
     # license info (HTML format is supported)
-    license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+    #license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
 
   #  Section (all posts) page config
   [params.section]
