@@ -4,4 +4,4 @@ $global-background-color-dark: #001314 !important;
 $header-background-color-dark: #001314 !important;
 $code-background-color-dark: #2d2d2d;
 $code-font-family:  Dejavu Sans Mono, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace  !important;
-$code-font-size: 1rem;
+$code-font-size: calc(1em - 1px);
