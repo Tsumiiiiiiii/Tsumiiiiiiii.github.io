@@ -1,6 +1,6 @@
 ---
 weight: 1
-title: "AmaterusCTF 2023 - lce cream generator Writeup"
+title: "AmateursCTF 2023 - lce cream generator Writeup"
 date: 2023-07-20T15:02:00+06:00
 lastmod: 2023-07-22T15:20:00+06:00
 draft: false
