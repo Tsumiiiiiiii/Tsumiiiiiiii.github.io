@@ -26,7 +26,7 @@ Writeup for the Ice cream generator Cryptography challenge.
 Given that guessy and cipher-based cryptography challenges are way too common in Bangladeshi CTFs, my goal was to introduce problems that require mathematics and algorithms, something that requires 
 actual problem-solving, not hours of boring guesswork that we all despise.
 
-It was quite shocking to see so many solves for `baby_RSA` though😲, given it was quite difficult. And that too at like around the last 30 minutes of the CTF. I wonder what made so many teams arrive at the solution at the last 30-minute window 🤔. I wish I too had those ideas keep coming to me at the very last moment when I'm playing international CTFs 😟. 
+It was quite surprising to see so many solves for `baby_RSA` though😲, given it was quite difficult. And that too at like around the last 30 minutes of the CTF 🤔. I wish I too had such ideas keep coming to me at the very last moment when I'm playing CTFs 😟. 
 
 ## Chances
 
@@ -72,9 +72,9 @@ We can represent the distorted list as a matrix, where each entry represents a b
 $$
 A_{m,n} = 
 \begin{bmatrix}
-a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
-a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
-\vdots  & \vdots  & \ddots & \vdots  \\
+a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\\
+a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\\
+\vdots  & \vdots  & \ddots & \vdots  \\\
 a_{m,1} & a_{m,2} & \cdots & a_{m,n} 
 \end{bmatrix}
 $$ 
@@ -84,9 +84,9 @@ Now, what does a particular column in this matrix represent?
 $$
 A_{k} = 
 \begin{bmatrix}
-a_{1,k} \\
-a_{2,k} \\
-\vdots \\
+a_{1,k} \\\
+a_{2,k} \\\
+\vdots \\\
 a_{m,k}  
 \end{bmatrix}
 $$
