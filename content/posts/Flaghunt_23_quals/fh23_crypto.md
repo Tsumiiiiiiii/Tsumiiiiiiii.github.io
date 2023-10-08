@@ -84,10 +84,10 @@ Now, what does a particular column in this matrix represent?
 $$
 A_{k} = 
 \begin{bmatrix}
-a_{1,k} \\\\
-a_{2,k} \\\\
-\vdots \\\\
-a_{m,k}  
+& a_{1,k} & \\\\
+& a_{2,k} & \\\\
+& \vdots & \\\\
+& a_{m,k} &  
 \end{bmatrix}
 $$
 
