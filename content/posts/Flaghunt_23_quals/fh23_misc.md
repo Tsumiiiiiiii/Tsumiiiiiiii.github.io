@@ -35,7 +35,7 @@ Wanted to give a very trivial algorithmic challenge, that must be scripted.
 {{< /admonition >}}
 
 
-Wanted to make a trivial algorithmic challenge. When we connect to the server, we are greeted with a message that says we will be given a string and we have to find out what is the minimum number of characters that must be changed to make it a palindrome. This must be done a thousand times to get the flag. 
+When we connect to the server, we are greeted with a message that says we will be given a string and we have to find out what is the minimum number of characters that must be changed to make it a palindrome. This must be done a thousand times to get the flag. 
 
 The main challenge here is to figure out the minimum changes required to make a string palindrome. How do we define palindromes? A `palindrome` is a string that reads the same from the front and the back. That is, if we have a string `S`
 
