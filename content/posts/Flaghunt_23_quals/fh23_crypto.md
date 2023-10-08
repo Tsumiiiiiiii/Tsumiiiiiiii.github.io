@@ -109,7 +109,7 @@ Then the `k-th` bit of the message will be
 $$
 bit_k=
 \begin{cases}
-1 & cnt_{1,k} > cnt_{0, k}\\
+1 & cnt_{1,k} > cnt_{0, k} \\\
 0 & otherwise
 \end{cases}
 $$
