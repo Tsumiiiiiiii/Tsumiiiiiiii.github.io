@@ -81,6 +81,7 @@ $$
 
 Now, what does a particular column in this matrix represent? 
 
+
 $$
 A_{k} = 
 \begin{bmatrix}
@@ -90,6 +91,7 @@ A_{k} =
 & a_{m,k} &  
 \end{bmatrix}
 $$
+
 
 The `k-th` column represents all the bits that are in position `k` of the message. According to the problem formulation, around 70% of these bits would be correct, and so, the remaining 30% bits are incorrect. How do we know which bits are correct? 
 
