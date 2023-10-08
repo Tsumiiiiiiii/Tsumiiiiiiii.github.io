@@ -267,7 +267,7 @@ print(l2b(s))
 ## baby-RSA
 
 {{< admonition note "Challenge Information" >}}
-* **Points:** 225
+* **Points:** 350
   
 `nc 45.76.177.238 5001`
 
