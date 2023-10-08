@@ -1,8 +1,8 @@
 ---
 weight: 1
 title: "FlagHunt 2023 quals - My Crypto Writeup"
-date: 2023-10-8T15:02:00+06:00
-lastmod: 2023-10-8T15:20:00+06:00
+date: 2023-10-8T17:12:00+06:00
+lastmod: 2023-10-8T17:20:00+06:00
 draft: false
 author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
@@ -84,9 +84,9 @@ Now, what does a particular column in this matrix represent?
 $$
 A_{k} = 
 \begin{bmatrix}
-a_{1,k} \\\
-a_{2,k} \\\
-\vdots \\\
+a_{1,k} \\\\
+a_{2,k} \\\\
+\vdots \\\\
 a_{m,k}  
 \end{bmatrix}
 $$
