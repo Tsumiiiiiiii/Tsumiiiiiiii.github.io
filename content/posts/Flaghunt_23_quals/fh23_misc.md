@@ -1,8 +1,8 @@
 ---
 weight: 1
 title: "FlagHunt 2023 quals - My Misc Writeup"
-date: 2023-10-8T17:26:00+06:00
-lastmod: 2023-10-8T17:26:00+06:00
+date: 2023-10-08T17:26:00+06:00
+lastmod: 2023-10-08T17:26:00+06:00
 draft: false
 author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
@@ -29,6 +29,8 @@ Wanted to give a very trivial algorithmic challenge, that must be scripted.
 
 {{< admonition note "Challenge Information" >}}
 * **Points:** 100
+
+`nc 45.76.177.238 5000`
 
 {{< /admonition >}}
 
