@@ -17,7 +17,7 @@ toc:
   enable: true
 ---
 
-Writeup for the Ice cream generator Cryptography challenge.
+Writeup for the cryptography problems that I designed.
 
 <!--more-->
 
