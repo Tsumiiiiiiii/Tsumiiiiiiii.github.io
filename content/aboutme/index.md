@@ -24,6 +24,8 @@ I want to pursue a career in cryptographic research in the future(even though I 
 
 ## Noticeable Achievements
 
+**Won** BUET CTF 2023 Finals in **Dhaka, Bangladesh**.
+
 **Won** Flaghunt 2022 Finals in **Dhaka, Bangladesh**.
 
 **Won** National University Cyberdrill 2022 in **Dhaka, Bangladesh**.
