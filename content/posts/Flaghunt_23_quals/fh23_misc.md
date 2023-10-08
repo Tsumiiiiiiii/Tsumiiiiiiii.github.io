@@ -28,7 +28,7 @@ Wanted to give a very trivial algorithmic challenge, that must be scripted.
 ## Palindrome
 
 {{< admonition note "Challenge Information" >}}
-* **Points:** 100
+* **Points:** 150
 
 `nc 45.76.177.238 5000`
 
