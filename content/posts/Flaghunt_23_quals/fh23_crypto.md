@@ -1,8 +1,8 @@
 ---
 weight: 1
 title: "FlagHunt 2023 quals - My Crypto Writeup"
-date: 2023-10-8T17:12:00+06:00
-lastmod: 2023-10-8T17:20:00+06:00
+date: 2023-10-08T17:12:00+06:00
+lastmod: 2023-10-08T17:20:00+06:00
 draft: false
 author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
