@@ -101,6 +101,12 @@ c_{2,k} \\\
 \vdots  \\\
 c_{m,k}
 \end{pmatrix}
+= \begin{pmatrix}
+a_{1,k} \oplus r_{1, k} \\\
+c_{2,k} \oplus r_{2, k} \\\
+\vdots  \\\
+c_{m,k} \oplus r_{m, k}
+\end{pmatrix}
 $$
 
 
