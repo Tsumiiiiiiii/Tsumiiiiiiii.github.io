@@ -83,12 +83,12 @@ Notice that the xored array is a 2d array, where each element represents the dis
 
 $$
 A_{m,n} = 
-\begin{pmatrix}
-c_{1,1} & c_{1,2} & \cdots & c_{1,n} \\
-c_{2,1} & c_{2,2} & \cdots & c_{2,n} \\
-\vdots  & \vdots  & \ddots & \vdots  \\
+\begin{bmatrix}
+c_{1,1} & c_{1,2} & \cdots & c_{1,n} \\\
+c_{2,1} & c_{2,2} & \cdots & c_{2,n} \\\
+\vdots  & \vdots  & \ddots & \vdots  \\\
 c_{m,1} & c_{m,2} & \cdots & c_{m,n} 
-\end{pmatrix}
+\end{bmatrix}
 $$
 
 What would a particular column in this matrix mean?
@@ -96,18 +96,18 @@ What would a particular column in this matrix mean?
 $$
 \begin{equation}
 A_{k} = 
-\begin{bmatrix}
+\begin{pmatrix}
 c_{1,k} \\\
 c_{2,k} \\\
 \vdots \\\
 c_{m,k}  
-\end{bmatrix}
- = \begin{bmatrix}
+\end{pmatrix}
+ = \begin{pmatrix}
 a_{1,k} \oplus r_{1, k} \\\
 a_{2,k} \oplus r_{2, k} \\\
 \vdots \\\
 a_{m,k} \oplus r_{m, k}  
-\end{bmatrix}
+\end{pmatrix}
 \end{equation}
 $$
 
