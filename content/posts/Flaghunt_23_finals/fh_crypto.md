@@ -95,21 +95,21 @@ What would a particular column in this matrix mean?
 
 $$
 A_{k} = 
-\begin{bmatrix}
+\begin{pmatrix}
 c_{1,k} \\\
 c_{2,k} \\\
 \vdots \\\
 c_{m,k}  
-\end{bmatrix}
+\end{pmatrix}
 $$
 
 $$
- = \begin{bmatrix}
+ = \begin{pmatrix}
 a_{1,k} \oplus r_{1, k} \\\
 a_{2,k} \oplus r_{2, k} \\\
 \vdots \\\
 a_{m,k} \oplus r_{m, k}  
-\end{bmatrix}
+\end{pmatrix}
 $$
 
 This column represents all the xors for a character at position `k`. `r` represents the random integer the character is xored with.  If the character of the flag at `k-th` position was $a_k$ , it is guaranteed that $A_k$ will never contain $a_k$ because of the reason explained above. 
