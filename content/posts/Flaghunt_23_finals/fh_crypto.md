@@ -93,7 +93,8 @@ $$
 
 What would a particular column in this matrix mean?
 
-\begin{equation}
+$$
+\begin{align}
 A_{k} = 
 \begin{bmatrix}
 c_{1,k} \\\
@@ -107,7 +108,8 @@ a_{2,k} \oplus r_{2, k} \\\
 \vdots \\\
 a_{m,k} \oplus r_{m, k}  
 \end{bmatrix}
-\end{equation}
+\end{align}
+$$
 
 This column represents all the xors for a character at position `k`. `r` represents the random integer the character is xored with.  If the character of the flag at `k-th` position was $a_k$ , it is guaranteed that $A_k$ will never contain $a_k$ because of the reason explained above. 
 
@@ -176,3 +178,157 @@ The flag characters were made random so that you couldn't guess any of the chara
 {{< /admonition >}}
 
 > Flag : **CTF_BD{u,Q6U6p97gJcV%QUVgn0hckLEW\[=u-} **
+
+
+## Primes Festival
+
+{{< admonition note "Challenge Information" >}}
+* **Points:** 300
+
+{{< /admonition >}}
+
+
+This is a very classic problem. Meet in the middle attack on subset products is the main theme here. 
+
+```py
+#!/usr/local/bin/python
+
+from Crypto.Util.number import getPrime, isPrime
+from Crypto.Random.random import getrandbits
+
+print('Welcome to yet another guess my favorite number chall!!!')
+
+st = 1 << 20
+primes = []
+
+while len(primes) != 47:
+  if isPrime(st):
+    primes.append(st)
+  st += 1
+
+def ok(x):
+  on = bin(x)[2:].count('1')
+  return on >= 36
+
+while True:
+  secret = getrandbits(46)
+  if ok(secret):
+    break
+
+hint = 1
+for i in range(46):
+  if (secret >> i) & 1:
+    hint *= primes[i]
+
+p = getPrime(512)
+hint %= p
+
+print('I will be generous to give you a hint :', hint, p)
+  
+num = int(input('Enter my favorite number: '))
+if num == secret:
+  print(open('flag.txt', 'r').read())
+else:
+  print("Nope, it's wrong!!")
+```
+
+Let us try to understand the problem setting. We have a pool of 47 primes numbers(which we know). Of them, some primes are selected at random(the number of primes selected can vary from 36 to 46) and they are multiplied and reduced via a huge prime. This reduced number is the given hint. 
+
+But how does this correlate with the secret number that we have to guess? The secret number is a 46 bit number that can have the set bits(bits that are 1) with count from 36 to 46. The indices of the set bits are what we use as the prime indices for our product.
+
+That is, from a set of primes,
+
+
+$$P = [p_1, p_2, p_3,\ \cdot \cdot \cdot \ , p_{47}] $$
+
+We need to find a subset `S`, where,
+
+$$ S = [s_1, s_2, s_3, \ \cdot \cdot \cdot \ , s_k] $$
+
+Such that, 
+
+$$ hint = p_{s_1} * p_{s_2} * p_{s_3} \ \cdot \cdot \cdot \ * p_{s_K} $$
+
+Cult classic subset product problem. There are tons of algorithms to solve this problem. The one we are going to use here is the `meet-in-the-middle algorithm`.
+
+Now, the most naive algorithm would have been to enumerate over all possible subsets possible and check if the product matches with the given hint. But the problem with this approach is that the time complexity is too high. There are 47 elements, and thus the total number of possible subsets is $2^{47}$. The number of operations are too big and hence not feasible. We have to reduce this complexity somehow.  
+
+This is where `meet-in-the-middle` comes in. We will divide the set of primes into two different sets as follows:
+
+$$ P_1 = [p_1, p_2, p_3, \ \cdot \cdot \cdot \ , p_{23}] $$
+
+$$ P_2 = [p_{24}, p_{25}, p_{26}, \ \cdot \cdot \cdot \ , p_{47}] $$
+
+We can write the hint as,
+
+$$ hint = prod_1 * prod_2 \mod P $$
+
+For any integers $prod_1$ and $prod_2$ which are also some subset products from the prime set. Instead of trying to find $prod_1$ and $prod_2$ individually, we would re-write this equation a bit:
+
+$$ prod_1 = hint * prod_2 ^ {-1} \mod P $$
+
+For each $prod_2$, we check if there is a valid $prod_1$. How? Let's see in detail below:
+
+We will now do the subset enumeration on the set $P_1$ first. This is feasible since there are $2^{23}$ subsets only. Let's say, we have a map $M$.  For each subset, we store the product as the key and the bitmask as the value in this map. We store all combinations of $prod_1$ in $M$. 
+
+Then we do this exact same type of enumeration on the second set $P_2$ as well. But, for a bitmask $b$, let's say we got a product $prod_2$. What value would we require to multiply with it to produce $hint$ ? 
+
+$$prod_2 * x = hint \mod P$$
+
+$$=> x = hint * prod_2 ^ {-1} \mod P$$
+
+This $x$ here is the $prod_1$ we calculated in our map $M$. So, we check if there is the $x$ in that map. If there is, we have found our required bits to make $hint$. Else, we just keep on enumerating until all the bits are found. 
+
+$$secret = (mask_2 << 23) \ | \ mask_1 $$
+
+This has a complexity of `O(nlog(n)`. Where $n=2^{23}$.
+
+```python
+from pwn import *
+from tqdm import tqdm
+from Crypto.Util.number import isPrime
+
+st = 1 << 20
+primes = []
+while len(primes) != 47:
+  if isPrime(st):
+    primes.append(st)
+  st += 1
+  
+p1 = primes[:23]
+p2 = primes[23:]
+
+io = remote('127.0.0.1', 5000)
+io.recvline()
+io.recvuntil(b': ')
+
+hint, p = map(int, io.recvline().decode().strip().split(' '))
+
+vals1 = dict()
+for mask in tqdm(range(1 << 23)):
+  prod = 1
+  for i in range(23):
+    if (mask >> i) & 1:
+      prod = (prod * p1[i]) % p
+  vals1[prod] = mask
+
+for mask in tqdm(range(1 << 23)):
+  prod = 1
+  for i in range(23):
+    if (mask >> i) & 1:
+      prod = (prod * p2[i]) % p
+  need = (hint * pow(prod, -1, p)) % p
+
+  if need in vals1:
+    bits = vals1[need]
+    ans = (mask << 23) + bits
+    print('Secret num:', ans)
+    break
+
+io.recvuntil(b': ')
+io.sendline(str(ans).encode())
+io.interactive()
+```
+
+> Flag : **CTF_BD{Numb34_7h30ry_4nD_M33t_1n_7h3_M1ddl3_15_4_v34y_b3au71ful_c0mb1n4710n!!}**
+
