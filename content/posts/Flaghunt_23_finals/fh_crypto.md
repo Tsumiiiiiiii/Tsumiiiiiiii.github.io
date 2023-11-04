@@ -24,7 +24,7 @@ Writeup for the cryptography problems that I designed.
 ## Overview
 Both of my challenges were made quite challenging for a few reasons
 * The feeling of solving a difficult challenge is quite exhilarating
-* Teams have little to no motivation for sharing flags which they solve with much hardship* 
+* Teams have little to no motivation for sharing flags which they solve with much hardship
 
 Nevertheless, I hope they proved to be very educational for the pariticpants.
 
@@ -94,7 +94,6 @@ $$
 What would a particular column in this matrix mean?
 
 $$
-\begin{align}
 A_{k} = 
 \begin{bmatrix}
 c_{1,k} \\\
@@ -102,13 +101,15 @@ c_{2,k} \\\
 \vdots \\\
 c_{m,k}  
 \end{bmatrix}
+$$
+
+$$
  = \begin{bmatrix}
 a_{1,k} \oplus r_{1, k} \\\
 a_{2,k} \oplus r_{2, k} \\\
 \vdots \\\
 a_{m,k} \oplus r_{m, k}  
 \end{bmatrix}
-\end{align}
 $$
 
 This column represents all the xors for a character at position `k`. `r` represents the random integer the character is xored with.  If the character of the flag at `k-th` position was $a_k$ , it is guaranteed that $A_k$ will never contain $a_k$ because of the reason explained above. 
@@ -177,7 +178,7 @@ The flag characters were made random so that you couldn't guess any of the chara
 
 {{< /admonition >}}
 
-> Flag : **CTF_BD{u,Q6U6p97gJcV%QUVgn0hckLEW\[=u-} **
+> Flag : **CTF_BD{u,Q6U6p97gJcV%QUVgn0hckLEW\[=u-}**
 
 
 ## Primes Festival
