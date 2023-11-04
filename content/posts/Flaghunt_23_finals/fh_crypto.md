@@ -98,11 +98,10 @@ A_{k} =
 \begin{pmatrix}
 c_{1,k} \\\
 c_{2,k} \\\
-\vdots \\\
-c_{m,k}  
+\vdots  \\\
+c_{m,k}
 \end{pmatrix}
 $$
-
 
 
 This column represents all the xors for a character at position `k`. `r` represents the random integer the character is xored with.  If the character of the flag at `k-th` position was $a_k$ , it is guaranteed that $A_k$ will never contain $a_k$ because of the reason explained above. 
