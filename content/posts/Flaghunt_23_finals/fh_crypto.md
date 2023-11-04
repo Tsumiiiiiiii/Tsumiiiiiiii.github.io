@@ -103,8 +103,10 @@ c_{m,k}
 \end{pmatrix}
 $$
 
+
 $$
- = \begin{pmatrix}
+=> A_{k}= 
+\begin{pmatrix}
 a_{1,k} \oplus r_{1, k} \\\
 a_{2,k} \oplus r_{2, k} \\\
 \vdots \\\
