@@ -19,6 +19,8 @@ toc:
 
 Writeup for the cryptography problems that I designed.
 
+<!--more-->
+
 ## Overview
 Both of my challenges were made quite challenging for a few reasons
 * The feeling of solving a difficult challenge is quite exhilarating
