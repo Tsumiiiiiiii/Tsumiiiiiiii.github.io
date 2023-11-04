@@ -96,18 +96,18 @@ What would a particular column in this matrix mean?
 $$
 \begin{equation}
 A_{k} = 
-\begin{pmatrix}
+\begin{bmatrix}
 c_{1,k} \\\
 c_{2,k} \\\
 \vdots \\\
 c_{m,k}  
-\end{pmatrix}
- = \begin{pmatrix}
+\end{bmatrix}
+ = \begin{bmatrix}
 a_{1,k} \oplus r_{1, k} \\\
 a_{2,k} \oplus r_{2, k} \\\
 \vdots \\\
 a_{m,k} \oplus r_{m, k}  
-\end{pmatrix}
+\end{bmatrix}
 \end{equation}
 $$
 
