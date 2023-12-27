@@ -24,6 +24,7 @@ Writeup for the MSS Cryptography challenge.
 
 The script we are provided with is:
 
+
 ```python
 import os, random, json
 from hashlib import sha256
