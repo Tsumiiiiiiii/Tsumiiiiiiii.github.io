@@ -14,6 +14,8 @@ categories: ["Writeups"]
 lightgallery: true
 
 toc:
+  markup: "mmark"
+  math: true
   enable: true
 ---
 
