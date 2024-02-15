@@ -1,3 +1,26 @@
+---
+weight: 1
+title: "DiceCTF 2024 - Winter"
+date: 2024-02-15T16:37:00+06:00
+lastmod: 2024-02-15T16:37:00+06:00
+draft: false
+author: "lolipop"
+authorLink: "https://tsumiiiiiiii.github.io"
+description: "Writeup for the winter Cryptography challenge."
+
+tags: ["crypto", "DiceCTF", "hash", "winternitz", "english"]
+categories: ["Writeups"]
+
+lightgallery: true
+
+toc:
+  enable: true
+---
+
+Writeup for the winter Cryptography challenge.
+
+<!--more-->
+
 This was quite fun as the introductory challenge. To begin with, we are provided with the following script:
 
 ```python
@@ -53,7 +76,7 @@ if __name__ == '__main__':
         print('nope')
 ```
 
-This is a somewhat(*faulty*) implementation of the `Winternitz Signature Scheme`. It works in a way very similar to one time pads. 
+This is a somewhat(*faulty*) implementation of the `Winternitz Signature Scheme`. It works in a way very similar to one-time pads. 
 
 ## Winternitz Signature Scheme
 
@@ -61,30 +84,28 @@ Do note that this scheme has a lot of variants but here we are going to work wit
 
 ### Key Generation
 
-The set of public and private keys are generated as follows:
+The set of public and private keys is generated as follows:
 
-1. 32 random numbers are generated where each number is of 256 bits. These are the private keys - `[private[0], private[1], ..., private[31]`]. 
+1. 32 random numbers are generated where each number is 256 bits. These are the private keys - `[private[0], private[1], ..., private[31]`]. 
 2. To generate the set of public keys, each of the private keys generated from the last step is hashed 256 times - `[public[0], public[1], ..., public[31]]`. That is, $public_i = H^{256}(private_i)$. The hash function `H` is generally chosen to be `sha256`. 
 
-![Key generation](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/angstrom-ctf-2023/crypto-status.png?raw=true)
+![Key generation](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/dice24/key_generation.svg?raw=true)
 
 ### Signature Generation
 
 For any message, a signature has to be formed with the following steps:
 
-1. The message `m` is hashed using `sha256`. As we know, `sha256` produces digest of 256 bits. We divide those 256 bits into 32 chunks. Each chunk thus has a size of $256/32=8$ bits - `[N[0], N[1], ..., N[31]]`.
+1. The message `m` is hashed using `sha256`. As we know, `sha256` produces a digest of 256 bits. We divide those 256 bits into 32 chunks. Each chunk thus has a size of $256/32=8$ bits - `[N[0], N[1], ..., N[31]]`.
 2.  Each of the private key`private[i]` is hashed a total of `256 - N[i` times.  That is, $sign_i=H^{256-N_i}(private_i)$.
 
-![[Untitled presentation (3).svg]]
+![Sign generation](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/dice24/sign_generate.svg?raw=true)
 ### Signature Verification
 
 Lastly, it must be checked whether the signature obtained is valid or not. 
 
 1.  For each `sign[i]` we hash it a total of `N[i]` times. Let's denote it by `V[i]`.
 2.  For each `V[i]`, we check if `V[i] == public[i]`. If this holds, that particular signature is valid.
-
-![[Untitled presentation (3) 1.svg]]
-
+![Sign verify](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/dice24/sign_verify.svg?raw=true)
 
 Why does this work? 
 
