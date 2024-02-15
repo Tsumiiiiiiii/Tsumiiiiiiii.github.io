@@ -2,6 +2,11 @@
 // Custom style
 // 自定义样式
 // ==============================
+@font-face {
+  font-family: 'Fira Code';
+  font-weight: 400;
+  font-style: normal;
+  src: url('/fonts/fira-code-v22-latin-regular.woff2') format('woff2');
+} 
 
-font-family: 'Fira Code';
-    src:    url('/fonts/fira-code-v22-latin-regular.woff2') format('woff2'),
+    
