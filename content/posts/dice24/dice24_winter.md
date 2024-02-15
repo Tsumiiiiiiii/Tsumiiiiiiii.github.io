@@ -13,9 +13,10 @@ categories: ["Writeups"]
 
 lightgallery: true
 
+math:
+  enable: true
+
 toc:
-  markup: "mmark"
-  math: true
   enable: true
 ---
 
@@ -111,12 +112,8 @@ Lastly, it must be checked whether the signature obtained is valid or not.
 
 Why does this work? 
 
-$$\begin{aligned}
-V_i &= H^{N_i}(sign_i) \\
-&= H^{N_i}(H^{256-N_i}(private_i))\\
-&= H^{256}(private_i) \\
-&= public_i
-\end{aligned}
+$$
+\begin{aligned} V_i &= H^{N_i}(sign_i) \\\\ &= H^{N_i}(H^{256-N_i}(private_i)) \\\\ &= H^{256}(private_i) \\\\ &= public_i \end{aligned}
 $$
 
 ## The given problem
