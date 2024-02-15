@@ -119,13 +119,13 @@ $$
 ## The given problem
 
 The program flow is as follows:
-- We provide a message `m1`.
-- The server signs `m1` and returns `sig1`. 
-- We must provide another message `m2`  and it's signature `sig2` so that `sig2 == sig1`. 
+- We provide a message $m_1$.
+- The server signs $m1$ and returns $sig_1$. 
+- We must provide another message $m2$  and it's signature $sig_2$ so that $sig_2 = sig_1$. 
 - If the above condition holds, we are given the flag.
 - Neither the `private` nor the `public` is key is revealed.
 
-Our job is to find another message `m2`, whose signature `sig2` can be forged from known signature `sig1`.
+Our job is to find another message $m_2$, whose signature $sig_2$ can be forged from known signature $sig_1$.
 
 ## Solving a slightly simpler problem
 
@@ -137,20 +137,17 @@ def sign(self, msg):
     return sig
 ```
 
-As the first message `m1`, we send `bbb...b` (32 b's). Since the ascii value of `b` is $98$, while calculating the sign each secret key will be hashed $256-98=158$ times. So the `sig1` array is going to contain $sig1_i=H^{158}(sk_i)$ where `sk[i]` is the private or secret key. 
+As the first message $m_1$, we send `bbb...b` (32 b's). Since the ascii value of `b` is $98$, while calculating the sign each secret key will be hashed $256-98=158$ times. So the $sig_1$ array is going to contain $sig1_i=H^{158}(sk_i)$ where `sk[i]` is the private or secret key. 
 
-For the second message `m2`, if we send `aaa...a` (32 a's) we can easily predict what `sig2` is going to be. `b` has an ascii value of $97$ and so each secret key is hashed $256-97=159$ times. $sig2_i=H^{159}(sk_i)$. 
+For the second message $m_2$, if we send `aaa...a` (32 a's) we can easily predict what $sig_2$ is going to be. `b` has an ascii value of $97$ and so each secret key is hashed $256-97=159$ times. $sig2_i=H^{159}(sk_i)$. 
 
-How do we calculate `sig2` from `sig1`? Notice that
+How do we calculate $sig_2$ from $sig_1$? Notice that
 
-$$\begin{aligned}
-sig2_i&=H^{159}(ski_i) \\
-&= H(H^{158}(sk_i))\\
-&= H(sig1_i)
-\end{aligned}
+$$
+\begin{aligned} sig2_i&=H^{159}(ski_i) \\\\ &= H(H^{158}(sk_i)) \\\\ &= H(sig1_i) \end{aligned}
 $$
 
-Hashing each `sig1` chunk once gives us chunks of `sig2`. Thus `sig2` can easily be forged using the values of `sig1` and the problem is solved. In fact, for any character $c_1$ as `m1`, if we send $c_2$ for `m2` (where $c_2>c_1$), the signature `sig2` can be formed. We simply hash `sig1` a total of $c_1-c_2$ times to get `sig2`.  
+Hashing each $sig_1$ chunk once gives us chunks of $sig_2$. Thus $sig_2$ can easily be forged using the values of $sig_1$ and the problem is solved. In fact, for any character $c_1$ as $m_1$, if we send $c_2$ for $m_2$ (where $c_2>c_1$), the signature $sig_2$ can be formed. We simply hash $sig_1$ a total of $c_1-c_2$ times to get $sig_2$.  
 
 ## Tackling the original problem
 
@@ -163,42 +160,33 @@ def sign(self, msg):
         return sig
 ```
 
-See that whatever message we input, it is **hashed once first, then signed**.  We no longer have the liberty to send whatever $c$ to be signed like we had before. Becuase now $c_i=H(m)_i$.  
+See that whatever message we input, is **hashed once first, then signed**.  We no longer have the liberty to send whatever $c$ to be signed like we had before. Becuase now $c_i=H(m)_i$.  
 
-This *gimmick* makes the problem much difficult than it was before. Because the 32 bytes produced from $sha{256}()$ is completely random. Suppose we send $msg_1=m_1m_2...m_{x}$. The sign we are getting back is $sig_1=h_1h_2...h_x$ where $h_i=H^{256-H(msg_1)_i}(private_i)$. 
+This *gimmick* makes the problem much more difficult than it was before. Because the 32 bytes produced from $sha{256}()$ is completely random. Suppose we send $msg_1=m_1m_2...m_{x}$. The sign we are getting back is $sig_1=h_1h_2...h_x$ where $h_i=H^{256-H(msg_1)_i}(private_i)$. 
 
-If we want to calculate the $sig_2$ for $msg_2$ using `sig_1` like we did for the easier variant, we have to hash the already known $h_1$ some known amount of times to get the relevant chunk for `sig_2` that is $h'_i=H^{256-H(msg_2)_i}(private_i)$. Since we have to calculate $sig_2$ from $sig_1$, it must hold that there must be a $k_i$ for which, $h'_i=H^{k_i}(h_i)$. 
-
-$$
-\begin{aligned}
-h'_i&=H^{k_i}(h_i) \\
-&= H^{k_i}(H^{256-H(msg_1)_i}(private_i))\\
-&= H^{256-H(msg_1)_i + k_i}(private_i)
-\end{aligned}
-$$
-
-Also, by the definition of the signature itself, it must also hold that $h'_i=H^{256-H(msg_2)_i}(private_i)$. Thus the following has to be true,
+If we want to calculate the $sig_2$ for $msg_2$ using $sig_1$ as we did for the easier variant, we have to hash the already known $h_1$ some known amount of times to get the relevant chunk for $sig_2$ that is $h'_i=H^{256-H(msg_2)_i}(private_i)$. Since we have to calculate $sig_2$ from $sig_1$, it must hold that there must be a $k_i$ for which, $h'_i=H^{k_i}(h_i)$. 
 
 $$
-\begin{aligned}
-&256-H(msg_2)_i = 256-H(msg_1)_i+k_i \\
-&=> H(msg_1)_i - H(msg_2)_i = k_i \\
-&=> H(msg_1)_i > H(msg_2)_i
-\end{aligned}
+\begin{aligned} h'_i&=H^{k_i}(h_i) \\\\ &= H^{k_i}(H^{256-H(msg_1)_i}(private_i)) \\\\ &= H^{256-H(msg_1)_i + k_i}(private_i) \end{aligned}
 $$
 
-But coming up with such hashes by chances is extremely rare since by the property of any secure hash (which also includes $sha{256}$) the digest bytes must be completely random. 
+Also, by the definition of the signature itself, it must hold that $h'_i=H^{256-H(msg_2)_i}(private_i)$. Thus the following has to be true,
 
-That means our job is to find not just one hash but **two** hashes which satisfies
+$$
+\begin{aligned} &256-H(msg_2)_i = 256-H(msg_1)_i+k_i \\\\ &=> H(msg_1)_i - H(msg_2)_i = k_i \\\\ &=> H(msg_1)_i > H(msg_2)_i \end{aligned}
+$$
 
-$$\begin{equation}
-H(msg_1)_i > H(msg_2)_i \ \ \ \ \forall i = 0,1,.., 31
-\end{equation}
+But coming up with such hashes by chance is extremely rare since by the property of any secure hash (which also includes $sha{256}$) the digest bytes must be completely random. 
+
+That means our job is to find not just one hash but **two** hashes that satisfy
+
+$$
+\begin{equation} H(msg_1)_i > H(msg_2)_i \ \ \ \ \forall i = 0,1,.., 31 \end{equation}
 $$
 
 ### Finding a good $msg_1$
 
-The target is to find such a message whose hash digest bytes are as **large** as possible. That is we want to maximize $H(msg_1)_i$. Simply running a simulation for some time is enough to find such a hash.
+The target is to find such a message whose hash digest bytes are as **large** as possible. That is we want to maximize $H(msg_1)_i$. Simply simulating for some time is enough to find such a hash.
 
 ```python
 mx = -1
