@@ -89,7 +89,7 @@ Do note that this scheme has a lot of variants but here we are going to work wit
 
 The set of public and private keys is generated as follows:
 
-1. 32 random numbers are generated where each number is 256 bits. These are the private keys - `[private[0], private[1], ..., private[31]`]. 
+1. 32 random strings are generated where each string has a size of 32 bytes (256 bits). These are the private keys - `[private[0], private[1], ..., private[31]`]. 
 2. To generate the set of public keys, each of the private keys generated from the last step is hashed 256 times - `[public[0], public[1], ..., public[31]]`. That is, $public_i = H^{256}(private_i)$. The hash function `H` is generally chosen to be `sha256`. 
 
 ![Key generation](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/dice24/kgw.svg?raw=true)
@@ -128,7 +128,7 @@ The program flow is as follows:
 - The server signs $m_1$ and returns $sig_1$. 
 - We must provide another message $m_2$  and it's signature $sig_2$ so that $sig_2 = sig_1$. 
 - If the above condition holds, we are given the flag.
-- Neither the `private` nor the `public` is key is revealed.
+- Neither the `private` nor the `public` key is revealed.
 
 Our job is to find another message $m_2$, whose signature $sig_2$ can be forged from known signature $sig_1$.
 
