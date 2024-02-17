@@ -558,51 +558,52 @@ But the problem with this idea is that we have to use at least 3 flavors to use 
 We will leak the `p`, `a`, and `c` step-by-step. Let flavor_map = $[X_1, X_2, X_3, X_4, X_5, X_6]$.
 
 The initial state of the bowls $[b_1, b_2, b_3]$ is:
-$$\underbrace{0} \ \ \underbrace{0}  \ \ \underbrace{0} $$
+
+$$\underbrace{0}\_{b_1} \ \ \underbrace{0}\_{b_2} \ \ \underbrace{0}\_{b_3}$$
 
 ### Recovering `a`
 * move $X_2$ to $b_1$ 
-$$\underbrace{X_2} \ \ \underbrace{0} \ \ \underbrace{0} $$
+$$\underbrace{X_2}\_{b_1} \ \ \underbrace{0}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 * move $X_3$ to $b_2$
-$$\underbrace{X_2} \ \ \underbrace{X_3} \ \ \underbrace{0} $$
+$$\underbrace{X_2}\_{b_1} \ \ \underbrace{X_3}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 * subtract $b_2$ from $b_1$
-$$\underbrace{X_2 - X_3} \ \ \underbrace{0} \ \ \underbrace{0} $$
+$$\underbrace{X_2 - X_3}\_{b_1} \ \ \underbrace{0}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 * move $X_1$ to $b_2$
-$$\underbrace{X_2 - X_3} \ \ \underbrace{X_1} \ \ \underbrace{0} $$
+$$\underbrace{X_2 - X_3}\_{b_1} \ \ \underbrace{X_1}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 * move $X_2$ to $b_3$
-$$\underbrace{X_2 - X_3} \ \ \underbrace{X_1} \ \ \underbrace{X_2} $$
+$$\underbrace{X_2 - X_3}\_{b_1} \ \ \underbrace{X_1}\_{b_2} \ \ \underbrace{X_2}\_{b_3} $$
 * subtract $b_3$ from $b_2$
-$$\underbrace{X_2 - X_3} \ \ \underbrace{X_1 - X_2} \ \ \underbrace{0} $$
+$$\underbrace{X_2 - X_3}\_{b_1} \ \ \underbrace{X_1 - X_2}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 * divide $b_1$ by $b_2$
-$$\underbrace{\frac{X_2 - X_3}{X_1 - X_2} \mod\ p} \ \ \underbrace{0} \ \ \underbrace{0} $$
+$$\underbrace{\frac{X_2 - X_3}{X_1 - X_2} \mod\ p}\_{b_1} \ \ \underbrace{0}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 
 Bowl 1 now contains the value of `a`. Since we have used 3 flavors, this is unique enough to use `finish bowl`. The signature will be the value of `a`. 
 
 ### Recovering `c`
 Since we have already used $X_1, X_2, X_3$, using them again won't contribute anything to uniqueness. So we are going to use $X_4, X_5, X_6$ instead to recover `c`.
 * move $X_5$ to $b_1$ 
-$$\underbrace{X_5} \ \ \underbrace{0} \ \ \underbrace{0} $$
+$$\underbrace{X_5}\_{b_1} \ \ \underbrace{0}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 * move $X_6$ to $b_2$
-$$\underbrace{X_5} \ \ \underbrace{X_6} \ \ \underbrace{0} $$
+$$\underbrace{X_5}\_{b_1} \ \ \underbrace{X_6}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 * subtract $b_2$ from $b_1$
-$$\underbrace{X_5 - X_6} \ \ \underbrace{0} \ \ \underbrace{0} $$
+$$\underbrace{X_5 - X_6}\_{b_1} \ \ \underbrace{0}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 * move $X_4$ to $b_2$
-$$\underbrace{X_5 - X_6} \ \ \underbrace{X_4} \ \ \underbrace{0} $$
+$$\underbrace{X_5 - X_6}\_{b_1} \ \ \underbrace{X_4}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 * move $X_5$ to $b_3$
-$$\underbrace{X_5 - X_6} \ \ \underbrace{X_4} \ \ \underbrace{X_5} $$
+$$\underbrace{X_5 - X_6}\_{b_1} \ \ \underbrace{X_4}\_{b_2} \ \ \underbrace{X_5}\_{b_3} $$
 * subtract $b_3$ from $b_2$
-$$\underbrace{X_5 - X_6} \ \ \underbrace{X_4 - X_5} \ \ \underbrace{0} $$
+$$\underbrace{X_5 - X_6}\_{b_1} \ \ \underbrace{X_4 - X_5}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
 * divide $b_1$ by $b_2$
-$$\underbrace{\frac{X_5 - X_6}{X_4 - X_5} \mod\ p} \ \ \underbrace{0} \ \ \underbrace{0} $$
-$$\underbrace{a} \ \ \underbrace{0} \ \ \underbrace{0}$$
+$$\underbrace{\frac{X_5 - X_6}{X_4 - X_5} \mod\ p}\_{b_1} \ \ \underbrace{0}\_{b_2} \ \ \underbrace{0}\_{b_3} $$
+$$\underbrace{a}\_{b_1} \ \ \underbrace{0}\_{b_2} \ \ \underbrace{0}\_{b_3}$$
 * move $X_4$ to $b_2$
-$$\underbrace{a} \ \ \underbrace{X_4} \ \ \underbrace{0}$$
+$$\underbrace{a}\_{b_1} \ \ \underbrace{X_4}\_{b_2} \ \ \underbrace{0}\_{b_3}$$
 * multiply $b_2$ with $b_1$
-$$\underbrace{0} \ \ \underbrace{aX_4} \ \ \underbrace{0}$$
+$$\underbrace{0}\_{b_1} \ \ \underbrace{aX_4}\_{b_2} \ \ \underbrace{0}\_{b_3}$$
 * move $X_5$ to $b_1$
-$$\underbrace{X_5} \ \ \underbrace{aX_4} \ \ \underbrace{0}$$
+$$\underbrace{X_5}\_{b_1} \ \ \underbrace{aX_4}\_{b_2} \ \ \underbrace{0}\_{b_3}$$
 * subtract $b_2$ from $b_1$
-$$\underbrace{X_5 - aX_4} \ \ \underbrace{0} \ \ \underbrace{0}$$
+$$\underbrace{X_5 - aX_4}\_{b_1} \ \ \underbrace{0}\_{b_2} \ \ \underbrace{0}\_{b_3}$$
 
 So bowl 1 now has `c`. Using `finish bowl` will give `c` as the signature.
 
@@ -621,7 +622,7 @@ sign = flavors[1337]
 ## Retrieving the flag
 
 Since we have recovered the target signature, we send it to the verify function using `Option 3`. As a recipe, we send `[[1337,0]]`. Then after the simulation is done in the verify function, the state of the 3 bowls will be:
-$$\underbrace{private[1337]} \ \ \underbrace{0} \ \ \underbrace{0}$$
+$$\underbrace{private[1337]}\_{b_1} \ \ \underbrace{0}\_{b_2} \ \ \underbrace{0}\_{b_3}$$
 The sum of the 3 bowls will hence be, `private[1337]` which is what we need to recover the flag.
 
 > Flag: **amateursCTF{bruh_why_would_you_use_lcg_for_signature}**
