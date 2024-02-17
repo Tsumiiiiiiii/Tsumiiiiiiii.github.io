@@ -110,18 +110,23 @@ Lastly, it must be checked whether the signature obtained is valid or not.
 2.  For each `V[i]`, we check if `V[i] == public[i]`. If this holds, that particular signature is valid.
 ![Sign verify](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/dice24/svw.svg?raw=true)
 
-Why does this work? 
+Why does this work? Because
 
 $$
-\begin{aligned} V_i &= H^{N_i}(sign_i) \\\\ &= H^{N_i}(H^{256-N_i}(private_i)) \\\\ &= H^{256}(private_i) \\\\ &= public_i \end{aligned}
+\begin{aligned} V_i &= H^{N_i}(sign_i) \\\\ 
+&= H^{N_i}(H^{256-N_i}(private_i)) \\\\ 
+&= H^{256}(private_i) \\\\ 
+&= public_i \end{aligned}
 $$
+
+And so if the signature is correct, the relation proved above must hold.
 
 ## The given problem
 
 The program flow is as follows:
 - We provide a message $m_1$.
-- The server signs $m1$ and returns $sig_1$. 
-- We must provide another message $m2$  and it's signature $sig_2$ so that $sig_2 = sig_1$. 
+- The server signs $m_1$ and returns $sig_1$. 
+- We must provide another message $m_2$  and it's signature $sig_2$ so that $sig_2 = sig_1$. 
 - If the above condition holds, we are given the flag.
 - Neither the `private` nor the `public` is key is revealed.
 
@@ -139,7 +144,7 @@ def sign(self, msg):
 
 As the first message $m_1$, we send `bbb...b` (32 b's). Since the ascii value of `b` is $98$, while calculating the sign each secret key will be hashed $256-98=158$ times. So the $sig_1$ array is going to contain $sig1_i=H^{158}(sk_i)$ where `sk[i]` is the private or secret key. 
 
-For the second message $m_2$, if we send `aaa...a` (32 a's) we can easily predict what $sig_2$ is going to be. `b` has an ascii value of $97$ and so each secret key is hashed $256-97=159$ times. $sig2_i=H^{159}(sk_i)$. 
+For the second message $m_2$, if we send `aaa...a` (32 a's) we can easily predict what $sig_2$ is going to be. `a` has an ascii value of $97$ and so each secret key is hashed $256-97=159$ times. $sig2_i=H^{159}(sk_i)$. 
 
 How do we calculate $sig_2$ from $sig_1$? Notice that
 
@@ -147,7 +152,7 @@ $$
 \begin{aligned} sig2_i&=H^{159}(ski_i) \\\\ &= H(H^{158}(sk_i)) \\\\ &= H(sig1_i) \end{aligned}
 $$
 
-Hashing each $sig_1$ chunk once gives us chunks of $sig_2$. Thus $sig_2$ can easily be forged using the values of $sig_1$ and the problem is solved. In fact, for any character $c_1$ as $m_1$, if we send $c_2$ for $m_2$ (where $c_2>c_1$), the signature $sig_2$ can be formed. We simply hash $sig_1$ a total of $c_1-c_2$ times to get $sig_2$.  
+Hashing each $sig_1$ chunk once gives us chunks of $sig_2$. Thus $sig_2$ can easily be forged using the values of $sig_1$ and the problem is solved. In fact, for any character $c_1$ as $m_1$, if we send $c_2$ for $m_2$ (where $c_2>c_1$), the signature $sig_2$ can be formed. We simply hash $sig_1$ a total of $c_1-c_2$ times to get $sig_2$. $sig_2=H^{c_1-c_2}(sig_1)$.
 
 ## Tackling the original problem
 
