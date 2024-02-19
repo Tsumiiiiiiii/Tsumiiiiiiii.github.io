@@ -25,7 +25,7 @@ Writeup for the rps-casino Cryptography challenge.
 <!--more-->
 
 
-This problem costed me a good 20 hours because of some stupid `z3` gimmick. I think if not for that, could have solved this problem in 2 hours at max, which would have let me to dedicate more time for a 3rd crypto solve smh :frowning. 
+This problem costed me a good 20 hours because of some stupid `z3` gimmick. I think if not for that, could have solved this problem in 2 hours at max, which would have let me to dedicate more time for a 3rd crypto solve smh 😫. 
 
 This is the program script:
 
