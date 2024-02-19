@@ -115,7 +115,7 @@ $$
 s_{k} \\\ s_{k+1} \\\ s_{k+2} \\\ \vdots \\\ s_{k+n-1} 
 \end{pmatrix}
 }\_{next \ states}
-= \ \
+= \\
 \underbrace{
 \begin{pmatrix}
   0       & 1   & 0   & \cdots  & 0  \\\
@@ -155,7 +155,7 @@ $$
 \begin{pmatrix}
 s_{k} \\\ s_{k+1} \\\ s_{k+2} \\\ \vdots \\\ s_{k+7} 
 \end{pmatrix}
-= \ \
+= \\
 \begin{pmatrix}
   0       & 1   & 0   & \cdots  & 0  \\\
   0       & 0   & 1   & \cdots  & \vdots  \\\
@@ -166,7 +166,7 @@ s_{k} \\\ s_{k+1} \\\ s_{k+2} \\\ \vdots \\\ s_{k+7}
 \begin{pmatrix} 
 s_{k - 1} \\\ s_{k} \\\ s_{k+1} \\\ \vdots \\\ s_{k+6} 
 \end{pmatrix}
-= \ \
+= \\
 \begin{pmatrix}
   0       & 1   & 0   & \cdots  & 0  \\\
   0       & 0   & 1   & \cdots  & \vdots  \\\
@@ -183,7 +183,7 @@ $$
 \begin{pmatrix}
 c_0 & c_1 & c_2 & c_3 & c_4 & c_5 & c_6 & c_7
 \end{pmatrix}
-= \ \
+= \\
 \begin{pmatrix}
 0 & 1  & 1 & 1 & 0 & 0 & 0 & 1
 \end{pmatrix}
@@ -195,7 +195,7 @@ $$
 \begin{pmatrix}
 s_{99784} \\\ s_{99785} \\\ s_{99786} \\\ \vdots \\\ s_{99791} 
 \end{pmatrix}
-= \ \
+= \\
 T ^ {99784}
 \cdot
 \begin{pmatrix} 
