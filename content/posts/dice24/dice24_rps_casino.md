@@ -228,8 +228,7 @@ s_k\+s_{k+1}\cdot2+s_{k+2}\cdot4+s_{k+3}\cdot8 \\\
 s_{k+4}+s_{k+5}\cdot2+s_{k+6}\cdot4+s_{k+7}\cdot8  \\\ 
 s_{k+8}+s_{k+9}\cdot2+s_{k+10}\cdot4+s_{k+11}\cdot8  \\\ 
 s_{k+12}+s_{k+13}\cdot2+s_{k+14}\cdot4+s_{k+15}\cdot8 \\\ 0 \\\ \vdots \\\ 0 
-\end{pmatrix} \\\
-& = 
+\end{pmatrix} \\\ & = 
 \underbrace{
 \begin{pmatrix}
   1       & 2   & 4 & 8 & 0 & 0 & 0 & 0 & \cdots  & 0  \\\
@@ -238,9 +237,7 @@ s_{k+12}+s_{k+13}\cdot2+s_{k+14}\cdot4+s_{k+15}\cdot8 \\\ 0 \\\ \vdots \\\ 0
   0       & 0  & 0 & 0 & 0 & 0 & 0 & 0   & \cdots  & 0  \\\
 \end{pmatrix}
 }\_{first \ 4 \ rows \ contain \ the \ block \ (1 \ 2 \ 4 \ 8\ ) \ at \ different  \ positions}
-\cdot
-T^k
-\cdot
+\cdot T^k \cdot
 \begin{pmatrix} 
 s_{0} \\\ s_{1} \\\ s_{2} \\\ \vdots \\\ s_{63} 
 \end{pmatrix}
