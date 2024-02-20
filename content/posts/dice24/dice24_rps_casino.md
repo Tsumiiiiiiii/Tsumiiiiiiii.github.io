@@ -220,7 +220,7 @@ This entire operation steps can be represented using matrix operations as follow
 $$
 \begin{aligned}
 \begin{pmatrix}
-move_k  \\\ move_{k+1}   \\\ move_{k+2} \\\ 0 \\\ \vdots  \\\ 0
+move_k  \\\ move_{k+1}   \\\ move_{k+2} \\\ move_{k+3} \\\ 0 \\\ \vdots  \\\ 0
 \end{pmatrix}
 & =
 \begin{pmatrix}
@@ -235,7 +235,7 @@ s_{k+12}+s_{k+13}\cdot2+s_{k+14}\cdot4+s_{k+15}\cdot8 \\\ 0 \\\ \vdots \\\ 0
   1       & 2   & 4 & 8 & 0 & 0 & 0 & 0 & \cdots  & 0  \\\
   0       & 0   & 0   & 0  & 1       & 2   & 4 & 8 & \cdots & 0  \\\
   \vdots  & \vdots  & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots  & \ddots  & 0 \\\
-  c_0       & c_1   & c_2 & c_3 & c_4 & c_5 & c_6 & c_7   & \cdots  & c_{63}  \\\
+  0       & 0  & 0 & 0 & 0 & 0 & 0 & 0   & \cdots  & 0  \\\
 \end{pmatrix}
 }\_{first \ 4 \ rows \ contain \ the \ block \ (1 \ 2 \ 4 \ 8\ ) \ at \ different  \ positions}
 \cdot
