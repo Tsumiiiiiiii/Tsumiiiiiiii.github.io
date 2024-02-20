@@ -210,7 +210,8 @@ Given is a 64 bit LFSR with 3 tap positions. Every time a game is played, **4 st
 $$
 \begin{aligned}
 move \ &= \ (state \ \ \\& \ \ 15) \ \  &mod \ \ 3 \\\
-&=  ((s_3 \ll 3) + (s_2 \ll 2) + (s_1 \ll 1) + s_0 ) \ \ &mod \ \ 3
+&=  ((s_3 \ll 3) + (s_2 \ll 2) + (s_1 \ll 1) + s_0 ) \ \ &mod \ \ 3 \\\
+&= (s_3\cdot8 + s_2\cdot4 + s_1\cdot2 + s_0) \ \ &mod \ \ 3
 \end{aligned}
 $$
 
