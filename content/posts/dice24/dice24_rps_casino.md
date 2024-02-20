@@ -218,14 +218,18 @@ $$
 This entire operation steps can be represented using matrix operations as follows:
 
 $$
+\begin{aligned}
 \begin{pmatrix}
-\underbrace{
-s_k\+s_{k+1}\cdot2+s_{k+2}\cdot4+s_{k+3}\cdot8}\_{move_k} \\\ \underbrace{
-s_{k+4}+s_{k+5}\cdot2+s_{k+6}\cdot4+s_{k+7}\cdot8}\_{move_{k+1}}  \\\ \underbrace{
-s_{k+8}+s_{k+9}\cdot2+s_{k+10}\cdot4+s_{k+11}\cdot8}\_{move_{k+2}}  \\\ \underbrace{
-s_{k+12}+s_{k+13}\cdot2+s_{k+14}\cdot4+s_{k+15}\cdot8}\_{move_{k+3}} \\\ 0 \\\ \vdots \\\ 0 
+move_k  \\\ move_{k+1}   \\\ move_{k+2} \\\ 0 \\\ \vdots  \\\ 0
 \end{pmatrix}
-= \\
+& =
+\begin{pmatrix}
+s_k\+s_{k+1}\cdot2+s_{k+2}\cdot4+s_{k+3}\cdot8 \\\ 
+s_{k+4}+s_{k+5}\cdot2+s_{k+6}\cdot4+s_{k+7}\cdot8  \\\ 
+s_{k+8}+s_{k+9}\cdot2+s_{k+10}\cdot4+s_{k+11}\cdot8  \\\ 
+s_{k+12}+s_{k+13}\cdot2+s_{k+14}\cdot4+s_{k+15}\cdot8 \\\ 0 \\\ \vdots \\\ 0 
+\end{pmatrix} \\\
+& = 
 \underbrace{
 \begin{pmatrix}
   1       & 2   & 4 & 8 & 0 & 0 & 0 & 0 & \cdots  & 0  \\\
@@ -241,6 +245,7 @@ T^k
 s_{0} \\\ s_{1} \\\ s_{2} \\\ \vdots \\\ s_{63} 
 \end{pmatrix}
 \ mod \ \ 3
+\end{aligned}
 $$
 
 All operations previously were on $\mathbb{Z}/\mathbb{Z}2$. It now shifts to $\mathbb{Z}/\mathbb{Z}16$ and then to $\mathbb{Z}/\mathbb{Z}3$. This last conversion is what complicates everything. 
