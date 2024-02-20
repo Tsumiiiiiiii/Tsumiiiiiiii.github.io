@@ -219,10 +219,10 @@ This entire operation steps can be represented using matrix operations as follow
 $$
 \begin{pmatrix}
 \underbrace{
-s_k\cdot8+s_{k+1}\cdot4+s_{k+2}\cdot2+s_{k+3}}\_{move_k} \\\ \underbrace{
-s_{k+4}\cdot8+s_{k+5}\cdot4+s_{k+6}\cdot2+s_{k+7}}\_{move_{k+1}}  \\\ \underbrace{
-s_{k+8}\cdot8+s_{k+9}\cdot4+s_{k+10}\cdot2+s_{k+11}}\_{move_{k+2}}  \\\ \underbrace{
-s_{k+12}\cdot8+s_{k+13}\cdot4+s_{k+14}\cdot2+s_{k+15}}\_{move_{k+3}} \\\ 0 \\\ \vdots \\\ 0 
+s_k\+s_{k+1}\cdot2+s_{k+2}\cdot4+s_{k+3}\cdot8}\_{move_k} \\\ \underbrace{
+s_{k+4}+s_{k+5}\cdot2+s_{k+6}\cdot4+s_{k+7}\cdot8}\_{move_{k+1}}  \\\ \underbrace{
+s_{k+8}+s_{k+9}\cdot2+s_{k+10}\cdot4+s_{k+11}\cdot8}\_{move_{k+2}}  \\\ \underbrace{
+s_{k+12}+s_{k+13}\cdot2+s_{k+14}\cdot4+s_{k+15}\cdot8}\_{move_{k+3}} \\\ 0 \\\ \vdots \\\ 0 
 \end{pmatrix}
 = \\
 \underbrace{
