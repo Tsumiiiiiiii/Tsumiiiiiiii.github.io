@@ -87,8 +87,8 @@ else:
 
 The problem flow is as follows:
 
-- We can play 56 rounds of `rock-paper-scissors`against the server. What ever the result is in those rounds does not matter. 
-- Then we have to play 50 rounds more and we have to win all of them. If we manage to win them all, `flag` will be printed.
+- We have to play 56 rounds of `rock-paper-scissors` against the server. Whatever the result is in those rounds, it does not matter. 
+- Then we have to play 50 rounds more and win all of them. If we are successful, `flag` will be printed.
 - In both these steps, the computer's move is generated through a function called `LFSR`. 
 
 ## Understanding `LFSR`
@@ -96,12 +96,12 @@ The problem flow is as follows:
 `Linear Feedback Shift Register` or in short `LFSR` are random number generators where the output bits depend on some linear combinations of the previous bits. 
 ![lfsr](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/dice24/lfsr_pic.svg?raw=true)
 Let us try to understand how an LCG works with the help of the above figure. 
-- The bits $s_0s_1...s_7 \ \ \forall s_i \in \{0, 1\}$ represent the input bits or the $seed$ or the `initial state` of the LFSR. If  $seed$ is somehow compromised, the whole secrecy of the LFSR is lost. 
+- The bits $s_0s_1...s_7 \ \ \forall s_i \in \{0, 1\}$ represent the $seed$ or the `initial state` of the LFSR. If  $seed$ is somehow compromised, the whole secrecy of the LFSR is lost. 
 - Since there are 8 initial bits, this is a $8 \ bit$ LFSR. 
-- As previously mentioned, the next bits ($s_8s_{9}...s_n...$) depends on some linear combination of the previous bits. 
+- As previously mentioned, the next bits ($s_8s_{9}...s_n...$) depend on some linear combination of the previous bits. 
 - $XOR$ is the linear operation here(actually $xor$ is not linear in terms of traditional math, but under some specific circumstances, it does become linear which we will see in a bit).  $s_8 = s_6 \ \oplus \ s_5 \ \oplus s_4 \ \oplus s_0$
-- Notice how $s_8$ depends only $s_6, s_5, s_4, s_0$ and not all of the state bits? Those bits on whom the next state depends on are called **taps**. Taps are a key element of any LFSR. Choosing mathematically secured taps is very important to ensure the security of LFSRs. Let us generalize the taps for the above LFSR: $s_{n} = s_{n-2} \ \oplus \ s_{n-3} \ \oplus s_{n-4} \ \oplus s_{n-8} \ \ \ \forall n > 7$. 
-- There is a better representation of taps, which helps us model LFSR mathematically in a very convenient manner. Remember how I said xor is linear under specific circumstances? It is linear under addition mod 2. That is, xor is denoted simply as $b_0 \oplus b_1 = (b_0+b_1) \mod 2$, where $b_0,b_1$ are bits and so can take on any value between $\{0, 1\}$. We can thus represent the above tap equation with $s_{n} = s_{n-2} + s_{n-3} + s_{n-4} + s_{n-8} \mod 2$. Under $\mathbb{Z}/\mathbb{Z}2$ this is known as the **Feedback polynomial** which for the given LFSR is $1+x^4+x^5+x^6+x^8$.  
+- Notice how $s_8$ depends only $s_6, s_5, s_4, s_0$ and not all of the state bits? Those bits on whom the next state depends are called **taps**. Taps are a key element of any LFSR. Choosing mathematically secured taps is very important to ensure the security of LFSRs. Let us generalize the taps for the above LFSR: $s_{n} = s_{n-2} \ \oplus \ s_{n-3} \ \oplus s_{n-4} \ \oplus s_{n-8} \ \ \ \forall n > 7$. 
+- There is a better representation of taps, which helps us model LFSR mathematically in a very convenient manner. Remember how I said xor is linear under specific circumstances? It is linear under addition mod 2. That is, xor is denoted simply as $b_0 \oplus b_1 = (b_0+b_1) \mod 2$, where $b_i \in \{0, 1\}$. We can thus represent the above tap equation with $s_{n} = s_{n-2} + s_{n-3} + s_{n-4} + s_{n-8} \mod 2$. Under $\mathbb{Z}/\mathbb{Z}2$ this is known as the **Feedback polynomial** which for the given LFSR is $1+x^4+x^5+x^6+x^8$.  
 
 ### LFSR as a matrix
 
@@ -147,7 +147,7 @@ s_{0} \\\ s_{1} \\\ s_{2} \\\ \vdots \\\ s_{n-1}
 }\_{initial \ states}
 $$
 
-This is the generalized representation of a $n \ bit$ LFSR where $a_k, a_{k+1}, a_{k+2}, ...$ are state bits. The square matrix is known as `companion matrix`. This is equivalent to a `transition matrix` and is fixed for a particular LFSR. The $c_0, c_1, c_2, ..., c_{n-1}$ in companion matrix represents the tap bits. 
+This is the generalized representation of a $n \ bit$ LFSR where $a_k, a_{k+1}, a_{k+2}, ...$ are state bits. The square matrix is known as `companion matrix`. This is equivalent to a `transition matrix` and is fixed for a particular LFSR. The $c_0, c_1, c_2, ..., c_{n-1}$ in the companion matrix represents the tap bits. 
 
 What would these matrices look like for the given LFSR?
 
@@ -205,7 +205,7 @@ $$
 
 ## Tackling the given problem
 
-Given is a 64 bit LFSR with 3 tap positions. Every time a game is played, **4 states of the LFSR is combined and returned** which is later used after modulo by 3. Simply put, the 4 lower bits of the LFSR is used modulo 3 as the opponent's move. 
+Given is a 64-bit LFSR with 3 tap positions. Every time a game is played, **4 states of the LFSR is combined and returned** which is later used after modulo by 3. Simply put, the 4 lower bits of the LFSR are used modulo 3 as the opponent's move. 
 
 $$
 \begin{aligned}
@@ -252,13 +252,13 @@ All operations previously were on $\mathbb{Z}/\mathbb{Z}2$. It now shifts to $\m
 
 ### Initial approach (didn't work)
 
-My first thought was to convert this to a graph problem. We can do a `dfs` where nodes represents the moves and edges represent the transition operations from one move to another. We can prune the branches based on modulo values we received from the initial 56 games. 
+My first thought was to convert this to a graph problem. We can do a `dfs` where nodes represent the moves and edges represent the transition operations from one move to another. We can prune the branches based on modulo values we received from the initial 56 games. 
 
 The problem with this approach was that it gave too many valid $seeds$. I could not figure out a way to eliminate them and keep a single seed. 
 
 ### Correct approach
 
-The moves are simply constraints. We can use a constraint solver which would give valid configurations that can satisfy those constraints. A very popular constraint solver is `z3`. We can represent the `state` as a `bitvector` of 64 bits and add all the constraints. 
+The moves are simply constraints. We can use a constraint solver which would give valid configurations that can satisfy those constraints. A very popular constraint solver is `z3`. We can represent the `state` as a `bit-vector` of 64 bits and add all the constraints. 
 
 But navigating `z3` is ... a bit *sophisticated*. I had to go through a lot of trial and error to make it work. 
 
