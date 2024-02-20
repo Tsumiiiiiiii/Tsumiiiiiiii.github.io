@@ -96,12 +96,12 @@ The problem flow is as follows:
 `Linear Feedback Shift Register` or in short `LFSR` are random number generators where the output bits depend on some linear combinations of the previous bits. 
 ![lfsr](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/dice24/lfsr_pic.svg?raw=true)
 Let us try to understand how an LCG works with the help of the above figure. 
-- The bits $s_0s_1...s_7 \ \ \forall s_i \in \{0, 1\}$ represent the $seed$ or the `initial state` of the LFSR. If  $seed$ is somehow compromised, the whole secrecy of the LFSR is lost. 
+- The bits $s_0s_1...s_7 \ \ \forall s_i \in \\{0, 1\\}$ represent the $seed$ or the `initial state` of the LFSR. If  $seed$ is somehow compromised, the whole secrecy of the LFSR is lost. 
 - Since there are 8 initial bits, this is a $8 \ bit$ LFSR. 
 - As previously mentioned, the next bits ($s_8s_{9}...s_n...$) depend on some linear combination of the previous bits. 
 - $XOR$ is the linear operation here(actually $xor$ is not linear in terms of traditional math, but under some specific circumstances, it does become linear which we will see in a bit).  $s_8 = s_6 \ \oplus \ s_5 \ \oplus s_4 \ \oplus s_0$
 - Notice how $s_8$ depends only $s_6, s_5, s_4, s_0$ and not all of the state bits? Those bits on whom the next state depends are called **taps**. Taps are a key element of any LFSR. Choosing mathematically secured taps is very important to ensure the security of LFSRs. Let us generalize the taps for the above LFSR: $s_{n} = s_{n-2} \ \oplus \ s_{n-3} \ \oplus s_{n-4} \ \oplus s_{n-8} \ \ \ \forall n > 7$. 
-- There is a better representation of taps, which helps us model LFSR mathematically in a very convenient manner. Remember how I said xor is linear under specific circumstances? It is linear under addition mod 2. That is, xor is denoted simply as $b_0 \oplus b_1 = (b_0+b_1) \mod 2$, where $b_i \in \{0, 1\}$. We can thus represent the above tap equation with $s_{n} = s_{n-2} + s_{n-3} + s_{n-4} + s_{n-8} \mod 2$. Under $\mathbb{Z}/\mathbb{Z}2$ this is known as the **Feedback polynomial** which for the given LFSR is $1+x^4+x^5+x^6+x^8$.  
+- There is a better representation of taps, which helps us model LFSR mathematically in a very convenient manner. Remember how I said xor is linear under specific circumstances? It is linear under addition mod 2. That is, xor is denoted simply as $b_0 \oplus b_1 = (b_0+b_1) \mod 2$, where $b_i \in \\{0, 1\\}$. We can thus represent the above tap equation with $s_{n} = s_{n-2} + s_{n-3} + s_{n-4} + s_{n-8} \mod 2$. Under $\mathbb{Z}/\mathbb{Z}2$ this is known as the **Feedback polynomial** which for the given LFSR is $1+x^4+x^5+x^6+x^8$.  
 
 ### LFSR as a matrix
 
