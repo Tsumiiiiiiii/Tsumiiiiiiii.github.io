@@ -67,6 +67,8 @@ print(m2)
 ```
 > Flag: **uiuctf{burn_3ach_k3y_aft3r_us1ng_1t}**
 
+---
+
 ## At Home
 
 {{< admonition note "Challenge Information" >}}
@@ -90,6 +92,8 @@ flag  = (c * pow(e, -1, n)) % n
 flag = l2b(flag)
 ```
 > Flag: **uiuctf{W3_hav3_R5A_@_h0m3}**
+
+---
 
 ## Group project
 
@@ -139,8 +143,13 @@ def main():
 We have to provide such a value of `k`, for which we know the value of `S`. 
 
 What happens if `k = 0` ? Let's see the math
-$$Bk = B ^ 0 \mod\ p \equiv\ 1 \mod\ p$$
-$$S = 1 ^ a \mod\ p \equiv\ 1 \mod\ p$$
+
+$$
+\begin{aligned}
+Bk & \equiv B ^ 0  & \equiv 1 & \mod p \\\\
+S & \equiv 1 ^ a   & \equiv 1 & \mod p
+\end{aligned}
+$$
 
 So we now know `S`. From here on it's trivial to recover the key and hence get the flag.
 
@@ -174,6 +183,8 @@ print(flag)
 ```
 > Flag: **uiuctf{brut3f0rc3_a1n't_s0_b4d_aft3r_all!!11!!}**
 
+---
+
 ## Group projection
 
 {{< admonition note "Challenge Information" >}}
@@ -194,18 +205,28 @@ if k == 1 or k == p - 1 or k == (p - 1) // 2 or k <= 0 or k >= p:
 We can't set `k = 0` anymore. What can we do then? Is there a way to force `S` to be 1 like before?
 
 Since `p` is a prime, we could have set `k = p - 1` and `S` would have been 1, due to Fermat's little theorem.
-$$Bk = B^{p-1} \mod\ p \equiv\ 1 \mod\ p$$
-$$S = 1 ^ a \mod\ p \equiv\ 1 \mod\ p$$ 
+
+$$
+\begin{aligned}
+Bk & \equiv B^{p-1} & \equiv 1 \mod p \\\
+S \& equiv 1 ^ a & \equiv 1 \mod p
+\end{aligned}
+$$ 
 
 But we can't set `k = p - 1` due to constraints, sadly. What if we send `k =  (p - 1) / 4` instead?
 
 Now, when such a case comes so that $p - 1 \mod\ 4 \equiv\ 0$ and also $a*b \mod\ 4 \equiv\ 0$, what happens?
 
 Since `a*b` is a multiple of 4, we can write it as $a * b = 4*i$ for some integer `i`.
-$$S \equiv\ g^{a * b * k} \mod\ p$$
-$$S \equiv\ g^{4i * \frac{p-1}{4}} \mod\ p$$
-$$S \equiv\ ({g^{p-1}})^i \mod\ p$$
-$$S \equiv\ 1^i \mod\ p \equiv\ 1 \mod\ p$$
+
+$$
+\begin{aligned}
+S & \equiv\ g^{a * b * k} & \mod p \\\
+S & \equiv\ g^{4i * \frac{p-1}{4}} & \mod p \\\
+S & \equiv\ ({g^{p-1}})^i & \mod p \\\
+S & \equiv\ 1^i \equiv\ 1 & \mod p
+\end{aligned}
+$$
 
 Yep, the math adds up and we have `S = 1`.
 
@@ -258,6 +279,8 @@ while attempt():
 After running around a minute or so, we get the flag.
 
 > Flag: **uiuctf{brut3f0rc3_w0rk3d_b3f0r3_but_n0t_n0w!!11!!!}**
+
+---
 
 ## Morphing Time
 
@@ -354,17 +377,27 @@ def main():
 ```
 
 This is the **Elgamal Cryptosystem**, which is **homomorphic** under multiplication. We have,
-$$c_1 = g^k \mod\ p$$
-$$c_2 = g^{ak} * m \mod\ p$$
+
+$$
+\begin{align}
+c_1 & = g^k & \mod p \\\
+c_2 & = g^{ak} * m & \mod p
+\end{align}
+$$
 
 To take advantage of the homomorphic property, we send `c1_ = c1` and `c2_ = c2`.
 
 So now we have,
-$$c_1 = g^{2k} \mod\ p$$
-$$c_2 = g^{2ak} * m^2 \mod\ p$$
+
+$$
+\begin{aligned}
+c_1 & = g^{2k} & \mod p \\\
+c_2 & = g^{2ak} * m^2 & \mod p
+\end{aligned}
+$$
 
 And they decrypt to,
-$$({c_1 ^ a}) ^ {-1} * c_2 \mod\ p \equiv\ g^{-2ak} * g^{2ak} * m^2 \mod\ p \equiv\ m^2 \mod\ p$$
+$$({c_1 ^ a}) ^ {-1} * c_2  \equiv\ g^{-2ak} * g^{2ak} * m^2 \equiv\ m^2 \mod p$$
 
 This gives us the flag squared modulo p. To retrieve the flag, we can use **tonelli shanks** algorithm.
 
