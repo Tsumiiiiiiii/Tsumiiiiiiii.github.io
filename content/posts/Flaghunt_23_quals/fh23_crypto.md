@@ -182,19 +182,20 @@ $$ Y \ = \ X^2 \mod \ p$$
 
 where the value of Y and p is known. `tonelli shanks` is a very powerful algorithm which can solve such equations for us.  But first, let us manipulate the given equation into something simpler which can be solved directly using `tonelii shanks`. 
 
-$$ y \ = ax^2 + bx + c \mod p$$
-
-$$ \Rightarrow \frac{y}{a} \ = \ x^2 + \frac{b}{a}x + \frac{c}{a} \mod p$$
-
-$$ \Rightarrow \frac{y}{a} \ = \ x^2 + 2x\frac{b}{2a} + (\frac{b}{2a})^2 - (\frac{b}{2a})^2 + \frac{c}{a} \mod p$$
-
-$$ \Rightarrow \frac{y}{a} - \frac{c}{a} + (\frac{b}{2a})^2 \ = (x + \frac{b}{2a})^2 \mod p$$
+$$ 
+\begin{aligned}
+y &= ax^2 + bx + c & \mod p \\\\ \Rightarrow \frac{y}{a} \ &= \ x^2 + \frac{b}{a}x + \frac{c}{a} & \mod p \\\\ \Rightarrow \frac{y}{a} \ &= \ x^2 + 2x\frac{b}{2a} + (\frac{b}{2a})^2 - (\frac{b}{2a})^2 + \frac{c}{a} & \mod p \\\\ \Rightarrow \frac{y}{a} - \frac{c}{a} + (\frac{b}{2a})^2 \ &= (x + \frac{b}{2a})^2 & \mod p
+\end{aligned}
+$$
 
 The above equation is enough to work with now, where we can write
 
-$$ Y \ = \ \frac{y}{a} - \frac{c}{a} + (\frac{b}{2a})^2 \mod \ p $$
-
-$$ X \ = \  x + \frac{b}{2a} \mod p$$
+$$
+\begin{aligned}
+Y \ &= \ \frac{y}{a} - \frac{c}{a} + (\frac{b}{2a})^2 & \mod \ p \\\
+X \ &= \  x + \frac{b}{2a} & \mod p
+\end{aligned}
+$$
 
 **By the way, do note that all divisions shown here are modular multiplication done with inverses.**
 And so, we now have the form that was mentioned earlier
