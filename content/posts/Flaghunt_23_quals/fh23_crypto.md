@@ -192,7 +192,7 @@ The above equation is enough to work with now, where we can write
 
 $$
 \begin{aligned}
-Y \ &= \ \frac{y}{a} - \frac{c}{a} + (\frac{b}{2a})^2 & \mod \ p \\\
+Y \ &= \ \frac{y}{a} - \frac{c}{a} + (\frac{b}{2a})^2 & \mod p \\\
 X \ &= \  x + \frac{b}{2a} & \mod p
 \end{aligned}
 $$
