@@ -271,9 +271,22 @@ The problem with this approach was that it gave too many valid $seeds$. I could 
 
 ### Correct approach
 
-The moves are simply constraints. We can use a constraint solver which would give valid configurations that can satisfy those constraints. A very popular constraint solver is `z3`. We can represent the `state` as a `bit-vector` of 64 bits and add all the constraints. 
+Every move in the game can be represented as a constraint. We can represent the moves of the first 56 games as constraints and use a constraint solver which would give valid configurations to satisfy our constraints. A very popular constraint solver is `z3`. We can represent the `state` as a `bit-vector` of 64 bits and add all the constraints. 
 
-But navigating `z3` is ... a bit *sophisticated*. I had to go through a lot of trial and error to make it work. 
+$$
+\begin{aligned}
+{these \ are \ all \ constraints}
+\begin{cases}
+s_1 &\equiv 1 \mod 3 \\
+s_2 &\equiv 2 \mod 3 \\
+s_3 &\equiv 0 \mod 3 \\
+\vdots \\
+s_{56}  &\equiv 1 \mod 3
+\end{cases}
+\end{aligned}
+$$
+
+In my solution, I represented each bit as a variable. But navigating `z3` is ... a bit *sophisticated*. I had to go through a lot of trial and error to make it work. 
 
 ```python
 bits = [ BitVec('f_%s' % i, 4) for i in range(n - 1, -1, -1) ]
