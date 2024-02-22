@@ -252,6 +252,7 @@ All operations previously were on $\mathbb{Z}/\mathbb{Z}2$. It now shifts to $\m
 My first thought was to convert this to a graph problem. We can do a `dfs` where nodes represent the moves and edges represent the transition operations from one move to another. We can prune the branches based on modulo values we received from the initial 56 games. 
 
 {{< mermaid >}}
+%%{init: {'themeVariables': { 'edgeLabelBackground': '#121212'}}}%%
 flowchart TD;
   A("s₁") --->|0| B("s₂")
   A ---->|1| C("s₂")
