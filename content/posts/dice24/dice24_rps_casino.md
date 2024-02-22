@@ -280,7 +280,7 @@ $$
 s_1 &\equiv 1 \mod 3 \\\
 s_2 &\equiv 2 \mod 3 \\\
 s_3 &\equiv 0 \mod 3 \\\
-\vdots \\
+\vdots \\\
 s_{56}  &\equiv 1 \mod 3
 \end{cases}
 \end{aligned}
