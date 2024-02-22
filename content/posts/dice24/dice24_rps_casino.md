@@ -251,21 +251,22 @@ All operations previously were on $\mathbb{Z}/\mathbb{Z}2$. It now shifts to $\m
 
 My first thought was to convert this to a graph problem. We can do a `dfs` where nodes represent the moves and edges represent the transition operations from one move to another. We can prune the branches based on modulo values we received from the initial 56 games. 
 
-```mermaid
-flowchart TD;
-
-A(s1) -->|0| B(s2)
-A -->|1| C(s2)
-A -->|2| D(s2)
-A -.->  SK1(...)
-A -->|15| F(s2)
-C --> |0| G(s3)
-C --> |1| H(s3)
-C -.->  SK2(...)
-C --> |15| I(s3)
-I --> |0| J(s4)
-I -.-> SK3(...)
-I --> |15| K(s4)
+```
+{{< mermaid >}}
+graph TD;
+  A(s1) -->|0| B(s2)
+  A -->|1| C(s2)
+  A -->|2| D(s2)
+  A -.->  SK1(...)
+  A -->|15| F(s2)
+  C --> |0| G(s3)
+  C --> |1| H(s3)
+  C -.->  SK2(...)
+  C --> |15| I(s3)
+  I --> |0| J(s4)
+  I -.-> SK3(...)
+  I --> |15| K(s4)
+{{< /mermaid >}}
 ```
 
 The problem with this approach was that it gave too many valid $seeds$. I could not figure out a way to eliminate them and keep a single seed. 
