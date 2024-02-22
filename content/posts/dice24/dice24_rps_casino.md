@@ -253,7 +253,7 @@ My first thought was to convert this to a graph problem. We can do a `dfs` where
 
 {{< mermaid >}}
 flowchart TD;
-  A("$$s_1$$") -->|0| B("s₂")
+  A("s₁") -->|0| B("s₂")
   A -->|1| C("s₂")
   A -->|2| D("s₂")
   A -.->  SK1(...)
