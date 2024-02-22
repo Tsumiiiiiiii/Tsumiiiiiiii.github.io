@@ -253,7 +253,7 @@ My first thought was to convert this to a graph problem. We can do a `dfs` where
 
 {{< mermaid >}}
 flowchart TD;
-  A("$s_1$") -->|0| B("s₂")
+  A("$$s_1$$") -->|0| B("s₂")
   A -->|1| C("s₂")
   A -->|2| D("s₂")
   A -.->  SK1(...)
@@ -277,9 +277,9 @@ $$
 \begin{aligned}
 {these \ are \ all \ constraints}
 \begin{cases}
-s_1 &\equiv 1 \mod 3 \\
-s_2 &\equiv 2 \mod 3 \\
-s_3 &\equiv 0 \mod 3 \\
+s_1 &\equiv 1 \mod 3 \\\
+s_2 &\equiv 2 \mod 3 \\\
+s_3 &\equiv 0 \mod 3 \\\
 \vdots \\
 s_{56}  &\equiv 1 \mod 3
 \end{cases}
