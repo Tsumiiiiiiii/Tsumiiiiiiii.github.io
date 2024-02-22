@@ -253,18 +253,26 @@ My first thought was to convert this to a graph problem. We can do a `dfs` where
 
 {{< mermaid >}}
 flowchart TD;
-  A("s₁") --->|0| B("s₂")
-  A ---->|1| C("s₂")
-  A --->|2| D("s₂")
-  A -..->  SK1(...)
-  A --->|15| F("s₂")
-  C ---> |0| G("s₃")
-  C ---> |1| H("s₃")
-  C -..->  SK2(...)
-  C ----> |15| I("s₃")
-  I ---> |0| J("s₄")
-  I -..-> SK3(...)
-  I ---> |15| K("s₄")
+  A("s₁") -->|0| B("s₂")
+  A --->|1| C("s₂")
+  A -->|2| D("s₂")
+  A -->|15| F("s₂")
+  C --> |0| G("s₃")
+  C --> |1| H("s₃")
+  C ---> |15| I("s₃")
+  I --> |0| J("s₄")
+  I --> |15| K("s₄")
+  B -.->  SK4(...):::skip
+  D -.->  SK5(...):::skip
+  A -.->  SK1(...):::skip
+  F -.->  SK6(...):::skip
+  G -.->  SK7(...):::skip
+  H -.->  SK8(...):::skip
+  C -.->  SK2(...):::skip
+  J -.->  SK9(...):::skip
+  I -.-> SK3(...):::skip
+  K -.->  SK10(...):::skip
+   classDef skip fill:transparent, stroke-width:0px
 {{< /mermaid >}}
 
 The problem with this approach was that it gave too many valid $seeds$. I could not figure out a way to eliminate them and keep a single seed. 
