@@ -209,7 +209,7 @@ Since `p` is a prime, we could have set `k = p - 1` and `S` would have been 1, d
 $$
 \begin{aligned}
 Bk & \equiv B^{p-1} & \equiv 1 \mod p \\\
-S \& equiv 1 ^ a & \equiv 1 \mod p
+S & \equiv 1 ^ a & \equiv 1 \mod p
 \end{aligned}
 $$ 
 
