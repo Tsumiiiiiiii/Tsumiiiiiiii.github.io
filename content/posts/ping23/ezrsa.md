@@ -13,6 +13,10 @@ categories: ["Writeups"]
 
 lightgallery: true
 
+markup:
+  highlight:
+    lineNos: false
+
 toc:
   enable: true
 ---
