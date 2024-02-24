@@ -23,6 +23,8 @@ toc:
 Writeup for some Cryptography challenges from LA CTF 24.
 
 
+<!--more-->
+
 # prove it!
 
 From the name and the description we get the hint that this problem is about zk-snarks. Though we can solve this problem without even knowing what zero-knowledge proof is. This is the script that we are provided with:
