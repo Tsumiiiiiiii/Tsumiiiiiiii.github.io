@@ -25,7 +25,7 @@ Writeup for some Cryptography challenges from LA CTF 24.
 
 <!--more-->
 
-# prove it!
+## prove it!
 
 From the name and the description we get the hint that this problem is about zk-snarks. Though we can solve this problem without even knowing what zero-knowledge proof is. This is the script that we are provided with:
 
@@ -89,7 +89,7 @@ My solution comprised of two steps:
 1. Recover $\alpha$ using `discrete log`.
 2. Recover $s$ using the polynomial modular equation solver of `sage-math`.
 
-### Recover $\alpha$
+#### Recover $\alpha$
 
 As I have already spoiled, we are going to apply `dlog` for this step. But we don't even know $g$. What do we do now? Let, 
 
@@ -137,7 +137,7 @@ print('found', crt(values, mods))
 Sometimes the b'' itself might lie in the subgroup of the smaller primes. We can't do `dlog` in that case. That is why we can try using all the $ss_i, alphas_i$ pairs, or keep running the instance until a suitable $ss_0, alphas_0$ pair appears.
 {{< /admonition >}}
 
-### Recover $s$
+#### Recover $s$
 
 The plan is to *sacrifice* the first round so that we can get $ts$. $s$ is **fixed** for both rounds, which means if we manage to recover $s$ now, we can win the second round.
 
@@ -152,7 +152,7 @@ f = f.monic()
 f.roots()
 ```
 
-### Recover $flag$
+#### Recover $flag$
 
 Since we know both $\alpha$ and $s$ now, on the second round we can send  $f^{\alpha} \equiv fa \mod p$ and $h^{ts} \equiv f \mod p$ and $h=5$ to successfully retrieve the flag. 
 
@@ -160,7 +160,7 @@ Since we know both $\alpha$ and $s$ now, on the second round we can send  $f^{\a
 
 ---
 
-# shuffle
+## shuffle
 
 My favorite problem of the year so far. The idea is simple but elegant. Thanks to the author ❤. This is the script we are given:
 
@@ -242,7 +242,7 @@ The outer program flow is easy to understand. Let us try to see what happens in 
 4. The encryption here is simply a *permutation* operation. `pos = L.next() % l` and in this way, the entire message is shuffled and returned. 
 5. There is a *catch*. If there is a repetition of `pos`, then that value is discarded and the next state is evaluated. 
 
-## Understanding `LCG`
+### Understanding `LCG`
 
 `Linear Congruential Generator` or `LCG` denotes a linear function used for generating random numbers. It can be denoted with a recursive function as follows:
 
@@ -257,7 +257,7 @@ Here,
 
 Suppose we don't know $a, c, m, seed$ (which is the case for the given problem as well) but we somehow managed to get our hands on 6 consecutive states of the `LCG` ($X_n, X_{n+1}, \cdots, X_{n+5}$), we have a process to recover $a, c, m$ from them.
 
-### Recover the modulo `m`
+#### Recover the modulo `m`
 
 Suppose we know the states $X_1, X_2, \cdots, X_6$. 
 
@@ -309,7 +309,7 @@ $$GCD(k_1 \cdot m, k_2 \cdot m, k_3 \cdot m) = m $$
 
  It might be the case that $k_1, k_2, k_3$ shares a common factor then we will be getting a multiple of $m$. But even if that is the case, the multiple is going to be so *small* that we can do some trial division and eliminate that multiple.
 
-### Recover the multiple `a` and the increment `c`
+#### Recover the multiple `a` and the increment `c`
 
 Since we do know $m$ now, it becomes trivial to recover $a$ and $c$.
 
@@ -345,7 +345,7 @@ def crack_unknown_modulus(states):
 ```
 
 
-## Tackling the given problem
+### Tackling the given problem
 
 We know how to crack `LCG` and we also know we have to recover 6 *consecutive* states of the `LCG` first. Suppose `initial iters` is $n$, so every time we query for a message $m$, the states $X_n, X_{n+1}, X_{n+2}, \cdots, X_{n + sz - 1}$ is used. Since we are concerned with 6 states only, we need $X_{n+1}, X_{n+2}, \cdots, X_{n+5}$ only. (For the time being, I am going to assume that no repetitions will occur and hence no state will be skipped). 
 
@@ -387,7 +387,7 @@ In the same way, we can use `chinese-remainder-theorem` or `CRT` to recover $X_{
 
 As the characters in each message that we send must be unique and printable, we send characters from the ascii range $33$ to $127$. That is, for a message of length $k$, we send: $message_k = ascii_{33} + ascii_{33+1} + ascii_{33+2} + \cdots + ascii_{33 + k - 1}$. 
 
-### But are all the states actually *consecutive* ?
+#### But are all the states actually *consecutive* ?
 
 Remember the assumption I made earlier? *For the time being, I am going to assume that no repetitions will occur and hence no state will be skipped*. This rarely holds. In *almost* all of the cases, there will be some states that will be skipped. And if that happens, the `LCG` solver will return some garbage value that will be easy to understand. I ran a simulation to check how frequent that is and printed `m, a, c`.
 
