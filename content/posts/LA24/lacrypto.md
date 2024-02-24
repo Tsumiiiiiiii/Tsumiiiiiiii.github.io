@@ -349,8 +349,8 @@ We know how to crack `LCG` and we also know we have to recover 6 *consecutive* s
 
 As test, we send `message = abcdefg`.
 
-<kbd> <img src="D://downs//shuffle.png"
- style="border-radius:2%" align="center" /> </kbd>
+<kbd> <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/LA24/shuffle.png?raw=true"
+ style="border-radius:2%" align="center" width = "100%" /> </kbd>
 
 From the last table, we can deduce the following equations:
 
