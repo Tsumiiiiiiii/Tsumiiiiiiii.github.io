@@ -104,7 +104,7 @@ $$
 Since we know both $b''$ and $b'$,  $g$ becomes irrelevant.  We can shift our focus solely on solving the `dlog` $b'' \equiv (b')^{\alpha}$ now. But $p$ is a $1024 \ bit$ prime. Maybe the group order is smooth? Upon checking on `factor-db`, we get a very interesting insight
 
 $$
-p - 1 =  2 × \underbrace{7 × 13 × 19 × 53 × 1777 × 13873}\_{42 \ bits} × 375066 324492 304430 531233 × 101 \cdots 063
+p - 1 =  2 × \underbrace{7 × 13 × 19 × 53 × 1777 × 13873}\_{\text{42 \ bits}} × 375066 324492 304430 531233 × 101 \cdots 063
 $$
 
 $\alpha$ is $40 \ bits$. Hurray 😂, we do have a sub-group small enough to solve the `dlog` efficiently. The largest prime there ($12873$) is just $14 \ bits$.  We don't even need `baby-steps-giant-steps`,  literally brute forcing would suffice for each prime. Finally, we can combine each `log` using `crt` and recover the original $\alpha$. 
@@ -371,7 +371,7 @@ Not bad, we have a *tiny* portion of $X_n, \cdots, X_{n+5}$ ( i.e. $X_i \mod 7)$
 We can repeat the same process for $m = 7, 11, 13, 17, \cdots$ until the product of the $mods$ is big enough. Suppose we have this:
 
 $$
-\underbrace{X_n \mod (7 \cdot 11 \cdot 13 \cdots \cdot 67)}\_{CRT}
+\underbrace{X_n \mod (7 \cdot 11 \cdot 13 \cdots \cdot 67)}\_{\text{CRT}}
 \begin{cases}
 \begin{aligned}
 X_{n} &\equiv 5 &\mod 7 \\\
@@ -385,9 +385,9 @@ $$
 
 In the same way, we can use `chinese-remainder-theorem` or `CRT` to recover $X_{n+1}, \cdots, X_{n+5}$ as well. 
 
-As the characters in each message that we send must be unique and printable, we send characters from the ascii range $33$ to $127$. That is, for a message of length $k$, we send: $message_k = ascii_{33} + ascii_{33+1} + ascii_{33+2} + \cdots + ascii_{33 + k - 1}$. 
+As the characters in each message that we send must be unique and printable, we send characters from the ASCII range $33$ to $127$. That is, for a message of length $k$, we send: $message_k = ascii_{33} + ascii_{33+1} + ascii_{33+2} + \cdots + ascii_{33 + k - 1}$. 
 
-#### But are all the states actually *consecutive* ?
+#### But are all the states actually *consecutive*?
 
 Remember the assumption I made earlier? *For the time being, I am going to assume that no repetitions will occur and hence no state will be skipped*. This rarely holds. In *almost* all of the cases, there will be some states that will be skipped. And if that happens, the `LCG` solver will return some garbage value that will be easy to understand. I ran a simulation to check how frequent that is and printed `m, a, c`.
 
@@ -413,7 +413,7 @@ Remember the assumption I made earlier? *For the time being, I am going to assum
 5817747651381476157 3630784695756569456 5646245808023284019
 ```
 
-For all skip cases, it gave values that are impossible (very small values). But in the last line, we can see a *lucky* case where no state was skipped and we get a value that is large enough(around $64 \ bits)$.  On average, after every $15$ to $20$ runs, we get a *lucky* case like that. That is when we progress our solve and for other cases, we skip and move on to the next. 
+For all skip cases, it gave values that were impossible (very small values). But in the last line, we can see a *lucky* case where no state was skipped and we get a value that is large enough(around $64 \ bits)$.  On average, after every $15$ to $20$ run, we get a *lucky* case like that. That is when we progress our solve and for other cases, we skip and move on to the next. 
 
 ```python
 from base64 import b64decode
@@ -526,4 +526,215 @@ b'I just invented the best shuffling algorithm!\nNobody can read this!\nHere, le
 > **lactf{th3_h0us3_c0uld_n3v3r_l0se_r1ght}**
 
 ---
+
+## pprngc
+
+This was a simpler, yet refreshing challenge which requires no knowledge of mathematics or algorithms. The given script is:
+
+```python
+#!/usr/local/bin/python3
+
+import secrets
+from super_secret_stuff import flag, f, f_inverse
+
+seed = secrets.randbits(16)
+function_uses = 0
+oracle_uses = 0
+done = False
+
+def compute_output_bit(state, pred):
+    return bin((state & pred)).count("1") % 2
+
+def prng(pred):
+    cur_state = seed
+    outputs = []
+    for i in range(16):
+        cur_state = f(cur_state)
+        outputs.append(compute_output_bit(cur_state, pred))
+    cur_state = f(cur_state)
+    cur_state_bits = format(cur_state, 'b').zfill(16)
+    all_bits = ("".join([str(i) for i in outputs]) + cur_state_bits)[::-1]
+    return all_bits
+
+def pprngc(pred, stream):
+    state = int("".join(stream[:16][::-1]), 2)
+    for i in range(16, len(stream)):
+        state = f_inverse(state)
+        if not compute_output_bit(state, pred) == int(stream[i]):
+            return None
+    state = f_inverse(state)
+    return compute_output_bit(state, pred)
+
+print("All you need to know about f is that it's a function from 16 bits to 16 bits")
+print("The output on today's secret seed is:", f(seed))
+if __name__ == "__main__":
+    while not done:
+        choice = input("What can I do for you? 1. get random bits 2. use f 3. predict next bit 4. guess seed ").strip()
+        if choice == "1":
+            rand_pred = secrets.randbelow(2**16)
+            output = prng(rand_pred)
+            print(output)
+            print("Using predicate", rand_pred)
+            print("Ignore the fact that the first 16 bits are always the same (or don't, your choice)")
+        elif choice == "2":
+            if function_uses == 15:
+                print("Nah, you've had enough.")
+                continue
+            num = input("Gimme a number! ").strip()
+            try:
+                num = int(num)
+                if num < 0 or num >= 2**16:
+                    print("Out of range!")
+                else:
+                    print(f(num))
+                    function_uses += 1
+            except:
+                print("Uh something went wrong.")
+        elif choice == "3":
+            if oracle_uses == 16:
+                print("Nah, you've had enough.")
+                continue
+            stream = input("Gimme the bitstream you want to predict! ").strip()
+            if len(stream) < 16:
+                print("Out of range!")
+            else:
+                pred = input("Oh, can you also give a predicate with that? ").strip()
+                try:
+                    pred = int(pred)
+                    if pred < 0 or pred >= 2 ** 64:
+                        print("Out of range!")
+                    else:
+                        output = pprngc(pred, stream)
+                        if output is None:
+                            print("Uh lemme get back to you on that...")
+                            print("*liquidates assets, purchases fake identity, buys one way ticket to Brazil*")
+                            done = True
+                        else:
+                            print(output)
+                            oracle_uses += 1
+                except:
+                    print("Uh something went wrong.")
+        elif choice == "4":
+            guess = input("Well, let's see it! ").strip()
+            if str(seed) == guess:
+                print(flag)
+            else:
+                print("Nope! Sorry!")
+            done = True
+        else:
+            print("Buh bye!")
+            done = True
+```
+
+
+We have a function $f$ which we have no idea about. All we are told is that it maps 16 bits to 16 bits. And at the beginning, we are given $f(seed)$. We have to guess $seed$ using queries of the following types:
+
+1. Generates a random `predicate` of $16 \ bit$ length and inputs it to a function called `prng`. It gives us $f^{17}(seed)$ and the output of another function called `compute_output_bit`. Can be used as many times as wanted.
+2.  Inputs $num$ and outputs $f^{15}(num)$. Can be used 15 times only.
+3.  Takes a $predicate$ and a $bit \ stream$ from the user and passes it as input to a function called `pprngc`. This function is *almost* the opposite of function $prng$. Can be used 16 times.
+4.  Gives a chance to guess the $seed$. If we are successful, we are given the flag.
+
+`pprngc` function gives us $(f^{-1})^{17}(pred)$. Well not exactly, it passes that output through a function  called `compute_output_bits` and then gives it to us. Let us have a closer look at that particular function. 
+1. Takes as input two parameters called $state$ and $pred$.
+2. Computes $x = states \ \\& \ pred$.
+3. Calculates how many *on* bits ($1 \ bit$) are there in $x$.
+4. If the parity is even, return $1$, else return $0$.
+
+We can use it as an oracle to leak bits at any position we want! 
+
+### `compute_output_bits` as a bit leaking oracle
+
+Suppose we want to leak the *lsb* (1st bit from the right) of $state$.  I am going to use $8 \ bit$ numbers as examples here. 
+1. The *lsb* is 1. $state := 01001101$ and $pred := 00000001$. In that case, $state \ \\& \ pred = 00000001$. The parity of $1$ count is **odd**.
+2. The *lsb* is 0. $state := 01001100$ and $pred := 00000001$. In that case, $state \ \\& \ pred = 00000000$. The parity of $1$ count is **even**.
+
+Now why does this happen? The $7$ off-bits in $pred$ forces all initial $7$ bits in the "$\&$" operation to be 0. The remaining bit depends on *lsb* of $state$. In this way, we can leak any bit of $state$. What would the $pred$ be if we wanted to leak the bit at the $4-th$  position? $pred := 00001000$. This would force all other bits to be $0$, except on the $4-th$ position, where it depends on the $state$. 
+
+### Thinking of a solution
+
+We need to somehow backtrack $f(seed)$ to $seed$. Maybe using `pprngc`?. But wait, it will give us $(f^{-1})^{17}(f(seed)) \rightarrow (f^{-1})^{16}(seed)$ instead. But if we could provide it, $f^{17}(seed)$, then it would give us  $(f^{-1})^{17}(f^{17}(seed)) \rightarrow seed$. It would give `count_output_bit` of $seed$ but we have already seen how to use it to leak every bit of $state$ (which in this case happens to be $seed$). 
+
+#### Recovering upto $f^{17}(seed)$
+
+We can use the $2nd$ query 15 times on $f(seed)$ to get $f^2(seed), f^3(seed), \cdots, f^{16}(seed)$. 
+
+But this isn't good enough, we still need $f^{17}(seed)$. This is where the $1st$ type of query comes in. The output of that query is always going to contain $f^{17}(seed)$, along with some bit streams generated by `count_output_bit` that are not necessary now.
+
+#### Recovering the $seed$
+
+Now this question might come to your mind if we could obtain $f^{17}(seed)$, why do we need $f^2(seed), \cdots, f^{16}(seed)$? Actually, when we use the `pprngc` function, it deploys some verification mechanism that checks whether we know all the states of $seed$ in the line `if not compute_output_bit(state, pred) == int(stream[i]):`
+
+With all setup, we send the $f^{17}(seed)$ and the $stream$ bit stream along with suitable $pred$ to leak bits at all positions!!
+
+```python
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(('chall.lac.tf', 31173))
+
+states = []
+
+recvline(sock)
+s1 = int(recvline(sock).decode().strip().split(': ')[1])
+states.append(s1)
+
+for i in range(15):
+    recvuntil(sock, b'seed ')
+    sendline(sock, b'2')
+    recvuntil(sock, b'! ')
+    sendline(sock, str(states[-1]).encode())
+    s = int(recvline(sock).decode().strip())
+    states.append(s)
+    
+print(states)
+    
+recvuntil(sock, b'seed ')
+sendline(sock, b'1')
+output = recvline(sock).decode().strip()
+recvline(sock)
+recvline(sock)
+
+s17 = output[:16]
+
+print(output)
+
+def compute_output_bit(state, pred):
+    return bin((state & pred)).count("1") % 2
+
+def get_prediction(pos):
+    bits = ['0' for _ in range(16)]
+    bits[pos] = '1'
+    bits = int(''.join(c for c in bits), 2)
+    ret = ''
+    for s in states:
+        ret += str(compute_output_bit(s, bits))
+    return bits, ret[::-1]
+
+seed = ['1' for _ in range(16)]
+for pos in range(16):
+    pred, seq = get_prediction(pos)
+    seq = s17 + seq
+    
+    recvuntil(sock, b'seed ')
+    sendline(sock, b'3')
+    recvuntil(sock, b'! ')
+    sendline(sock, seq.encode())
+    recvuntil(sock, b'? ')
+    sendline(sock, str(pred).encode())
+    b = recvline(sock).decode().strip()
+    print(b)
+    seed[pos] = b
+    
+
+seed = int(''.join(c for c in seed), 2)
+print(seed)
+    
+recvuntil(sock, b'seed ')
+sendline(sock, b'4')
+recvuntil(sock, b'! ')
+
+sendline(sock, str(seed).encode())
+print(recvline(sock))
+```
+
+> **#lactf{we_love_blum-micali_generators_h1MNZuJSFjlAEwc1}**
+
 
