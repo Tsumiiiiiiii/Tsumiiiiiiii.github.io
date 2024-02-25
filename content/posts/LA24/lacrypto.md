@@ -78,7 +78,7 @@ The program flow is as follows:
 
 1. A prime $p$ is given which is always fixed.
 2. $s$ is a $128 \ bit$ variable and $\alpha$ is a $40 \ bit$ variable generated randomly and kept secret. $g$ is also a secret but always fixed.
-3. Two public arrays are generated. $ss = g^{s^1}, g^{s^2}, \cdots, g^{s^8} \mod p$ and $alphas = g^{\alpha \dot \ s^1}, g^{\alpha \dot \ s^2}, \cdots, g^{\alpha \dot \ s^8} \mod p$.
+3. Two public arrays are generated. $ss = g^{s^1}, g^{s^2}, \cdots, g^{s^8} \mod p$ and $alphas = g^{\alpha \cdot \ s^1}, g^{\alpha \cdot \ s^2}, \cdots, g^{\alpha \cdot \ s^8} \mod p$.
 4. Then we are given two rounds where for each round, 
    1. A public array $target$ of length 8 is randomly generated where each value is within the range of $p$. 
    2. A private value $ts$ is calculated as $ts=\sum_{i=0}^7 s^{7-i} \cdot target_i \mod p$. 
@@ -96,7 +96,7 @@ As I have already spoiled, we are going to apply `dlog` for this step. But we do
 $$
 \begin{aligned}
 b' &\equiv \frac{ss_2}{ss_1} &\equiv \frac{g^{s^2}}{g^s} &\equiv g^{s^2 - s} & \mod p \\\
-b'' &\equiv \frac{alphas_2}{alphas_1} &\equiv \frac{g^{\alpha \cdot s^2}}{g^{\alpha \dot \ s}} &\equiv g^{\alpha \dot \ (s^2 - s)} & \mod p \\\
+b'' &\equiv \frac{alphas_2}{alphas_1} &\equiv \frac{g^{\alpha \cdot s^2}}{g^{\alpha \cdot \ s}} &\equiv g^{\alpha \cdot \ (s^2 - s)} & \mod p \\\
 \rightarrow b'' & \equiv(b')^{\alpha} &&& \mod p
 \end{aligned}
 $$
@@ -107,7 +107,7 @@ $$
 p - 1 =  2 × \underbrace{7 × 13 × 19 × 53 × 1777 × 13873}\_{42 \ bits} × 375066 324492 304430 531233 × 101 \cdots 063
 $$
 
-$\alpha$ is $40 \ bits$. Hurray 😂, we do have a sub-group small enough to solve the `dlog` efficiently. The largest prime there ($12873$) is just $14 \ bits$.  We don't even need `baby-steps-giant-steps`,  literally brute forcing would suffice for each prime. Finally we can combine each `log` using `crt` and recover the original $\alpha$. 
+$\alpha$ is $40 \ bits$. Hurray 😂, we do have a sub-group small enough to solve the `dlog` efficiently. The largest prime there ($12873$) is just $14 \ bits$.  We don't even need `baby-steps-giant-steps`,  literally brute forcing would suffice for each prime. Finally, we can combine each `log` using `crt` and recover the original $\alpha$. 
 
 ```python
 F = GF(p)
