@@ -8,7 +8,7 @@ author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
 description: "Writeup for some Cryptography challenges from LA24."
 
-tags: ["crypto", "LA CTF", "LCG", "zk", "dlog", "CRT", "pohlig-hellman", "english"]
+tags: ["crypto", "LA CTF", "LCG", "zk", "dlog", "CRT", "pohlig-hellman", "blum-micali", "english"]
 categories: ["Writeups"]
 
 lightgallery: true
@@ -735,6 +735,6 @@ sendline(sock, str(seed).encode())
 print(recvline(sock))
 ```
 
-> **#lactf{we_love_blum-micali_generators_h1MNZuJSFjlAEwc1}**
+> **lactf{we_love_blum-micali_generators_h1MNZuJSFjlAEwc1}**
 
 
