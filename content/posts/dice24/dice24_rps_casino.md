@@ -114,7 +114,7 @@ $$
 \begin{pmatrix}
 s_{k} \\\ s_{k+1} \\\ s_{k+2} \\\ \vdots \\\ s_{k+n-1} 
 \end{pmatrix}
-}\_{next \ states}
+}\_{\text{next \ states}}
 = \\
 \underbrace{
 \begin{pmatrix}
@@ -123,13 +123,13 @@ s_{k} \\\ s_{k+1} \\\ s_{k+2} \\\ \vdots \\\ s_{k+n-1}
   \vdots  & \vdots  & \vdots  & \ddots  & 1 \\\
   c_0       & c_1   & c_2   & \cdots  & c_{n-1}  \\\
 \end{pmatrix}
-}\_{companion \ matrix \ (T)}
+}\_{\text{companion \ matrix} \ (T)}
 \cdot
 \underbrace{
 \begin{pmatrix} 
 s_{k - 1} \\\ s_{k} \\\ s_{k+1} \\\ \vdots \\\ s_{k+n-2} 
 \end{pmatrix}
-}\_{previous \ states}
+}\_{\text{previous \ states}}
 = \\
 \underbrace{
 \begin{pmatrix}
@@ -138,13 +138,13 @@ s_{k - 1} \\\ s_{k} \\\ s_{k+1} \\\ \vdots \\\ s_{k+n-2}
   \vdots  & \vdots  & \vdots  & \ddots  & 1 \\\
   c_0       & c_1   & c_2   & \cdots  & c_{n-1}  \\\
 \end{pmatrix} ^ k
-}\_{raised \ to \ power \ k}
+}\_{\text{raised \ to \ power} \ k}
 \cdot
 \underbrace{
 \begin{pmatrix} 
 s_{0} \\\ s_{1} \\\ s_{2} \\\ \vdots \\\ s_{n-1} 
 \end{pmatrix}
-}\_{initial \ states}
+}\_{\text{initial \ states}}
 $$
 
 This is the generalized representation of a $n \ bit$ LFSR where $a_k, a_{k+1}, a_{k+2}, ...$ are state bits. The square matrix is known as `companion matrix`. This is equivalent to a `transition matrix` and is fixed for a particular LFSR. The $c_0, c_1, c_2, ..., c_{n-1}$ in the companion matrix represents the tap bits. 
@@ -236,7 +236,7 @@ s_{k+12}+s_{k+13}\cdot2+s_{k+14}\cdot4+s_{k+15}\cdot8 \\\ 0 \\\ \vdots \\\ 0
   \vdots  & \vdots  & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots  & \ddots  & 0 \\\
   0       & 0  & 0 & 0 & 0 & 0 & 0 & 0   & \cdots  & 0  \\\
 \end{pmatrix}
-}\_{first \ 4 \ rows \ contain \ the \ block \ (1 \ 2 \ 4 \ 8\ ) \ at \ different  \ positions}
+}\_{\text{first \ 4 \ rows \ contain \ the \ block} \ (1 \ 2 \ 4 \ 8\ ) \ \text{at \ different  \ positions}}
 \cdot T^k \cdot
 \begin{pmatrix} 
 s_{0} \\\ s_{1} \\\ s_{2} \\\ \vdots \\\ s_{63} 
@@ -283,14 +283,14 @@ Every move in the game can be represented as a constraint. We can represent the 
 
 $$
 \begin{aligned}
-{these \ are \ all \ constraints}
-\begin{cases}
+\begin{rcases}
 s_1 &\equiv 1 \mod 3 \\\
 s_2 &\equiv 2 \mod 3 \\\
 s_3 &\equiv 0 \mod 3 \\\
 \vdots \\\
 s_{56}  &\equiv 1 \mod 3
-\end{cases}
+\end{rcases}
+\text{these \ are \ constraints}
 \end{aligned}
 $$
 
