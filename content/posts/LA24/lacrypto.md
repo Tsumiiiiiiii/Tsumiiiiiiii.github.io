@@ -309,7 +309,7 @@ $$GCD(k_1 \cdot m, k_2 \cdot m, k_3 \cdot m) = m $$
 
  It might be the case that $k_1, k_2, k_3$ shares a common factor then we will be getting a multiple of $m$. But even if that is the case, the multiple is going to be so *small* that we can do some trial division and eliminate that multiple.
 
-#### Recover the multiple `a` and the increment `c`
+#### Recover the multiplier `a` and the increment `c`
 
 Since we do know $m$ now, it becomes trivial to recover $a$ and $c$.
 
