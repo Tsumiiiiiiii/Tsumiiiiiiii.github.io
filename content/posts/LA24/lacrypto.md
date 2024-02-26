@@ -107,7 +107,7 @@ $$
 p - 1 =  2 × \underbrace{7 × 13 × 19 × 53 × 1777 × 13873}\_{\text{42 \ bits}} × 375066 324492 304430 531233 × 101 \cdots 063
 $$
 
-$\alpha$ is $40 \ bits$. Hurray 😂, we do have a sub-group small enough to solve the `dlog` efficiently. The largest prime there ($12873$) is just $14 \ bits$.  We don't even need `baby-steps-giant-steps`,  literally brute forcing would suffice for each prime. Finally, we can combine each `log` using `crt` and recover the original $\alpha$. 
+$\alpha$ is $40 \ bits$. Hurray 😂, we do have a sub-group small enough to solve the `dlog` efficiently. The largest prime there ($13873$) is just $14 \ bits$.  We don't even need `baby-steps-giant-steps`,  literally brute forcing would suffice for each prime. Finally, we can combine each `log` using `crt` and recover the original $\alpha$. 
 
 ```python
 F = GF(p)
