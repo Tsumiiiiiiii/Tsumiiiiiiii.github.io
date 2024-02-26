@@ -74,6 +74,7 @@ if __name__ == "__main__":
 		break
 ```
 
+
 The program flow is as follows:
 
 1. A prime $p$ is given which is always fixed.
@@ -85,9 +86,11 @@ The program flow is as follows:
    3. We have to provide the value for 3 variables $f, fa, h$ such that $f^{\alpha} \equiv fa \mod p$ and $h^{ts} \equiv f \mod p$. To stop cheesing, there are some further restrictions on the values: they must be in the range $[2, p-2]$ inclusive. 
    4. If we lose the round, the private value $ts$ is revealed. If we win, the flag is revealed.
 
+
 My solution comprised of two steps:
 1. Recover $\alpha$ using `discrete log`.
 2. Recover $s$ using the polynomial modular equation solver of `sage-math`.
+
 
 #### Recover $\alpha$
 
@@ -133,9 +136,11 @@ for f in fs:
 print('found', crt(values, mods))
 ```
 
+
 {{< admonition type=warning title="Be aware" open=true >}} 
 Sometimes the b'' itself might lie in the subgroup of the smaller primes. We can't do `dlog` in that case. That is why we can try using all the $ss_i, alphas_i$ pairs, or keep running the instance until a suitable $ss_0, alphas_0$ pair appears.
 {{< /admonition >}}
+
 
 #### Recover $s$
 
@@ -152,6 +157,7 @@ f = f.monic()
 f.roots()
 ```
 
+
 #### Recover $flag$
 
 Since we know both $\alpha$ and $s$ now, on the second round we can send  $f^{\alpha} \equiv fa \mod p$ and $h^{ts} \equiv f \mod p$ and $h=5$ to successfully retrieve the flag. 
@@ -159,6 +165,8 @@ Since we know both $\alpha$ and $s$ now, on the second round we can send  $f^{\a
 > **lactf{2kp_1s_ov3rr4t3d}**
 
 ---
+
+
 
 ## shuffle
 
@@ -625,7 +633,7 @@ if __name__ == "__main__":
             print("Buh bye!")
             done = True
 ```
-
+<br/>
 
 We have a function $f$ which we have no idea about. All we are told is that it maps 16 bits to 16 bits. And at the beginning, we are given $f(seed)$. We have to guess $seed$ using queries of the following types:
 
@@ -633,6 +641,8 @@ We have a function $f$ which we have no idea about. All we are told is that it m
 2.  Inputs $num$ and outputs $f^{15}(num)$. Can be used 15 times only.
 3.  Takes a $predicate$ and a $bit \ stream$ from the user and passes it as input to a function called `pprngc`. This function is *almost* the opposite of function $prng$. Can be used 16 times.
 4.  Gives a chance to guess the $seed$. If we are successful, we are given the flag.
+
+<br/>
 
 `pprngc` function gives us $(f^{-1})^{17}(pred)$. Well not exactly, it passes that output through a function  called `compute_output_bits` and then gives it to us. Let us have a closer look at that particular function. 
 1. Takes as input two parameters called $state$ and $pred$.
@@ -642,13 +652,19 @@ We have a function $f$ which we have no idea about. All we are told is that it m
 
 We can use it as an oracle to leak bits at any position we want! 
 
+<br/>
+
 ### `compute_output_bits` as a bit leaking oracle
 
 Suppose we want to leak the *lsb* (1st bit from the right) of $state$.  I am going to use $8 \ bit$ numbers as examples here. 
 1. The *lsb* is 1. $state := 01001101$ and $pred := 00000001$. In that case, $state \ \\& \ pred = 00000001$. The parity of $1$ count is **odd**.
 2. The *lsb* is 0. $state := 01001100$ and $pred := 00000001$. In that case, $state \ \\& \ pred = 00000000$. The parity of $1$ count is **even**.
 
+<br/>
+
 Now why does this happen? The $7$ off-bits in $pred$ forces all initial $7$ bits in the "$\&$" operation to be 0. The remaining bit depends on *lsb* of $state$. In this way, we can leak any bit of $state$. What would the $pred$ be if we wanted to leak the bit at the $4-th$  position? $pred := 00001000$. This would force all other bits to be $0$, except on the $4-th$ position, where it depends on the $state$. 
+
+<br/>
 
 ### Thinking of a solution
 
@@ -665,6 +681,8 @@ But this isn't good enough, we still need $f^{17}(seed)$. This is where the $1st
 Now this question might come to your mind if we could obtain $f^{17}(seed)$, why do we need $f^2(seed), \cdots, f^{16}(seed)$? Actually, when we use the `pprngc` function, it deploys some verification mechanism that checks whether we know all the states of $seed$ in the line `if not compute_output_bit(state, pred) == int(stream[i]):`
 
 With all setup, we send the $f^{17}(seed)$ and the $stream$ bit stream along with suitable $pred$ to leak bits at all positions!!
+
+<br/>
 
 ```python
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
