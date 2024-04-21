@@ -84,15 +84,14 @@ Here $d$ is the private key and $k$ is the nonce. The hash $\text{H}(m)$ is know
 Suppose we are going to sign two different messages $m_1, m_2$. The intended way is to generate a different $k$ for each signing. It is called a nonce(_n_once_) after all. The problem occurs when we use $k$ to sign both messages, and this is exactly what happens in this particular problem. That is,
 
 
-$$
-\begin{aligned} s_1 &= \frac{\text{H}(m_1) + r*d}{k} mod q \\\\ s_2 &= \frac{\text{H}(m_2) + r*d}{k} mod q \end{aligned}
-$$
+$$\begin{aligned} s\_1 &= \frac{\text{H}(m_1) + r\*d}{k} \mod q \\\\ s_2 &= \frac{\text{H}(m_2) + r*d}{k} \mod q \end{aligned}$$
 
 
-From the first equation we can write, $s_1 * k = \text{H}(m_1) + r*d$ and from the second equation we can write $s_2 * k = \text{H}(m_2) + r*d$. Subtracting them gives us
+From the first equation we can write, $s_1 * k = \text{H}(m_1) + r\*d$ and from the second equation we can write $s_2 * k = \text{H}(m_2) + r*d$. Subtracting them gives us
 
 $$k = \frac{\text{H}(m_1) - \text{H}(m_2)}{s_1 - s_2} \mod q$$
-We have recovered the super secret nonce!. And once we have $k$, we can recover the private key $d$ using
+
+We have recovered the super secret nonce! And once we have $k$, we can recover the private key $d$ using
 
 $$
 d = \frac{s*k - \text{H}(m)}{r} \mod q
@@ -143,18 +142,18 @@ The reason this problem was set is to test the root level understanding of RSA. 
 
 In the given problem, we have $e = 2^2 * 11 * 13 * 29$. And so the GCD with $phi$ will not be $1$. For this reason we can't calculate $d = e^{-1} \mod phi$. Trying to do so will give error.  
 
-Instead of working with $d$, we are going to find $d' = e' ^{-1} \mod q$ where $e' = e / 4 = 11*13*29$. 
+Instead of working with $d$, we are going to find $d' = e' ^{-1} \mod q$ where $e' = e / 4 = 11\*13*29$. 
 
 $$
 \begin{aligned}
 c^{d'} &= (m^e)^{d'} &\mod n \\\
-&= (m^{2^2 * 11*13*29})^{\frac{1}{11*13*29}} &\mod n \\\
-&= m^{\frac{2^2 * 11*13*29}{11*13*29}} &\mod n \\\
+&= (m^{2^2 * 11 * 13 * 29})^{\frac{1}{11 * 13 * 29}} &\mod n \\\
+&= m^{\frac{2^2 * 11 * 13 * 29}{11 * 13 * 29}} &\mod n \\\
 &= m^4 &\mod n
 \end{aligned}
 $$
 
-Now we have $m^4$ but our goal is to find $m$. Notice the script says that the flag $m$ has a length of 28. In terms of bits, there will be a maximum of $28*8=224$ bits. But the modulus $n$ is $2048$ bits. Guess what that means? $m^4$ is $224*4 = 896$ bits. That is, $m^4 < n$. So $m^4 \mod n$ and $m^4$ is simply the same thing as the effect of modulo by $n$ can be ignored now. Hence $c^{d'}$ is simply $m^4$. The mod is omitted. We  can take square root twice or the $4th$ root to find $m = \sqrt[4]{c^{d'}}$.    
+Now we have $m^4$ but our goal is to find $m$. Notice the script says that the flag $m$ has a length of 28. In terms of bits, there will be a maximum of $28 * 8=224$ bits. But the modulus $n$ is $2048$ bits. Guess what that means? $m^4$ is $224 * 4 = 896$ bits. That is, $m^4 < n$. So $m^4 \mod n$ and $m^4$ is simply the same thing as the effect of modulo by $n$ can be ignored now. Hence $c^{d'}$ is simply $m^4$. The mod is omitted. We  can take square root twice or the $4th$ root to find $m = \sqrt[4]{c^{d'}}$.    
 
 ```python
 from Crypto.Util.number import long_to_bytes as l2b
@@ -236,18 +235,17 @@ with open('flag.txt', 'r') as f:
     print(f.read())
 ```
 
-The `HTREE` class is a segment tree like data structure that operates on hashes. It
-divides the given message into blocks of size $8$ ($B_1, B_2, \cdots, B_n$) and combines then in a way after the blocks are hashed.
+The `HTREE` class is a merkle tree-like data structure that operates on hashes. It
+divides the given message into blocks of size $8$ ($B_1, B_2, \cdots, B_n$) and combines them in a way after the blocks are hashed.
 
 $$
-\text{HASH}(B_l, \cdots,  B_{r}) = 
+\text{HASH}(B\_l, \cdots,  B\_{r}) = 
 \begin{cases}
 \begin{aligned}
-\text{SHA256}(B_l) &\ \ \ if \ \  l=r \\\
-\text{COMBINE}(\text{HASH}(B_l, \cdots, B_{\frac{l + r}{2}}), \ \text{HASH}(B_{\frac{l + r}{2} + 1}, \cdots, B_r)) &\ \ \  else
+\text{SHA256}(B\_l) &\ \ \ if \ \  l=r \\\
+\text{COMBINE}(\text{HASH}(B\_l, \cdots, B\_{\frac{l + r}{2}}), \ \text{HASH}(B\_{\frac{l + r}{2} + 1}, \cdots, B\_r)) &\ \ \  else
 \end{aligned}
 \end{cases}
-
 $$
 
 $$
