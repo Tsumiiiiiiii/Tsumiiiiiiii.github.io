@@ -242,8 +242,8 @@ $$
 \text{HASH}(B\_l, \cdots,  B\_{r}) = 
 \begin{cases}
 \begin{aligned}
-\text{SHA256}(B\_l) &\ \ \ if \ \  l=r \\\
-\text{COMBINE}(\text{HASH}(B\_l, \cdots, B\_{\frac{l + r}{2}}), \ \text{HASH}(B\_{\frac{l + r}{2} + 1}, \cdots, B\_r)) &\ \ \  else
+&\text{SHA256}(B\_l) &&\ \ \ if \ \  l=r \\\
+&\text{COMBINE}(\text{HASH}(B\_l, \cdots, B\_{\frac{l + r}{2}}), \ \text{HASH}(B\_{\frac{l + r}{2} + 1}, \cdots, B\_r)) &&\ \ \  else
 \end{aligned}
 \end{cases}
 $$
