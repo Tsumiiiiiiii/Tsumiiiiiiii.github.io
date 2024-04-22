@@ -261,130 +261,15 @@ $$
 In the `COMBINE` function $+$ sign denotes "concatenation".  We are tasked with forging hashes. That is, we are given $M$ and $\text{HASH}(M)$ where our job is to find another different message $M'$ such that $\text{HASH}(M) = \text{HASH}(M')$. To be specific we need to find 256 different messages with the same hash, but for simplicity let us assume we need to find just one more message. 
 
 The trick is to realize that if we have a message $M$ of length 16 which is divided into two blocks $B_1, B_2$, that is, $M = B_1 + B_2$, then another message $M' = B_2 + B_1$ will give the exact same hash. This is because if the latter block had a bigger hash, then the `COMBINE` function would simply swap it with the first block and then hash them.  
- 
-```dot
-digraph R {
-    subgraph cluster_0 {
-            label="H(B1) < H(B2)";
-            peripheries=0
-              node [style=rounded]
-              node1 [shape=box, label = "COMBINE(B1, B2)"]
-              node2 [shape=box, label = "B1"]
-              node3 [shape=box, label = "B2"]
-            
-              node1 -> {node2, node3}
-    }
-    
-    subgraph cluster_1 {
-            label="H(B1) > H(B2)";
-            peripheries=0
-              node [style=rounded]
-              node4 [shape=box, label = "COMBINE(B2, B1)"]
-              node5 [shape=box, label = "B2"]
-              node6 [shape=box, label = "B1"]
-            
-              node4 -> {node5, node6}
-    }
 
-}
-```
+<img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/iutCTF24/g0.svg?raw=true"/>
+ 
 
 The two trees above denote the same hash. In fact, this holds for any message, we can simply swap their block order and they will give the same hash. As there are 2 blocks in a message of length $16$, and we can only derive 2 different permutations of the blocks, we can hence derive 2 different messages that result in the same hash.
 
 How many different messages could we generate if we instead had a message of length $32$ ($4$ blocks)?  $M = B_1 + B_2 + B_3 + B_4$.  For each pair of consecutive block, we can swap their order. We have here 2 block pairs. We can choose to either swap a block pair or leave it unchanged. Hence we have $2^2 = 4$ choices in total. That means, we can have $4$ different messages that produce the same hash. 
 
 <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/iutCTF24/g3.svg?raw=true"/>
-
-```dot
-digraph R {
-    subgraph cluster_0 {
-            label="H(B1) < H(B2) | H(B3) < H(B4)";
-            peripheries=0
-              node [style=rounded]
-              node1 [shape=box, label = "C(C(B1, B2), C(B3, B4))"]
-              node2 [shape=box, label = "C(B1, B2)"]
-              node3 [shape=box, label = "C(B3,B4)"]
-              node4 [shape=box, label = "B1"]
-              node5 [shape=box, label = "B2"]
-              node6 [shape=box, label = "B3"]
-              node7 [shape=box, label = "B4"]
-              
-              node1 -> node2
-              node1 -> node3
-            
-              node2 -> node4 //[color=blue,penwidth=2.0];
-              node2 -> node5
-              node3 -> node6
-              node3 -> node7
-    }
-    
-    subgraph cluster_1 {
-            label="H(B1) > H(B2)| H(B3) < H(B4)";
-            peripheries=0
-              node [style=rounded]
-              node8 [shape=box, label = "C(C(B1, B2), C(B3, B4))"]
-              node9 [shape=box, label = "C(B1, B2)"]
-              node10 [shape=box, label = "C(B3,B4)"]
-              node11 [shape=box, label = "B2"]
-              node12 [shape=box, label = "B1"]
-              node13 [shape=box, label = "B3"]
-              node14 [shape=box, label = "B4"]
-              
-              node8 -> node9
-              node8 -> node10
-            
-              node9 -> node11 [color=blue,penwidth=2.0];
-              node9 -> node12 [color=blue,penwidth=2.0];
-              node10 -> node13
-              node10 -> node14
-    }
-    
-    subgraph cluster_2 {
-            label="H(B1) < H(B2)| H(B3) > H(B4)";
-            peripheries=0
-              node [style=rounded]
-              node15 [shape=box, label = "C(C(B1, B2), C(B3, B4))"]
-              node16 [shape=box, label = "C(B1, B2)"]
-              node17 [shape=box, label = "C(B3,B4)"]
-              node18 [shape=box, label = "B1"]
-              node19 [shape=box, label = "B2"]
-              node20 [shape=box, label = "B4"]
-              node21 [shape=box, label = "B3"]
-              
-              node15 -> node16
-              node15 -> node17
-            
-              node16 -> node18 
-              node16 -> node19 
-              node17 -> node20 [color=blue,penwidth=2.0];
-              node17 -> node21 [color=blue,penwidth=2.0];
-    }
-    
-    subgraph cluster_3 {
-            label="H(B1) > H(B2)| H(B3) > H(B4)";
-            peripheries=0
-              node [style=rounded]
-              node22 [shape=box, label = "C(C(B1, B2), C(B3, B4))"]
-              node23 [shape=box, label = "C(B1, B2)"]
-              node24 [shape=box, label = "C(B3,B4)"]
-              node25 [shape=box, label = "B2"]
-              node26 [shape=box, label = "B1"]
-              node27 [shape=box, label = "B4"]
-              node28 [shape=box, label = "B3"]
-              
-              node22 -> node23
-              node22 -> node24
-            
-              node23 -> node25 [color=blue,penwidth=2.0];
-              node23 -> node26 [color=blue,penwidth=2.0];
-              node24 -> node27 [color=blue,penwidth=2.0];
-              node24 -> node28 [color=blue,penwidth=2.0];
-    }
-    
-    
-
-}
-```
 
 The 4 trees above shows the block ordering possible. Blue edges indicate the consequent pair has been swapped. 
 
