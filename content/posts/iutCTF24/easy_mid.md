@@ -1,6 +1,6 @@
 ---
 weight: 1
-title: "iutCTF 2024 easy-medium crypto writeups"
+title: "iutCTF 2024 (I): Easy-Medium Crypto Challenges"
 date: 2024-04-21T00:37:00+06:00
 lastmod: 2024-04-21T00:37:00+06:00
 draft: false
