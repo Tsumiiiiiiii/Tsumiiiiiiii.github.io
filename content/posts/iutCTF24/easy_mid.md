@@ -262,7 +262,7 @@ In the `COMBINE` function $+$ sign denotes "concatenation".  We are tasked with 
 
 The trick is to realize that if we have a message $M$ of length 16 which is divided into two blocks $B_1, B_2$, that is, $M = B_1 + B_2$, then another message $M' = B_2 + B_1$ will give the exact same hash. This is because if the latter block had a bigger hash, then the `COMBINE` function would simply swap it with the first block and then hash them.  
 
-<img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/iutCTF24/g0.svg?raw=true"/>
+<img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/iutCTF24/g.svg?raw=true"/>
  
 
 The two trees above denote the same hash. In fact, this holds for any message, we can simply swap their block order and they will give the same hash. As there are 2 blocks in a message of length $16$, and we can only derive 2 different permutations of the blocks, we can hence derive 2 different messages that result in the same hash.
