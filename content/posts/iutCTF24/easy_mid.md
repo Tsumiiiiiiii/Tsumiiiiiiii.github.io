@@ -138,7 +138,7 @@ with open('out.txt', 'w') as f:
     f.write(f'ct = {ct}')
 ```
 
-The reason this problem was set is to test the root level understanding of RSA. A lot of people simply use online tools or pre-found templates to decrypt RSA without understanding the underlying mathematics. A requirement for the public key $e$ is that $\text{GCD}(e,\  phi) = 1$. $phi$ is always even by definition since we always use odd primes only. This means $e$ must be even, or else there will be a bigger GCD and then we can't derive a private key $d$. 
+The reason this problem was set is to test the root level understanding of RSA. A lot of people simply use online tools or pre-found templates to decrypt RSA without understanding the underlying mathematics. A requirement for the public key $e$ is that $\text{GCD}(e,\  phi) = 1$. $phi$ is always even by definition since we always use odd primes only. This means $e$ must be odd, or else there will be a bigger GCD and then we can't derive a private key $d$. 
 
 In the given problem, we have $e = 2^2 * 11 * 13 * 29$. And so the GCD with $phi$ will not be $1$. For this reason we can't calculate $d = e^{-1} \mod phi$. Trying to do so will give error.  
 
