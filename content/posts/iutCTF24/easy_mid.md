@@ -293,6 +293,8 @@ The two trees above denote the same hash. In fact, this holds for any message, w
 
 How many different messages could we generate if we instead had a message of length $32$ ($4$ blocks)?  $M = B_1 + B_2 + B_3 + B_4$.  For each pair of consecutive block, we can swap their order. We have here 2 block pairs. We can choose to either swap a block pair or leave it unchanged. Hence we have $2^2 = 4$ choices in total. That means, we can have $4$ different messages that produce the same hash. 
 
+<img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/iutCTF24/g2.svg?raw=true"/>
+
 ```dot
 digraph R {
     subgraph cluster_0 {
