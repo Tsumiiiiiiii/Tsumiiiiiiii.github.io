@@ -277,7 +277,7 @@ How many different messages could we generate if we instead had a message of len
  ![SVG3](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/iutCTF24/gl3.svg?raw=true) | ![SVG4](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/iutCTF24/gl4.svg?raw=true) 
 
 
-The 4 trees above shows the block ordering possible. Blue edges indicate the consequent pair has been swapped. 
+The 4 trees above shows the block ordering possible. ${\color{blue}\text{Blue}}$ edges indicate the consequent pair has been swapped. 
 
 In this way, for a message with a block length of $2n$ we have $n$ pairs and a total of $2^n$ orderings that will give the same hash. For the given challenge, the message length is $128$, which means we have $128/8 = 16$ blocks or $8$ block pairs. So we can generated a total of $2^8=256$ different messages that has the same hash.
 
