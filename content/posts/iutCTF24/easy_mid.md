@@ -20,7 +20,7 @@ toc:
   enable: true
 ---
 
-Writeup for some Cryptography challenges from LA CTF 24.
+Writeup for my easy-medium Cryptography challenges from iutCTF 24.
 
 
 <!--more-->
