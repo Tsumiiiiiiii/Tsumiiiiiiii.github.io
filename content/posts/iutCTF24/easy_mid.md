@@ -27,14 +27,14 @@ Writeup for my easy-medium Cryptography challenges from iutCTF 24.
 
 
 
-# Cow
+## Cow
 
 There is an esolang called **Cow**. Any online decoder will work.
 
 > **iutctf{__wh0_l3t_th3_c0w_0u7_M0o_mo0_m00_moo_M00__}**
 
 ---
-# ps3
+## ps3
 
 ```python
 from hashlib import md5
@@ -79,7 +79,7 @@ $$
 
 Here $d$ is the private key and $k$ is the nonce. The hash $\text{H}(m)$ is known and so is $s, q$. 
 
-## Understanding the attack
+### Understanding the attack
 
 Suppose we are going to sign two different messages $m_1, m_2$. The intended way is to generate a different $k$ for each signing. It is called a nonce(_n_once_) after all. The problem occurs when we use $k$ to sign both messages, and this is exactly what happens in this particular problem. That is,
 
@@ -117,7 +117,7 @@ print(flag)
 
 ---
 
-# Incorrect RSA
+## Incorrect RSA
 
 ```python
 from Crypto.Util.number import getPrime, bytes_to_long as b2l
