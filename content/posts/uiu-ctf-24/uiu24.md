@@ -244,7 +244,7 @@ It means we can send any message $m' = m + l*p$ for any $l$ but get the same sig
 
 ### Finishing off the exploit
 
-For each round $i$, we send the messages $m = i$ and $m' = i + p$ and thus forging signaures easily!! For the signature $s$, we send the one we recieve from the oracle at that particular round.
+For each round $i$, we send the messages $m = i$ and $m' = i + p$ and thus forging signaures easily!! For the signature $s$, we send the same one recieved from the oracle at that particular round.
 
 ```python
 def connect():
