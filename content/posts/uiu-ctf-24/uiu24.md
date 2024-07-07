@@ -25,6 +25,7 @@ Writeup for some Cryptography challenges from UIU CTF 24.
 
 <!--more-->
 
+Solved all crypto problems (finally 😍) in this edition of UIU CTF. The problems were trivially easy, to be honest. For a CTF of this calibre, the difficulty curve should be more steep. To put things into perspective, the most difficult crypto challenge (`key-in-haystack`) had more than 60 solves. I think the 22nd edition was perfect in terms of balanced difficulty. Nevertheless, the problems were still refreshing and fun to try. Here, I will make writeups for two challenges: `snore signature` and `key-in-haystack`.
 
 ## Snore Signature
 
@@ -222,6 +223,12 @@ All good except the same addition error in $e$ generation just like the last fun
 ### Exploiting the bug
 
 Remember what our goal was? We had to find two different messages (here integers) $m$ and $m'$ such that the signature they generate are the same. That is $(s, e) = (s', e')$. 
+
+For the moment, let's just think about $e$. We need to find $m, m'$ such that $e = e'$. That is, we can write,
+
+$$
+\text{hash}((r + m) \mod p) \equiv \text{hash}((r + m') \mod p) \mod q
+$$
 
 We had $e = \text{hash}((r + m) \mod p) \mod q$ for a message $m$. What will happen for a message $m' = m + p$?
 
