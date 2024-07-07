@@ -214,6 +214,15 @@ The keys are generated here. As usual, nothing faulty or suspicious thing is goi
 
 #### `snore_sign` function
 
+```python {linenos=table,hl_lines=[4],linenostart=1}
+def snore_sign(p, q, g, x, m):
+    k = randint(1, q - 1)
+    r = pow(g, k, p)
+    e = hash((r + m) % p) % q
+    s = (k + x * e) % q
+    return (s, e)
+```
+
 $k, r$ is generated as it should be. But there is something suspicious going on in the generation of $e$. Here $e = \text{hash}((r + m) \mod p) \mod q$. Didn't we learn that $e = \text{hash}(r || m)$ ?? It is supposed to be **concatenation**, not **addition**. And this is exactly the bug in this problem that we are going to exploit in a while.
 
 #### `snore_verify` function
