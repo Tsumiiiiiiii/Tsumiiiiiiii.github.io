@@ -139,7 +139,9 @@ From the challenge name it is understood that the problem is somehow related to 
 
 This is a digital signaure method whose security lies on the classic `discrete logarithm` problem. Like any signaure scheme there is, the bigger picture is similar: one party signs a message `m` and the other party verifies whether the sign is authentic or not. 
 
-Now before a message is signed, some parameters need to be generated. A group needs to be chosen with prime order $q$. This is important because there are different attacks (eg. pohlig hellman) when the group order is non-prime. A generator $g$ is chosen and agreed upon by both the parties involved. With the public parameters dealt with, next comes the key generation step. There are 2 keys involved: $x$, the private signing key and $y$, the public verifying key. Here $y = g^{-x}$. 
+Now before a message is signed, some parameters need to be generated. A group needs to be chosen with prime order $q$. This is important because there are different attacks (eg. pohlig hellman) when the group order is non-prime. A generator $g$ is chosen and agreed upon by both the parties involved. 
+
+With the public parameters dealt with, next comes the key generation step. There are 2 keys involved: $x$, the private signing key and $y$, the public verifying key. Here $y = g^{-x}$. 
 
 #### Message signing
 
