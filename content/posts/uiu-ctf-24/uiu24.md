@@ -1,6 +1,6 @@
 ---
 weight: 1
-title: "UIU CTF 2024 snore signature and key-in-haystack writeup"
+title: "UIU CTF 2024 - snore signature and key-in-haystack writeup"
 date: 2024-07-07T00:37:00+06:00
 lastmod: 2024-07-07T00:37:00+06:00
 draft: false
