@@ -197,7 +197,7 @@ Equipped with the necessary background knowledge, we are now ready to tackle the
     * Now we need to peform a forgery and provide them with $m', s$ (ofcourse $m \not ={m'}$) such that the $e'$ generated due to $m'$ is equal to the previously given $e$. This is verified using a function called `snore_verify`.
 * If we can pass all the rounds, we win and the flag is then given.
 
-All right, it's a signature forgery problem! From my experience so far, this problem has some bug in the implementation. That is what we are going to do now, go through functions one by one and check if there is some bug that we can exploit. 
+All right, it's a signature forgery problem! From my experience so far, problems of this type generally has some bugs in the implementation. That is what we are going to do now, go through functions one by one and check if there is some bug that we can exploit. 
 
 #### `hash` function
 
