@@ -304,3 +304,151 @@ print(recvline(sock).decode())
 > FLAG: **uiuctf{add1ti0n_i5_n0t_c0nc4t3n4ti0n}**
 
 ---
+
+## key-in-haystack
+
+The given code is very short and to the point
+
+```python
+from Crypto.Util.number import getPrime
+from Crypto.Util.Padding import pad
+from Crypto.Cipher import AES
+
+from hashlib import md5
+from math import prod
+import sys
+
+from secret import flag
+
+key = getPrime(40)
+haystack = [ getPrime(1024) for _ in range(300) ]
+key_in_haystack = key * prod(haystack)
+
+enc_flag = AES.new(
+	key = md5(b"%d" % key).digest(),
+	mode = AES.MODE_ECB
+).encrypt(pad(flag, 16))
+
+sys.set_int_max_str_digits(0)
+
+print(f"enc_flag: {enc_flag.hex()}")
+print(f"haystack: {key_in_haystack}")
+
+exit(0)
+```
+
+A short prime of 40 bits is generated and used as the key for `AES-ECB` encryption. Then 300 huge primes of 1024 bits are generated. They are multiplied along with the key and given to use. So what we have is basically
+
+$$
+haystack = key \cdot \prod_{i = 1}^{300} p_i
+$$
+
+Our goal is to recover the $key$ prime somehow. This ultimately boils down to a factorization problem. We can solve this problem in 2 ways and I am going to explain them both here. 
+
+### First method : using some observations and `ECM` (unintended)
+
+This is the method that I followed during the CTF. My first idea was to put the huge product on [alpetron ECM factorization](https://www.alpertron.com.ar/ECM.HTM), but soon I discarded this idea as the product was too large ($307240$ bits) and maybe it can't work with such big numbers? Though someone on discord later said that this would have worked (takes around 3 hours though). 
+
+Anyway, I was playing with the code when an interesting observation was found.
+
+```python
+key = getPrime(40)
+haystack = [ getPrime(1024) for _ in range(300) ]
+key_in_haystack = key * prod(haystack)
+```
+
+This particular code snippet took around 5 minutes to run on `google colab`. But when I connected on remote, it prints the product almost instantly. How is that even possible? Not like the admins have access to some super secret quantum computers (at least I hope they don't!) that they will generate so many big primes within a few seconds. So there must be some optimization going on in the background? 
+
+There was a CTF I once played where they optimized this by pre-generating a big pool of primes and randomly sampling from that pool. Maybe the author did the same thing here? I wanted to test my hypothesis. 
+
+How can this test be done? So if the pre-generated pool is not that big, then it is very likely that the same primes would be reused in the `haystack`. We make 50 connections to remote and collect 50 `haystack` samples. We have $haystack_1, haystack_2, \cdots, haystack_{49}, haystack_{50}$. If they share same primes, then for any random $i, j$, $\text{GCD}(haystack_i, haystack_j)$ is supposed to be more than 1 with high probability(?). Using below script we check this count:
+
+```python
+def get_stuff():
+  sock = connect()
+
+  for _ in range(3):
+    recvline(sock)
+
+  pow = solve_challenge(recvline(sock).decode().strip().split()[-1])
+
+  recvline(sock)
+  sendline(sock, pow.encode())
+  for _ in range(2):
+    recvline(sock)
+
+  enc = recvline(sock).decode().strip().split()[-1]
+  
+  haystack = int(recvline(sock).decode().strip().split()[-1])
+  return enc, haystack
+
+sys.set_int_max_str_digits(0)
+haystacks = []
+encs = []
+for _ in tqdm(range(50)):
+  enc, haystack = get_stuff()
+  haystacks.append(haystack)
+  encs.append(enc)
+
+for i in range(50):
+  cnt = 0
+  for j in range(50):
+    if i != j:
+      g = int(gmpy2.gcd(haystacks[i], haystacks[j]))
+      if g > 1:
+        cnt += 1
+  print(cnt, end = ' ')
+```
+
+The output is:
+
+```bash
+100%|██████████| 50/50 [01:41<00:00,  2.03s/it]
+49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49 49
+```
+
+Well... literally all the 50 samples share at least one prime with all other samples!. Is this normal? What are the chances(I mean probaility) for this to happen if the primes were generated at random? 
+
+Time for some math lessons. From the [prime number theorem](https://en.wikipedia.org/wiki/Prime_number_theorem) we can approximate the number of primes within a certain bound $N$. The value is given by,
+
+$$
+\pi(N) \approx \frac{N}{\ln(N)}
+$$
+
+Here we have $N = 2^{1024}$ and so the bound is in the range of $\frac{2^{1024}}{\ln{2^{1024}}} \approx 2^{1015}$. That number is honestly quite large :'). 
+
+Suppose we pick two haystack samples at random. What is the probability that they share at least 1 prime factor in common?
+
+$$\begin{aligned}
+\text{P(two haystacks share at least one prime factor)} &= 1 - \text{P(two hastacks share no prime factor)} \\\
+&= 1 - \frac{\binom{N}{300} \cdot \binom{N-300}{300}}{\binom{N}{300}^2} \\\
+&= 1 - \frac{\binom{N-300}{300}}{\binom{N}{300}}
+\end{aligned}
+$$
+
+Here $N$ is so large that the fractional part tends to be ($\approx 1$) and so the final result becomes extremely close to 0 ($\approx 0$). Which means, that if the primes were generated at random, there is practically no chance that any 2 haystacks would have a prime in common. Honestly, the probability that I'm going to be selected for a PhD position at UIU is much higher than that :"). This proves that the pool of primes the author precalculated is not so big.
+
+Using this fact, we can weed out the large prime factors one by one by taking `GCD`. Since every hastack has something in common with the other samples, we can keep on dividing a haystack by the common factors it has with every other haystacks. In this way, we try to reduce each haystack as much as possible. 
+
+```python
+sz = 1000000000
+idx, res = 0, 0
+for i in range(50):
+  x = haystacks[i]
+  for j in range(50):
+    if i != j:
+      g = int(gmpy2.gcd(x, haystacks[j]))
+      x //= g
+  sz_ = x.bit_length()
+  if sz_ < sz:
+    sz = sz_
+    idx = i
+    res = x
+print(sz)
+```
+
+We get an output of $14373$. This is a significant reduction of size. Maybe alpetron is fast enough to factor is? We can try our luck. And voila, after around 3 minutes, it spits out the $key$! Alpetron uses a method called `ECM`. I honestly have no idea how that works, except the fact that it uses `elliptic curves` somehow :3
+
+### Second method: pollard's $p - 1$ factorization (intended)
+
+
