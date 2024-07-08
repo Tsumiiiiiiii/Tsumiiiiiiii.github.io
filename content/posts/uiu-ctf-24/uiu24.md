@@ -340,7 +340,7 @@ exit(0)
 A short prime of 40 bits is generated and used as the key for `AES-ECB` encryption. Then 300 huge primes of 1024 bits are generated. They are multiplied along with the key and given to use. So what we have is basically
 
 $$
-haystack = key \cdot \prod_{i = 1}^{300} p_i
+haystack = key \prod_{i = 1}^{300} p_i
 $$
 
 Our goal is to recover the $key$ prime somehow. This ultimately boils down to a factorization problem. We can solve this problem in 2 ways and I am going to explain them both here. 
@@ -415,18 +415,20 @@ $$
 \pi(N) \approx \frac{N}{\ln(N)}
 $$
 
-Here we have $N = 2^{1024}$ and so the bound is in the range of $\frac{2^{1024}}{\ln{2^{1024}}} \approx 2^{1015}$. That number is honestly quite large :'). 
+Here we have $N = 2^{1024}$ and so the bound is in the range of $\frac{2^{1024}}{\ln{2^{1024}}} \approx 2^{1015}$. That number is honestly quite large 😫 . 
 
 Suppose we pick two haystack samples at random. What is the probability that they share at least 1 prime factor in common?
 
 $$\begin{aligned}
-\text{P(two haystacks share at least one prime factor)} &= 1 - \text{P(two hastacks share no prime factor)} \\\
-&= 1 - \frac{\binom{N}{300} \cdot \binom{N-300}{300}}{\binom{N}{300}^2} \\\
+&\text{P(two haystacks share at least one prime factor)} \\\
+&= 1 - \text{P(two hastacks share no prime factor)} \\\
+&= 1 - \frac{\binom{N}{300} \binom{N-300}{300}}{\binom{N}{300}^2} \\\
 &= 1 - \frac{\binom{N-300}{300}}{\binom{N}{300}}
 \end{aligned}
 $$
 
-Here $N$ is so large that the fractional part tends to be ($\approx 1$) and so the final result becomes extremely close to 0 ($\approx 0$). Which means, that if the primes were generated at random, there is practically no chance that any 2 haystacks would have a prime in common. Honestly, the probability that I'm going to be selected for a PhD position at UIU is much higher than that :"). This proves that the pool of primes the author precalculated is not so big.
+Here $N$ is so large that the fractional part tends to be ($\approx 1$) and so the final result becomes extremely close to 0 ($\approx 0$). Which means, that if the primes were generated at random, there is practically no chance that any 2 haystacks would have a prime in common. Honestly, the probability that I'm going to be selected for a PhD position at UIU is much higher than that 😆
+. This proves that the pool of primes the author precalculated is not so big.
 
 Using this fact, we can weed out the large prime factors one by one by taking `GCD`. Since every hastack has something in common with the other samples, we can keep on dividing a haystack by the common factors it has with every other haystacks. In this way, we try to reduce each haystack as much as possible. 
 
