@@ -460,7 +460,8 @@ Before we understand the term power-smooth, let's see what $B$ smooth means. A p
 It means that the factors of $p-1$ are all smaller than $B$. That is, $p-1 = f_1 \cdot f_2 \cdot f_3 \cdots f_n \ \ \forall f_i < B$. 
 
 Power-smooth is a concept closely related to this. We will call a prime $p$ to be $B$ power-smooth if the following holds:
-\[ p - 1 = f_{1}^{e_{1}} \cdot f_{2}^{e_{2}} \cdot f_{3}^{e_{3}} \cdots f_{n}^{e_{n}} \quad \text{where} \quad f_{i}^{e_{i}} < B . \]
+
+$$p - 1 = f_{1}^{e_{1}} \cdot f_{2}^{e_{2}} \cdot f_{3}^{e_{3}} \cdots f_{n}^{e_{n}} \quad \text{where} \quad f_{i}^{e_{i}} < B . $$
 
 Now, we know from `fermat's little theorem` that, for a prime $p$ and for an integer $a$ where $a$ is co-prime to $p$,
 
