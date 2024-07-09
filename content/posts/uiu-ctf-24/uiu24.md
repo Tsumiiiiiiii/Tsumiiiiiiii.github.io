@@ -427,8 +427,7 @@ $$\begin{aligned}
 \end{aligned}
 $$
 
-Here $N$ is so large that the fractional part tends to be ($\approx 1$) and so the final result becomes extremely close to 0 ($\approx 0$). Which means, that if the primes were generated at random, there is practically no chance that any 2 haystacks would have a prime in common. Honestly, the probability that I'm going to be selected for a PhD position at UIU is much higher than that 😆
-. This proves that the pool of primes the author precalculated is not so big.
+Putting the value of N, python gave me the probability to be $5e^{-304}$. This value is extremely extremely extremely extremely .... small.  Honestly, the probability that I'm going to be selected for a PhD position at UIU is much much much higher than that 😃. Which means, that if the primes were generated at random, there is practically no chance that any 2 haystacks would have a prime in common. This proves that the pool of primes the author precalculated is not so big.
 
 Using this fact, we can weed out the large prime factors one by one by taking `GCD`. Since every hastack has something in common with the other samples, we can keep on dividing a haystack by the common factors it has with every other haystacks. In this way, we try to reduce each haystack as much as possible. 
 
@@ -451,6 +450,44 @@ print(sz)
 
 We get an output of $14373$. This is a significant reduction of size. Maybe alpetron is fast enough to factor is? We can try our luck. And voila, after around 3 minutes, it spits out the $key$! Alpetron uses a method called `ECM`. I honestly have no idea how that works, except the fact that it uses `elliptic curves` somehow :3
 
-### Second method: pollard's $p - 1$ factorization (intended)
+### Second method : pollard's $p - 1$ factorization (intended)
 
+Everyone who plays CTF at least once have heard of this factorization method. Eventhough I knew this method for like 2 years, for some reason I didn't bother learning why or how it works :sad. Thanks to this problem I finally had the push to dive into it. 
 
+Let us assume the problem setting is `RSA` with $N = p \cdot q$. Our job is to recover $p, q$. The said factorization holds when either or both the primes are $B$ power-smooth. What does this mean? 
+
+Before we understand the term power-smooth, let's see what $B$ smooth means. A prime $p$ is $B$ smooth if all of it's prime factors are lesser than the bound $B$. Now a number is called $B$ power-smooth if each factor raised to the 
+It means that the factors of $p-1$ are all smaller than $B$. That is, $p-1 = f_1 \cdot f_2 \cdot f_3 \cdots f_n \ \ \forall f_i < B$. 
+
+Power-smooth is a concept closely related to this. We will call a prime $p$ to be $B$ power-smooth if the following holds:
+\[ p - 1 = f_{1}^{e_{1}} \cdot f_{2}^{e_{2}} \cdot f_{3}^{e_{3}} \cdots f_{n}^{e_{n}} \quad \text{where} \quad f_{i}^{e_{i}} < B . \]
+
+Now, we know from `fermat's little theorem` that, for a prime $p$ and for an integer $a$ where $a$ is co-prime to $p$,
+
+$$\begin{aligned}
+a^{p-1} &= 1 \mod p \\\
+\implies a^{p-1} - 1 &= 0 \mod p \\\
+\implies a^{p-1} - 1 &= lp
+\end{aligned}$$
+
+That means $\text{GCD}(a^{p-1} - 1, N) = p$. Note that due to fermat, $a^{k(p-1)} = 1 \mod p$ also holds, and so $\text{GCD}(a^{k(p-1)} - 1, N) = p$. Why is $k$ relevant here? Because if we raise an arbitrary $a$ (wich is co-prime to $N$ ay $a = 2$) to a huge power where the power is a multiple of $p-1$, we increase the likelihood to get one of the prime factors as `GCD`. Generally the power we raise is chosen to be product of all prime powers smaller than $B$ (let's call it $x$) and check if $\text{GCD}(a^x - 1, N) > 1$. If not, $x$ is increased and checked again. 
+
+It's better to explain with an example. Suppose $N = 299$. Let the bound $B = 5$. So we need to consider prime powers for the primes $2, 3, 5$.  Here $2^2 < B, 3^1 < 5, 5^1 \le 5$. So we take $x = 2^2 * 3^1 * 5 ^ 1$. $a = 2$ is chosen and here $\text{GCD}(a^x - 1, N) = \text{GCD}(2^{60} - 1, 299) = 13$. Voila! we have recovered one of the prime factors. We can recover the other one by $N / 13 = 23 $.
+
+The algorithm can be formally written as follow:
+
+1. We select a smoothness bound $B$.
+2. Define $x = \prod_{primes p \le B}^{} p ^ {\lfloor \log_{q}^{B} \rfloor}$. This $log$ ensures the powe-smoothness.
+3. Choose a co-prime $a$. Normally it's same to pick $a = 2$ since that prime itslef is never chosen. 
+4. Calculate $g = \text{GCD}(a^x - 1, N)$
+5. If $1 < g < N$, we have found one of the prime factors. Return the value.
+6. If $g = 1$, we do $x \leftarrow x + 1$.
+7. Else if $g = N$, we do $x \leftarrow x - 1$. 
+
+With the algorithm explained and understood, it's now time to see how this algorithm is relevant in the context of the given problem. Remember the problem setup was like this: $haystack = key \cdot p_1 \cdot p_2 \cdots \p_{300}$. We have to recover the 40 bit $key$. The concept of smoothness can be used here here. Maybe the key is some $B$ power-smooth where $B$ is reasonably small? If the bound $B$ is bigger, the probability is more that the prime is $B$ smooth. 
+
+But there is a tradeoff here, the more we increase the bound, the more costly it becomes. We can't afford so much time for a probabilistic solution. So we have to use a reasonably smaller bound so that it doesn't become too costly, and also there is good chance to be smooth. Somethin like 17 to 18 bits should be good enough. Shouldn't take more than a few mintues. 
+
+The pollard algorithm implemention should be a bit different than the usual one. This is because we are estimating the bounds. It might be the case that we are severerly underestimating. Say we estimated the bound to be of 15 bits when the actual bound was 25 bits. So if we use the original algorithm, it would keep on running for a long time (step 6 of the algorithm) until B reaches 25 bits from 13 bits. That's why it's better to keep a limit to the number of iterations it can run (say $1000$ iterations should be good enough). If it fails to return a solution within this time, we consider that the bound was actually much higher. So we close that connection, open a new one (and pray that this time the prime is $B$ smooth). After a few connections, we get  such a case, and hence, get the key!
+
+> FLAG: **uiuctf{Finding_Key_Via_Small_Subgroups}**
