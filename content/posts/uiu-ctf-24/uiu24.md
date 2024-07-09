@@ -1,6 +1,6 @@
 ---
 weight: 1
-title: "UIU CTF 2024 - snore signature and key-in-haystack writeup"
+title: "UIU CTF 2024 - snore signature and Key in a haystack writeup"
 date: 2024-07-07T00:37:00+06:00
 lastmod: 2024-07-07T00:37:00+06:00
 draft: false
@@ -8,7 +8,7 @@ author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
 description: "Writeup for some Cryptography challenges from UIU CTF 24."
 
-tags: ["crypto", "UIU CTF", "schnorr", "signature forgery", "english"]
+tags: ["crypto", "UIU CTF", "schnorr", "signature forgery", "pollard p - 1", "factorization", "ecm", "english"]
 categories: ["Writeups"]
 
 lightgallery: true
@@ -25,7 +25,7 @@ Writeup for some Cryptography challenges from UIU CTF 24.
 
 <!--more-->
 
-Solved all crypto problems (finally 😍) in this edition of UIU CTF. The problems were trivially easy, to be honest. For a CTF of this calibre, the difficulty curve should be more steep. To put things into perspective, the most difficult crypto challenge (`key-in-haystack`) had more than 60 solves. I think the 22nd edition was perfect in terms of balanced difficulty. Nevertheless, the problems were still refreshing and fun to try. Here, I will make writeups for two challenges: `snore signature` and `key-in-haystack`.
+Solved all crypto problems (finally 😍) in this edition of UIU CTF. The problems were trivially easy, to be honest. For a CTF of this calibre, the difficulty curve should be more steep. To put things into perspective, the most difficult crypto challenge (`Key in a haystack`) had more than 60 solves. I think the 22nd edition was perfect in terms of balanced difficulty. Nevertheless, the problems were still refreshing and fun to try. Here, I will make writeups for two challenges: `snore signature` and `Key in a haystack`.
 
 ## Snore Signature
 
@@ -305,7 +305,7 @@ print(recvline(sock).decode())
 
 ---
 
-## key-in-haystack
+## Key in a haystack
 
 The given code is very short and to the point
 
