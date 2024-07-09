@@ -484,7 +484,7 @@ The algorithm can be formally written as follow:
 6. If $g = 1$, we do $x \leftarrow x + 1$.
 7. Else if $g = N$, we do $x \leftarrow x - 1$. 
 
-With the algorithm explained and understood, it's now time to see how this algorithm is relevant in the context of the given problem. Remember the problem setup was like this: $haystack = key \cdot p_1 \cdot p_2 \cdots \p_{300}$. We have to recover the 40 bit $key$. The concept of smoothness can be used here here. Maybe the key is some $B$ power-smooth where $B$ is reasonably small? If the bound $B$ is bigger, the probability is more that the prime is $B$ smooth. 
+With the algorithm explained and understood, it's now time to see how this algorithm is relevant in the context of the given problem. Remember the problem setup was like this: $haystack = key \cdot p_1 \cdot p_2 \cdots p_{300}$. We have to recover the 40 bit $key$. The concept of smoothness can be used here here. Maybe the key is some $B$ power-smooth where $B$ is reasonably small? If the bound $B$ is bigger, the probability is more that the prime is $B$ smooth. 
 
 But there is a tradeoff here, the more we increase the bound, the more costly it becomes. We can't afford so much time for a probabilistic solution. So we have to use a reasonably smaller bound so that it doesn't become too costly, and also there is good chance to be smooth. Somethin like 17 to 18 bits should be good enough. Shouldn't take more than a few mintues. 
 
