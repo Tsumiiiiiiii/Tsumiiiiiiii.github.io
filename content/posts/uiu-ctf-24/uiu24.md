@@ -17,7 +17,7 @@ math:
   enable: true
 
 toc:
-  enable: true
+  enable: false
 ---
 
 Writeup for some Cryptography challenges from UIU CTF 24.
