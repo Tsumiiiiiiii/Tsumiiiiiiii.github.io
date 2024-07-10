@@ -457,8 +457,7 @@ Everyone who plays CTF at least once have heard of this factorization method. Ev
 
 Let us assume the problem setting is `RSA` with $N = p \cdot q$. Our job is to recover $p, q$. The said factorization holds when either or both the primes are $B$ power-smooth. What does this mean? 
 
-Before we understand the term power-smooth, let's see what $B$ smooth means. A prime $p$ is $B$ smooth if all of it's prime factors are lesser than the bound $B$. Now a number is called $B$ power-smooth if each factor raised to the 
-It means that the factors of $p-1$ are all smaller than $B$. That is, $p-1 = f_1 \cdot f_2 \cdot f_3 \cdots f_n \ \ \forall f_i < B$. 
+Before we understand the term power-smooth, let's see what $B$ smooth means. It means that the factors of $p-1$ are all smaller than $B$. That is, $p-1 = f_1 \cdot f_2 \cdot f_3 \cdots f_n \ \ \forall f_i < B$. 
 
 Power-smooth is a concept closely related to this. We will call a prime $p$ to be $B$ power-smooth if the following holds:
 
