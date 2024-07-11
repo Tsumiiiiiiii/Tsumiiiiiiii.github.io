@@ -201,7 +201,7 @@ Equipped with the necessary background knowledge, we are now ready to tackle the
     * Now we need to peform a forgery and provide them with $m', s$ (ofcourse $m \not ={m'}$) such that the $e'$ generated due to $m'$ is equal to the previously given $e$. This is verified using a function called `snore_verify`.
 * If we can pass all the rounds, we win and the flag is then given.
 
-All right, it's a signature forgery problem! From my experience so far, problems of this type generally has some bugs in the implementation. That is what we are going to do now, go through functions one by one and check if there is some bug that we can exploit. 
+All right, it's a signature forgery problem! From my experience so far, problems of this type generally has some bugs in the implementation. So what we are going to do now is, go through functions one by one and check if there is some bug that we can exploit. 
 
 #### `hash` function
 
@@ -485,10 +485,10 @@ The algorithm can be formally written as follow:
 6. If $g = 1$, we do $x \leftarrow x + 1$.
 7. Else if $g = N$, we do $x \leftarrow x - 1$. 
 
-With the algorithm explained and understood, it's now time to see how this algorithm is relevant in the context of the given problem. Remember the problem setup was like this: $haystack = key \cdot p_1 \cdot p_2 \cdots p_{300}$. We have to recover the 40 bit $key$. The concept of smoothness can be used here here. Maybe the key is some $B$ power-smooth where $B$ is reasonably small? If the bound $B$ is bigger, the probability is more that the prime is $B$ smooth. 
+With the algorithm explained and understood, it's now time to see how this algorithm is relevant in the context of the given problem. Remember the problem setup was like this: $haystack = key \cdot p_1 \cdot p_2 \cdots p_{300}$. We have to recover the 40 bit $key$. The concept of smoothness can be used here. Maybe the key is some $B$ power-smooth where $B$ is reasonably small? If the bound $B$ is bigger, the probability is more that the prime is $B$ smooth. 
 
-But there is a tradeoff here, the more we increase the bound, the more costly it becomes. We can't afford so much time for a probabilistic solution. So we have to use a reasonably smaller bound so that it doesn't become too costly, and also there is good chance to be smooth. Somethin like 17 to 18 bits should be good enough. Shouldn't take more than a few mintues. 
+But there is a tradeoff here, the more we increase the bound, the more costly it becomes. We can't afford so much time for a probabilistic solution. So we have to use a reasonably smaller bound so that it doesn't become too costly, and also there is good chance to be smooth. Something like 17 to 18 bits should be good enough. Shouldn't take more than a few mintues. 
 
-The pollard algorithm implemention should be a bit different than the usual one. This is because we are estimating the bounds. It might be the case that we are severerly underestimating. Say we estimated the bound to be of 15 bits when the actual bound was 25 bits. So if we use the original algorithm, it would keep on running for a long time (step 6 of the algorithm) until B reaches 25 bits from 13 bits. That's why it's better to keep a limit to the number of iterations it can run (say $1000$ iterations should be good enough). If it fails to return a solution within this time, we consider that the bound was actually much higher. So we close that connection, open a new one (and pray that this time the prime is $B$ smooth). After a few connections, we get  such a case, and hence, get the key!
+The pollard algorithm implemention should be a bit different than the usual one. This is because we are estimating the bounds. It might be the case that we are severerly underestimating. Say we estimated the bound to be of 15 bits when the actual bound was 25 bits. So if we use the original algorithm, it would keep on running for a long time (step 6 of the algorithm) until B reaches 25 bits from 15 bits. That's why it's better to keep a limit to the number of iterations it can run (say $1000$ iterations should be good enough). If it fails to return a solution within this time, we consider that the bound was actually much higher. So we close that connection, open a new one (and pray that this time the prime is $B$ smooth). After a few connections, we get  such a case, and hence, get the key!
 
 > FLAG: **uiuctf{Finding_Key_Via_Small_Subgroups}**
