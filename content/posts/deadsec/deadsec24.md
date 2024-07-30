@@ -95,9 +95,11 @@ $$
 
 ## `defund` for the win
 
-We see that in the algebraic representation of $n_2$ above, both $x$ and $y$ are very small compared to the modulus $n_2$. This hints to a bi-variate coppersmith solution. So we can brute-force the values of $p_{lo}$ (only around $2000$ of them), and try to see if coppersmith returns a valid solution or not.  We can use [defund's script](https://github.com/defund/coppersmith) for solving the bivariate equation. But how to understand if the solution is valid or not? Suppose from the solution we get $p_2'$ and we don't know it it's correct one or not.  It will be correct if $\text{GCD}(p_2', n_2) > 1$. 
+We see that in the algebraic representation of $n_2$ above, both $x$ and $y$ are very small compared to the modulus $n_2$. This hints to a bi-variate coppersmith solution. So we can brute-force the values of $p_{lo}$ (only around $2000$ of them), and try to see if coppersmith returns a valid solution or not.  We can use [defund's script](https://github.com/defund/coppersmith) for solving the bivariate equation. But how to understand if the solution is valid or not? Suppose from the solution we get $p_2'$ and we don't know if it's correct one or not.  It will be correct if $\text{GCD}(p_2', n_2) > 1$. 
 
-**BUT**, there is a slight problem here. Notice that the most trivial solution is$(x, y) = (0, 0)$ as that perfectly satisfies the equation for $n_2$.  This cost me around 2 to 3 hours to understand what was happening and fix it. We have to somehow force the solver to return us non-zero solutions. Notice that $q_2$ is a $300$ bit prime number. So the $299$th bit must be $1$. For this reason, instead of writing $q_2 = y$, we write $q_2 = 2^{299} + y$. Then $y$ will be bounded by $2^{298}$ and it also guarantees that trivial solutions would not be returned. 
+**BUT**, there is a slight problem here. Notice that the most trivial solution is $(x, y) = (0, 0)$ as that perfectly satisfies the equation for $n_2$.  This cost me around 2 to 3 hours to understand what was happening and fix it. We have to somehow force the solver to return us non-zero solutions. Notice that $q_2$ is a $300$ bit prime number. So the $299$th bit must be $1$. For this reason, instead of writing $q_2 = y$, we write $q_2 = 2^{299} + y$. Then $y$ will be bounded by $2^{298}$ and it also guarantees that trivial solutions would not be returned. So the modified equation will be
+
+$$n_2 = (x * 2^{605} + p_{lo})^2 * (y + 2^{299}) $$
 
 ## Finishing off the solution
 
@@ -149,7 +151,7 @@ b'DEAD{Rual_R0s4s_Chiweweiner!!}'
 
 ### 🧀 (factordb)
 
-Apparently people mentioned that they could find the factors for $n2$ right on [factordb](https://factordb.com). Very suspicious. Likely what happened was that someone factorized $n_2$ using *legal* methods then uploaded on factordb. Things like this ruins the fun.
+Apparently people mentioned that they could find the factors for $n_2$ right on [factordb](https://factordb.com). Very suspicious. Likely what happened was that someone factorized $n_2$ using *legal* methods then uploaded on factordb. Things like this ruins the fun.
 
 ### Some clever observations
 
