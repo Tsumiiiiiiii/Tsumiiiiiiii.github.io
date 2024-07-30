@@ -15,7 +15,7 @@ math:
 I am **Sumit Alam Khan** (aka lolipop 🍭), a Crypto player from team [IUT GENESIS](https://ctftime.org/team/175924), Islamic University of Technology, Bangladesh. I have been studying Computer Science and Engineering at Islamic University of Technology since **January 2020**.
 
 Started playing CTFs regularly since **June 2021**. When I'm not playing with my university team, 
-I play solo with the most random team names possible. (Update: As I've graduated, I'm looking for a new team to play with.)
+I play solo with the most random team names possible. (**Update: As I've graduated, I'm looking for a new team to play with.**)
 
 Also a competitive programmer(**used to be** actually). My coding profiles are [codeforces](https://codeforces.com/profile/sad_panda), [codechef](https://www.codechef.com/users/sumitalamkhan), [atcoder](https://atcoder.jp/users/iloveSNP).
 
