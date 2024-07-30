@@ -45,11 +45,11 @@ Ranked **72<sup>nd</sup>** in 2020 ACM-ICPC Asia Dhaka Regional Contest
 
 ## CTF Problem Setting
 * IUT CTF 24
-    * 6 in crypto:
+    * 6 problems in crypto:
         * 2 easy: [Cow](https://tsumiiiiiiii.github.io/easy_mid/#cow), [ps3](https://tsumiiiiiiii.github.io/easy_mid/#ps3)
         * 2 medium: [Inocrrect RSA](https://tsumiiiiiiii.github.io/easy_mid/#incorrect-rsa), [Hypocrite Tree](https://tsumiiiiiiii.github.io/easy_mid/#hypocrite-tree)
         * 2 hard: Symmetry, Medusa's Layer
-    * 1 in misc: [Ghost of the Past](https://tsumiiiiiiii.github.io/misc/)
+    * 1 problem in misc: [Ghost of the Past](https://tsumiiiiiiii.github.io/misc/)
 * FlagHunt 23 Finals
     * 2 problems in crypto: [XOR-Mania](https://tsumiiiiiiii.github.io/fh_crypto/#xor-mania), [Primes Festival](https://tsumiiiiiiii.github.io/fh_crypto/#primes-festival)
 * FlagHunt 23 Quals
