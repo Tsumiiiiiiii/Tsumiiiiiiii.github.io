@@ -149,11 +149,11 @@ b'DEAD{Rual_R0s4s_Chiweweiner!!}'
 
 ### 🧀 (factordb)
 
-Apparently people mentioned that they could find the factors for $n2$ right on [factordb](https://factordb.com). Very suspicious. Likely what happened was that someone factorized $n2$ using *legal* methods then uploaded on factordb. Things like this ruins the fun.
+Apparently people mentioned that they could find the factors for $n2$ right on [factordb](https://factordb.com). Very suspicious. Likely what happened was that someone factorized $n_2$ using *legal* methods then uploaded on factordb. Things like this ruins the fun.
 
 ### Some clever observations
 
-This solution was mentioned by [@ctfguy](ctfguy.github.io) in the discord server. 
+This solution was mentioned by [@ctfguy](https://ctfguy.github.io) in the discord server. 
 
 $$\begin{aligned}
 n_2 \mod 2^{400} &= (p_{hi} * 2^{609} + p_{lo}) ^ 2 * q_2 \mod 2^{400} \\\
