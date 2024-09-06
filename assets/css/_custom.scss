@@ -170,4 +170,11 @@
     /* adjust as needed */
     margin: 0 auto;
 }
-    
+
+.code-header {
+  background: #231f20 !important;
+
+  [theme=dark] & {
+    color: $code-info-color-dark;
+    background: #231f20 !important;
+  }
