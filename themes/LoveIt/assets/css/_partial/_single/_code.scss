@@ -22,6 +22,7 @@ pre {
   //border-style: solid; //changed
   //border-width: 1px; // changed
   border: 1px solid #555;
+   white-space: pre-wrap;
   //padding: 1rem 1 1rem 1rem;
   @include tab-size(4);
 
