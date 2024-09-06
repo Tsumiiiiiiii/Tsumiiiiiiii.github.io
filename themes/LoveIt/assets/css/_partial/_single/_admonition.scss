@@ -30,17 +30,17 @@
 
   @each $type, $color, $background-color in $admonition-color-list {
     @if $type == "note" {
-      //background-color: $background-color;
-      background-color: $color;
+      background-color: $background-color;
+      //background-color: $color;
       border-left-color: $color;
 
       .admonition-title {
-        border-bottom-color: $color;//$background-color;
-        background-color: $color;//opacify($background-color, 0.15);
+        border-bottom-color: $background-color;
+        background-color: opacify($background-color, 0.15);
       }
 
       &.open .admonition-title {
-        background-color: $color;//$background-color;
+        background-color: $background-color;
       }
 
       i.icon {
@@ -48,20 +48,20 @@
       }
     } @else {
       &.#{$type} {
-        background-color: $color;//$background-color;
+        background-color: $background-color;
         border-left-color: $color;
 
         .admonition-title {
-          border-bottom-color: $color;//$background-color;
-          background-color: $color;//opacify($background-color, 0.15);
+          border-bottom-color: $background-color;
+          background-color: opacify($background-color, 0.15);
         }
 
         &.open .admonition-title {
-          background-color: $color;//$background-color;
+          background-color: $background-color;
         }
 
         i.icon {
-          color: opacify($background-color, 0.15); //$color;
+          color:  $color;
         }
       }
     }
