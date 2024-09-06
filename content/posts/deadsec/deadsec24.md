@@ -29,7 +29,7 @@ Writeup for Raul Rosas from DeadSec CTF 24.
 Deadsec CTF is kinda significant to me because the last year's edition taught me LCGs (which later on helped me win 2 writeup prizes). This time I've managed to solve 
 3 out of the 6 crypto challenges. Two of them were easy, but Raus Rosas was interesting. This post will be about that particular challenge.
 
-## Overview of the given script
+<h2>Overview of the given script</h2>
 
 We are given with the following handout:
 
