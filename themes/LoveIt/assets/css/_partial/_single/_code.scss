@@ -169,7 +169,8 @@ code, pre, .highlight table, .highlight tr, .highlight td {
         background: darken($code-background-color, 3%);
 
         [theme=dark] & {
-          background: darken($code-background-color-dark, 3%);
+          background: #231f20; // changed
+          //background: darken($code-background-color-dark, 3%); //og
         }
       }
 
