@@ -74,7 +74,8 @@ code, pre, .highlight table, .highlight tr, .highlight td {
 
       [theme=dark] & {
         color: $code-info-color-dark;
-        background: darken($code-background-color-dark, 6%);
+        background: #231f20;
+        // background: darken($code-background-color-dark, 6%); original
       }
 
       &:hover {
