@@ -1,7 +1,7 @@
 code {
   display:inline-block;
   max-width: 100%;
-  padding: 0 .4rem;
+  padding: 1rem;
   border-style: solid; //changed
   border-width: 1px; // changed
   @include overflow-wrap(break-word);
