@@ -19,8 +19,9 @@ code {
 pre {
   margin: 0;
   padding: .25rem 0 .25rem .5rem; //og
-  border-style: solid; //changed
-  border-width: 1px; // changed
+  //border-style: solid; //changed
+  //border-width: 1px; // changed
+  border-style: 1px solid #555;
   //padding: 1rem 1 1rem 1rem;
   @include tab-size(4);
 
@@ -73,8 +74,9 @@ code, pre, .highlight table, .highlight tr, .highlight td {
       align-items: center;
       box-sizing: border-box;
       width: 100%;
-      border-style: solid; //changed
-      border-width: 1px; // changed
+      //border-style: solid; //changed
+      //border-width: 1px; // changed
+      border-style: 1px solid #555;
       font-family: var(--global-font-family);
       font-weight: bold;
       color: $code-info-color;
