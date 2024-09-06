@@ -4,7 +4,8 @@ code {
   padding: 0.4rem;
   //border-style: solid; //changed
   //border-width: 1px; // changed
-  @include overflow-wrap(break-word);
+  //@include overflow-wrap(break-word); //og
+  @include overflow-wrap(anywhere);
   @include line-break(anywhere);
   font-size: var(--code-font-size);
   font-family: var(--code-font-family);
