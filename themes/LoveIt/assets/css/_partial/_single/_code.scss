@@ -21,7 +21,9 @@ pre {
   padding: .25rem 0 .25rem .5rem; //og
   //border-style: solid; //changed
   //border-width: 1px; // changed
-  border: 1px solid #555;
+  border-left: 1px solid #555;
+   border-right: 1px solid #555;
+   border-bottom: 1px solid #555;
    white-space: pre-wrap;
   //padding: 1rem 1 1rem 1rem;
   @include tab-size(4);
