@@ -22,8 +22,13 @@ pre {
   margin: 0;
   padding: .5rem .5rem .5rem .5rem; //og
   //border-style: solid; //changed
-  //border-width: 1px; // changed
-  border: 1px solid #555;
+  //border-width: 1px; // changed  
+  border-top: 1px solid #555;   /* Top border */
+  border-bottom: 1px solid #555; /* Bottom border */
+  position: relative;
+  box-shadow: inset 1px 0 0 0 #555, inset -1px 0 0 0 #555; /* Left and right borders using box-shadow */
+  overflow-x: auto; /* Allows horizontal scrolling */
+  //border: 1px solid #555;
   max-width: 100%;
   //border-left: 1px solid #555;
    //border-right: 1px solid #555;
