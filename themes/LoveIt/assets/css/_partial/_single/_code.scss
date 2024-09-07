@@ -3,7 +3,7 @@ code {
   max-width: 100%;
   padding: 0.4rem;
 
-  //border: 1px solid #555;
+  border: 1px solid #555;
   //border-style: solid; //changed
   //border-width: 1px; // changed
   //@include overflow-wrap(break-word); //og
@@ -23,13 +23,13 @@ pre {
   padding: .5rem .5rem .5rem .5rem; //og
   //border-style: solid; //changed
   //border-width: 1px; // changed  
-  border-top: 1px solid #555;   /* Top border */
-  border-bottom: 1px solid #555; /* Bottom border */
+  //border-top: 1px solid #555;   /* Top border */
+  //border-bottom: 1px solid #555; /* Bottom border */
   position: relative;
   //box-shadow: inset 1px 0 0 0 #555, inset -1px 0 0 0 #555; /* Left and right borders using box-shadow */
   overflow-x: auto; /* Allows horizontal scrolling */
   //border: 1px solid #555;
-  //max-width: 100%;
+  max-width: 100%;
   //border-left: 1px solid #555;
    //border-right: 1px solid #555;
    //border-bottom: 1px solid #555;
@@ -49,22 +49,6 @@ pre {
   }
 }
 
-pre::before, pre::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background-color: #555;        /* Border color */
-}
-
-pre::before {
-  left: 0;                       /* Left border */
-}
-
-pre::after {
-  right: 0;                      /* Right border */
-}
 
 
 code, pre, .highlight table, .highlight tr, .highlight td {
