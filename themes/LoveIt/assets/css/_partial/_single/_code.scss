@@ -77,7 +77,8 @@ code, pre, .highlight table, .highlight tr, .highlight td {
     position: relative;
 
     .code-header {
-      display: flex;
+      //display: flex; //og
+      display: none;
       justify-content: space-between;
       align-items: center;
       box-sizing: border-box;
