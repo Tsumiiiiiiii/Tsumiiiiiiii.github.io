@@ -20,22 +20,24 @@ code {
   }
 }
 
-.pre-wrapper {
-  position: relative;
-  display: inline-block;     /* Shrink-wraps to the size of the content */
-  border: 1px solid #555;    /* The border you want */
+/* Outer container to handle the persistent border */
+.pre-container {
+  position: relative;        /* Position relative to the viewport */
+  border: 1px solid #555;    /* The border you want to remain visible */
   padding: 0.5rem;           /* Padding inside the border */
-  overflow: hidden;          /* Hide the overflow to keep the border intact */
+  overflow: hidden;          /* Hide overflow to contain the border */
 }
 
-/* Scrollable pre element inside the wrapper */
-.pre-wrapper pre {
+/* Inner scrollable pre element */
+.pre-container pre {
   margin: 0;
   padding: 0.25rem;
   overflow-x: auto;          /* Enable horizontal scrolling */
-  max-width: 100%;           /* Ensure it takes the available width */
-  white-space: pre-wrap;     /* Preserve formatting while wrapping */
+  max-height: 100%;          /* Ensure it takes the height available */
+  white-space: pre-wrap;     /* Preserve formatting with wrapping */
+  position: relative;
 }
+
 
 pre {
   margin: 0;
