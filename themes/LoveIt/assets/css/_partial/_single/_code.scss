@@ -20,11 +20,20 @@ code {
   }
 }
 
-div.pre-wrapper {
+.pre-container {
+  position: relative;        /* Position relative to the viewport */
+  border: 1px solid #555;    /* The border you want to remain visible */
+  padding: 0.5rem;           /* Padding inside the border */
+  overflow: hidden;          /* Hide overflow to contain the border */
+}
+
+.pre-container pre {
+  margin: 0;
+  padding: 0.25rem;
+  overflow-x: auto;          /* Enable horizontal scrolling */
+  max-height: 100%;          /* Ensure it takes the height available */
+  white-space: pre-wrap;     /* Preserve formatting with wrapping */
   position: relative;
-  overflow-x: auto;  /* Allows horizontal scroll */
-  padding: 10px;
-  box-shadow: 1px 0 0 #555, -1px 0 0 #555;  /* Persistent left and right borders */
 }
 
 pre {
@@ -39,10 +48,10 @@ pre {
   //position: fixed;
   //outline-offset: -2px;
   //box-shadow: 0 0 0 1px #555;  
-  border: 1px solid #555;
-  border-left: none;       /* Remove left border */
-  border-right: none;      /* Remove right border */
-  white-space: pre;        /*
+  //border: 1px solid #555;
+  //border-left: none;       /* Remove left border */
+  //border-right: none;      /* Remove right border */
+  //white-space: pre;        /*
   
   //border-top: 1px solid #555;    /* Top border */
   //border-bottom: 1px solid #555; /* Bottom border */
