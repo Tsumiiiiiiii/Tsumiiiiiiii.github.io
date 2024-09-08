@@ -33,9 +33,16 @@ pre {
   //position: fixed;
   //outline-offset: -2px;
   //box-shadow: 0 0 0 1px #555;  
-  border: 1px solid #555;             /* Border on all sides */
-  overflow-x: auto;                   /* Horizontal scroll */
-  box-sizing: border-box;             /* Include padding and borders in the element’s width */
+  
+  border-top: 1px solid #555;    /* Top border */
+  border-bottom: 1px solid #555; /* Bottom border */
+  overflow-x: auto;              /* Horizontal scroll */
+  position: relative;   
+  
+  //border: 1px solid #555;             /* Border on all sides */
+  //overflow-x: auto;                   /* Horizontal scroll */
+  //box-sizing: border-box;             /* Include padding and borders in the element’s width */
+  
   //scrollbar-gutter: stable both-edges; /* Reserve space for the scrollbar */
   //border: 1px solid #555;
   //max-width: 100%;
@@ -63,6 +70,22 @@ pre {
     max-height: 1.2em;
     vertical-align: text-bottom;
   }
+}
+pre::before, pre::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #555;        /* Border color */
+}
+
+pre::before {
+  left: 0;                       /* Left border */
+}
+
+pre::after {
+  right: 0;                      /* Right border */
 }
 
 
