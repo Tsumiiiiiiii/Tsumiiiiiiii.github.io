@@ -3,8 +3,8 @@ code {
   //max-width: 100%;
   padding: 0.1rem;
 
-  border: 1px solid #555;
-  border-radius: 4px;
+  //border: 1px solid #555;
+  //border-radius: 4px;
   //border-style: solid; //changed
   //border-width: 1px; // changed
   //@include overflow-wrap(break-word); //og
@@ -16,6 +16,7 @@ code {
 
   [theme=dark] & {
     color: $code-color-dark;
+    background-color: rgba(255, 228, 225, 0.2);
   }
 }
 
