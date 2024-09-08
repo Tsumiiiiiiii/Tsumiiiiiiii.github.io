@@ -496,15 +496,20 @@ var Theme = /*#__PURE__*/function () {
           $header.className = 'code-header ' + $code.className.toLowerCase();
           document.addEventListener("DOMContentLoaded", function() {
             const preElements = document.querySelectorAll("pre");
+          
             preElements.forEach(pre => {
-              const wrapper = document.createElement('div');
-              wrapper.style.border = '1px solid #555';  // Add desired border here
-              wrapper.style.overflowX = 'auto';         // Ensure horizontal scroll
-              wrapper.style.padding = '0.25rem';        // Adjust padding
-              pre.parentNode.insertBefore(wrapper, pre);
-              wrapper.appendChild(pre);
+              // Check if the <pre> element is already wrapped by a div to avoid duplication
+              if (pre.parentElement.tagName.toLowerCase() !== 'div') {
+                const wrapper = document.createElement('div');
+                wrapper.style.border = '1px solid #555';  // Add desired border here
+                wrapper.style.overflowX = 'auto';         // Ensure horizontal scroll
+                wrapper.style.padding = '0.25rem';        // Adjust padding
+                pre.parentNode.insertBefore(wrapper, pre);  // Insert the wrapper before <pre>
+                wrapper.appendChild(pre);                 // Move <pre> inside the wrapper
+              }
             });
           });
+
           
           var $title = document.createElement('span');
           $title.classList.add('code-title');
