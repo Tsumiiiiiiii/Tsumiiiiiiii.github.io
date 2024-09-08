@@ -31,7 +31,7 @@ Writeup for  Trypanophobia and Cheeky from BlackHat MEA 24 Quals.
 
 This was an interactive challenge where the server code is as follows:
 
-<div class="pre-wrapper">
+<div class="pre-container">
 <pre>
 #!/usr/bin/env python3
 #
