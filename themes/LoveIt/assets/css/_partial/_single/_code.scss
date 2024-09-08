@@ -12,7 +12,7 @@ code {
   @include line-break(anywhere);
   font-size: var(--code-font-size);
   font-family: var(--code-font-family);
-  //color: $code-color;
+  color: $code-color;
 
   [theme=dark] & {
     color: $global-font-color-dark;
