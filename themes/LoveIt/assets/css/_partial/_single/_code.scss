@@ -20,6 +20,13 @@ code {
   }
 }
 
+div.pre-wrapper {
+  position: relative;
+  overflow-x: auto;  /* Allows horizontal scroll */
+  padding: 10px;
+  box-shadow: 1px 0 0 #555, -1px 0 0 #555;  /* Persistent left and right borders */
+}
+
 pre {
   margin: 0;
 
@@ -33,11 +40,15 @@ pre {
   //position: fixed;
   //outline-offset: -2px;
   //box-shadow: 0 0 0 1px #555;  
+  border: 1px solid #555;
+  border-left: none;       /* Remove left border */
+  border-right: none;      /* Remove right border */
+  white-space: pre;        /*
   
-  border-top: 1px solid #555;    /* Top border */
-  border-bottom: 1px solid #555; /* Bottom border */
-  overflow-x: auto;              /* Horizontal scroll */
-  position: relative;   
+  //border-top: 1px solid #555;    /* Top border */
+  //border-bottom: 1px solid #555; /* Bottom border */
+  //overflow-x: auto;              /* Horizontal scroll */
+  //position: relative;   
   
   //border: 1px solid #555;             /* Border on all sides */
   //overflow-x: auto;                   /* Horizontal scroll */
@@ -70,22 +81,6 @@ pre {
     max-height: 1.2em;
     vertical-align: text-bottom;
   }
-}
-pre::before, pre::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background-color: #555;        /* Border color */
-}
-
-pre::before {
-  left: 0;                       /* Left border */
-}
-
-pre::after {
-  right: 0;                      /* Right border */
 }
 
 
