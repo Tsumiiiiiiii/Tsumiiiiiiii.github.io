@@ -31,8 +31,8 @@ Writeup for  Trypanophobia and Cheeky from BlackHat MEA 24 Quals.
 
 This was an interactive challenge where the server code is as follows:
 
-<div class="pre-container">
-<pre>
+
+```python
 #!/usr/bin/env python3
 #
 # BlackHat MEA 2024 CTF Qualifiers
@@ -148,8 +148,7 @@ while True:
 
     except Exception as e:
         print('|  [!] ERROR :: {}'.format(e))
-</pre>
-</div>
+```
 
 What happens here is:
 
