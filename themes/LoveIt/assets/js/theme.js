@@ -494,6 +494,18 @@ var Theme = /*#__PURE__*/function () {
           var $code = $codeElements[$codeElements.length - 1];
           var $header = document.createElement('div');
           $header.className = 'code-header ' + $code.className.toLowerCase();
+          document.addEventListener("DOMContentLoaded", function() {
+            const preElements = document.querySelectorAll("pre");
+            preElements.forEach(pre => {
+              const wrapper = document.createElement('div');
+              wrapper.style.border = '1px solid #555';  // Add desired border here
+              wrapper.style.overflowX = 'auto';         // Ensure horizontal scroll
+              wrapper.style.padding = '0.25rem';        // Adjust padding
+              pre.parentNode.insertBefore(wrapper, pre);
+              wrapper.appendChild(pre);
+            });
+          });
+          
           var $title = document.createElement('span');
           $title.classList.add('code-title');
           $title.insertAdjacentHTML('afterbegin', '<i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i>');
