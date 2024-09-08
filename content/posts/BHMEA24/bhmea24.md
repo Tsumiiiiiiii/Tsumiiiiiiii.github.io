@@ -208,8 +208,7 @@ polynomial = x^8 - c
 y = polynomial.roots()[1][0] #Takes around 7 minutes on my potato
 
 assert y^8 == c
-</pre>
-</div>
+```
 
 Once we get $y_1$, we can get $x = \frac{M_1}{y_{1}^{k+8}} \mod p$. But we don't know $k$. Remember that I mentioned $k$ can be brute-forced as it's in the range of $5 \approx 20$. So we try all values of $k$ and see which yields the correct `FLAG`.
 
