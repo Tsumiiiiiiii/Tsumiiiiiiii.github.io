@@ -27,12 +27,10 @@ pre {
   //border-bottom: 1px solid #555; /* Bottom border */
   //position: relative;
 
-  border: 1px solid #555;         /* Apply borders on all sides */
-  overflow-x: auto;               /* Horizontal scroll for overflow */
-  box-sizing: border-box;         /* Include padding and borders in the element’s width */
-  width: 100%;                    /* Ensure the pre block takes full width */
-  position: relative;             /* Position to contain the clip-path */
-  clip-path: inset(0);     
+  border: 1px solid #555;             /* Border on all sides */
+  overflow-x: auto;                   /* Horizontal scroll */
+  box-sizing: border-box;             /* Include padding and borders in the element’s width */
+  scrollbar-gutter: stable both-edges; /* Reserve space for the scrollbar */
   //border: 1px solid #555;
   //max-width: 100%;
   //border-left: 1px solid #555;
