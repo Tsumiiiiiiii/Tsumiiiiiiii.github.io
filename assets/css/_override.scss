@@ -1,4 +1,4 @@
-$global-font-size: calc(0.9375rem + 0.5vw) !important;
+$global-font-size: calc(0.9375rem + 0.125vw) !important;
 $global-font-family: 'Open Sans', JetBrains Mono, Fira Sans,Droid Sans,Helvetica Neue,sans-serif !important ;
 $global-font-color-dark: #ddd !important;
 $global-background-color-dark: #231f20 !important;
@@ -7,5 +7,5 @@ $code-padding: 5rem !important;
 $code-header-background-dark: #231f20 !important;
 $code-background-color-dark: #231f20;
 $code-font-family:  monospace, Fira Code, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New" !important;
-$code-font-size:  calc(0.9375rem + 0.5vw);
+$code-font-size:  calc(0.9375rem + 0.125vw);
 $page-width: 100%;
