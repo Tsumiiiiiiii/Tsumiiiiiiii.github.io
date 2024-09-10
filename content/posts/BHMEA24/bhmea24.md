@@ -414,7 +414,7 @@ Suppose we have $iv := \text{7f} \ \text{03} \ \text{78} \ \text{69} \ \text{a4}
     </div>
     <p>....</p>
     <div style="text-align: center;">
-        <div style="border: 1px solid #555; padding: 5px; white-space: nowrap;">7f 03 ... bf c4 <span style="color: red;"> 00 00 00 19 </span></div>
+        <div style="border: 1px solid #555; padding: 5px; white-space: nowrap;">7f 03 ... bf c4 <span style="color: red;"> 00 00 00 18 </span></div>
         <p>Counter Block #25</p>
     </div>
 </div>
