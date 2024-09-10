@@ -220,6 +220,212 @@ for k in range(5, 20):
 
 ---
 
+## Cheeky
+
+The server side code is below:
+
+```python
+#!/usr/bin/env python3
+#
+# BlackHat MEA 2024 CTF Qualifiers
+#
+# [Medium] Crypto - Cheeky
+#
+
+# Native imports
+import os, time, json
+from hashlib import sha256
+
+# Non-native imports
+from Crypto.Cipher import AES
+
+# Flag import
+FLAG = os.environ.get('DYN_FLAG', 'BHFlagY{506f6c79-6d65726f-57617348-65726521}')
+if isinstance(FLAG, str):
+    FLAG = FLAG.encode()
+
+
+# Functions & Classes
+class Database:
+    def __init__(self, passkey: bytes):
+        if isinstance(passkey, str):
+            passkey = passkey.encode()
+        self.key = sha256(b"::".join([b"KEY(_FLAG)", passkey, len(passkey).to_bytes(2, 'big')])).digest()
+        self.uiv = int(sha256(b"::".join([b"UIV(_KEY)", self.key, len(self.key).to_bytes(2, 'big')])).hexdigest()[:24], 16)
+        self.edb = {}
+
+    def _GetUIV(self, f: str, l: int, t: int = 0) -> bytes:
+        if not (0 < t < int(time.time())):
+            t = int(time.time()); time.sleep(2)
+        u = (self.uiv + t).to_bytes(12, 'big')
+        v = sha256(b"::".join([b"UIV(_FILE)", f.encode(), l.to_bytes(2, 'big')])).digest()
+        return t, bytes([i^j for i,j in zip(u, v)])
+
+    def _Encrypt(self, f: str, x: bytes) -> bytes:
+        if isinstance(x, str):
+            x = x.encode()
+        t, uiv = self._GetUIV(f, len(x))
+        aes = AES.new(self.key, AES.MODE_CTR, nonce=uiv)
+        return t.to_bytes(4, 'big') + aes.encrypt(x)
+    
+    def _Decrypt(self, f: str, x: bytes) -> bytes:
+        t, x = int.from_bytes(x[:4], 'big'), x[4:]
+        _, uiv = self._GetUIV(f, len(x), t=t)
+        aes = AES.new(self.key, AES.MODE_CTR, nonce=uiv)
+        return aes.decrypt(x)
+    
+    def Insert(self, f, i, j):
+        if isinstance(j, str):
+            j = j.encode()
+        if isinstance(j, int):
+            j = j.to_bytes(-(-len(bin(j)[:2])//8), 'big')
+        if f in self.edb:
+            x = self._Decrypt(f, self.edb[f])
+        else:
+            x = b""
+        y = x[:i] + j + x[i:]
+        z = self._Encrypt(f, y)
+        self.edb[f] = z
+        return z
+    
+    def Delete(self, f, i, j):
+        if f not in self.edb:
+            return b""
+        x = self._Decrypt(f, self.edb[f])
+        y = x[:i] + x[i+j:]
+        z = self._Encrypt(f, y)
+        self.edb[f] = z
+        return z
+
+
+# Challenge set-up
+HDR = """|
+|   __________                __
+|  |   _      |--.-----.-----|  |--.--.--.
+|  |   |            -__   -__     <   |  |
+|  |   |______|_________________|______  |
+|  |   |   |                       |_____|
+|  |       |
+|  `-------'"""
+print(HDR)
+
+database = Database(FLAG)
+database.Insert('flag', 0, FLAG)
+
+
+# Server loop
+TUI = "|\n|  Menu:\n|    [I]nsert\n|    [D]elete\n|    [Q]uit\n|"
+
+while True:
+    try:
+
+        print(TUI)
+        choice = input("|  > ").lower()
+
+        if choice == 'q':
+            raise KeyboardInterrupt
+
+        elif choice == 'i':
+            uin = json.loads(input("|  > (JSON) "))
+            assert uin.keys() == {'f', 'i', 'j'}
+            ret = database.Insert(uin['f'], uin['i'], uin['j'])
+            print("|  '{}' updated to 0x{}".format(uin['f'], ret.hex()))
+
+        elif choice == 'd':
+            uin = json.loads(input("|  > (JSON) "))
+            assert uin.keys() == {'f', 'i', 'j'}
+            ret = database.Delete(uin['f'], uin['i'], uin['j'])
+            print("|  '{}' updated to 0x{}".format(uin['f'], ret.hex()))
+
+        else:
+            print('|  [!] Invalid choice.')
+
+    except KeyboardInterrupt:
+        print('\n|\n|  [~] Goodbye ~ !\n|')
+        break
+
+    except Exception as e:
+        print('|  [!] ERROR :: {}'.format(e))
+```
+
+It looks scary at first sight, but the solution is rather simple. First, we need to understand what is happening in the code. In simple terms, the code implements a "database" where "files"(which are actually strings) can be added or removed. There are two types of queries to communicate with the server:
+
+1. `Insert`: Insert a string at any location in between another string.
+2. `Delete`: Delete a substring from another string. 
+
+### Trying to understand the problem
+
+One thing to understand first is that how the database "stores" each "file". It works in a "hashmap" style, where there ia a "key" for each file. Key in a sense that it works as the "primary key" or the identifier or the alias of a file. For example, the $FLAG$ itself is stored using the key "flag". Whenver we have to address a file, we address it using it's key.
+
+#### `Insert` query
+
+It takes $3$ parameters: 
+* $f$: "key" of the string we are trying to operate on.
+* $i$: index of the string where we want to insert our desired string.
+* $j$: string that we want to insert.
+
+Suppose we made the query `insert(f, i, j)` and $s := \text{database}[f]$ and $l = \text{sizeof}(s)$. Then,
+
+$$
+\text{s}\_{\text{modified}} = \text{s}\_{0} \ \text{s}\_{1} \ \text{s}\_{2}  \cdots \text{s}\_{i - 1} + \ \text{j} \ + \text{s}\_{i} \ \text{s}\_{i + 1}  \cdots  \text{s}\_{l - 2} \ \text{s}\_{l - 1} 
+$$
+
+The DB we be modified as $\text{database}[f] := \text{s}_{modified}$. Also if there isn't any "key" in the DB with our given query $f$, it just creates a new entry with $\text{database}[f] := j$. 
+
+#### `Delete` query
+
+Just like before, this also takes $3$ inputs:
+* $f$: the "key" of the string we want to modify.
+* $i$: starting index of the substring that we want to delete.
+* $j$: ending point of the substring that we want to delete.
+
+If we made the query `delete(f, i, j)` and $s := \text{database}[f]$ and $l = \text{sizeof}(s)$. Then,
+
+$$
+\text{s}\_{\text{modified}} = \text{s}\_{0} \ \text{s}\_{1} \ \text{s}\_{2}  \cdots \text{s}\_{i - 1}  \ \text{s}\_{i + j - 1} \ \text{s}\_{i + j} \cdots  \text{s}\_{l - 2} \ \text{s}\_{l - 1} 
+$$
+
+#### The `Encrypt` and `Decrypt` function
+
+Both the queries explained above makes use of two other functions called `Encrypt` and `Decrypt`. It's nothing but `AES-CTR` mode of encryption with some "sophisticated" method of $IV$ generation. That said method also uses the current `UNIX-time`, preferably to prevent any sort of forgery. 
+
+**The AES encryption as it's key always uses the FLAG itself. This never changes.**
+
+### A primer on `AES-CTR`
+
+#### How it works
+
+We know AES as a block cipher, but `CTR` mode is known as "stream" cipher. It still works on blocks though, but unlike other modes, there is no hard and fast rule to make the plaintext padded to a multiple of block length. It also doesn't "encrypt" the plaintext directly. "encrypt" in a sense that the `AddRoundKey`, `SubBytes` etc operations doesn't happen on the plaintext, rather on something called a "counter". That "encrypted" text is xored with the plaintext to get the resulting ciphertext.
+
+So if we know the traditional mode as $\text{AES-ECB}(x) = \mathcal{E}(x)$, the `CTR` mode will be $\text{AES-CTR}(x) = \mathcal{E}(\text{COUNTER}) \oplus x$. $\mathcal{E}$ is where the well know AES steps `AddRoundKey`, `SubBytes`, `ShiftRows`, `MixColumns` takes place.
+
+How the `COUNTER` is generated is rather interesting. A counter block is the combination of the $iv$ and $counter$. The $iv$ is given by us. $\text{COUNTER-BLOCK} = \text{IV} \ || \ \text{counter}$. Their length is equal to that of a single AES block length(generally $16$). So fi the $iv$ takes $12$ bytes, the counter will take $4$ bytes. The counter value, that takes on the value of $1$ at the first block, increase by $1$ at each block, while $iv$ remains the same. 
+
+Suppose we have $iv := \text{7f} \ \text{03} \ \text{78} \ \text{69} \ \text{a4} \ \text{f8} \ \text{42} \ \text{64} \ \text{aa} \ \text{d8} \ \text{bf} \ \text{c4}$
+
+<div style="display: flex; gap: 10px; margin-bottom: 15px;">
+    <div style="text-align: center;">
+        <div style="border: 1px solid #000; padding: 5px;">7f 03 ... bf c4 <span style="color: red;"> 00 00 00 00 </span></div>
+        <p>Counter Block #0</p>
+    </div>
+    <div style="text-align: center;">
+        <div style="border: 1px solid #000; padding: 5px;">7f 03 ... bf c4 <span style="color: red;"> 00 00 00 01 </span></div>
+        <p>Counter Block #1</p>
+    </div>
+    <div style="text-align: center;">
+        <div style="border: 1px solid #000; padding: 5px;">7f 03 ... bf c4 <span style="color: red;"> 00 00 00 02 </span></div>
+        <p>Counter Block #2</p>
+    </div>
+    <p>....</p>
+    <div style="text-align: center;">
+        <div style="border: 1px solid #000; padding: 5px;">7f 03 ... bf c4 <span style="color: red;"> 00 00 00 19 </span></div>
+        <p>Counter Block #25</p>
+    </div>
+</div>
+
+As we can see, the <span style="color:red;"> counter</span> gradually increases with each block.
+
+
 
 
 
