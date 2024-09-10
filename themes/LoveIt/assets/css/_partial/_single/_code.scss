@@ -1,7 +1,7 @@
 code {
   display:inline-block;
   //max-width: 100%;
-  padding: .2em .4em;
+  padding: 0 .4rem;
 
   //border: 1px solid #555;
   //border-radius: 4px;
@@ -15,7 +15,7 @@ code {
   color: $code-color;
 
   [theme=dark] & {
-    color: $global-font-color-dark;
+    color: #ffe4e1;
     background-color: rgba(255, 228, 225, 0.2);
   }
 }
