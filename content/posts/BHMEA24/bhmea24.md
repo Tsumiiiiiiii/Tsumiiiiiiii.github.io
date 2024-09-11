@@ -431,12 +431,12 @@ Since the problem we are dealing with concerns the CTR mode, it's only natural t
 Suppose we have an oracle that can do the `AES-CTR` operation for us. It intially gives us the ciphertext of an unknown $P_{1}$, but we can get the ciphertext of a known string $P_{2}$.
 
 $$
-\begin{align}
+\begin{aligned}
 C_{1} &= \mathcal{E}(CB) \oplus P_{1} \\\
 C_{2} &= \mathcal{E}(CB) \oplus P_{2} \\\
 \Longrightarrow C_{1} \oplus C_{2} &= P_{1} \oplus P_{2} \\\
 \Longrightarrow P_{1} &= (C_{1} \oplus C_{2}) \oplus P_{2}
-\end{align}
+\end{aligned}
 $$
 
 And this results us to leak the unknown $P_1$. 
