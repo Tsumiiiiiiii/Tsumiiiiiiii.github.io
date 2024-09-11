@@ -420,8 +420,7 @@ Suppose we have $iv := \text{7f} \ \text{03} \ \text{78} \ \text{69} \ \text{a4}
 </div>
 
 
-As we can see, the <span style="color:red;"> counter</span> gradually increases with each block.
-
+As we can see, the <span style="color:red;"> counter</span> gradually increases with each block. The entire `AES-CTR` mode of operation has been visualized below, where $CB, P, C$ represents counter block, plaintext block and ciphertext block respectively: 
 <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz-1.svg?raw=true" style="width: 100%; height: auto;" />
 
 
