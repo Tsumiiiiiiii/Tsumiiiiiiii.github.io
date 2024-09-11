@@ -422,7 +422,7 @@ Suppose we have $iv := \text{7f} \ \text{03} \ \text{78} \ \text{69} \ \text{a4}
 
 As we can see, the <span style="color:red;"> counter</span> gradually increases with each block.
 
-
+![AES-CTR mode of operation](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz-1.svg?raw=true)
 
 
 
