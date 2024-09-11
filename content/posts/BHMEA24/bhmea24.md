@@ -439,3 +439,4 @@ C_{2} &= \mathcal{E}(CB) \oplus P_{2} \\\
 \end{align}
 $$
 
+And this results us to leak the unknown $P_1$. 
