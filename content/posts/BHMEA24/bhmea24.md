@@ -424,6 +424,18 @@ As we can see, the <span style="color:red;"> counter</span> gradually increases 
 \
 <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz-1.svg?raw=true" style="width: 100%; height: auto;" />
 
+#### Can this be *hacked*?
 
+Since the problem we are dealing with concerns the CTR mode, it's only natural that we would be looking for any potential vulnerability than this mode can fall a victim to. There is one very well known attack: *nonce reuse attack*. One thing to realize is that if the key and iv remains the same, it's going to produce the same counter-block every time, which would result in the same encrypted xor crib. 
 
+Suppose we have an oracle that can do the `AES-CTR` operation for us. It intially gives us the ciphertext of an unknown $P_{1}$, but we can get the ciphertext of a known string $P_{2}$.
+
+$$
+\begin{align}
+C_{1} &= \mathcal{E}(CB) \oplus P_{1} \\\
+C_{2} &= \mathcal{E}(CB) \oplus P_{2} \\\
+\Longrightarrow C_{1} \oplus C_{2} &= P_{1} \oplus P_{2} \\\
+\Longrightarrow P_{1} &= (C_{1} \oplus C_{2}) \oplus P_{2}
+\end{align}
+$$
 
