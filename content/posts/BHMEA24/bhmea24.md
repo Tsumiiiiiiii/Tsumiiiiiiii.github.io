@@ -399,7 +399,7 @@ We know AES as a block cipher, but `CTR` mode is known as "stream" cipher. It st
 
 So if we know the traditional mode as $\text{AES-ECB}(x) = \mathcal{E}(x)$, the `CTR` mode will be $\text{AES-CTR}(x) = \mathcal{E}(\text{COUNTER}) \oplus x$. $\mathcal{E}$ is where the well know AES steps `AddRoundKey`, `SubBytes`, `ShiftRows`, `MixColumns` takes place.
 
-How the `COUNTER` is generated is rather interesting. A counter block is the combination of the $iv$ and $counter$. The $iv$ is given by us. $\text{COUNTER-BLOCK} = \text{IV} \ || \ \text{counter}$. Their length is equal to that of a single AES block length(generally $16$). So fi the $iv$ takes $12$ bytes, the counter will take $4$ bytes. The counter value, that takes on the value of $0$ at the first block, increases by $1$ at each block, while $iv$ remains the same. 
+How the `COUNTER` is generated is rather interesting. A counter block is the combination of the $iv$ and $counter$. The $iv$ is given by us. $\text{COUNTER-BLOCK} = \text{iv} \ || \ \text{counter}$. Their length is equal to that of a single AES block length(generally $16$). So fi the $iv$ takes $12$ bytes, the counter will take $4$ bytes. The counter value, that takes on the value of $0$ at the first block, increases by $1$ at each block, while $iv$ remains the same. 
 
 Suppose we have $iv := \text{7f} \ \text{03} \ \text{78} \ \text{69} \ \text{a4} \ \text{f8} \ \text{42} \ \text{64} \ \text{aa} \ \text{d8} \ \text{bf} \ \text{c4}$
 
