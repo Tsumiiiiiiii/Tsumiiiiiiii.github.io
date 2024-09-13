@@ -440,3 +440,137 @@ C_{2} &= \mathcal{E}(CB) \oplus P_{2} \\\
 $$
 
 And this results us to leak the unknown $P_1$. 
+
+### Solution
+
+As we have seen before, the database stores everything via `AES-CTR` encryption, which is reflected in the `_getUIV` function. This function is reponsible for producing the nonce, which particularly depends on two things:
+
+1. current `UNIX-TIME`
+2. length of the string to be encrypted
+
+That is, we can represent the encryption as $\mathcal{E}(T, L)$. If we can somehow manage to keep the above to factors constant, we might be able to exploit the *nonce reuse thing* that I explained in the previous section. 
+
+Also, the key is always same, as the key itself is the flag. Thus, fixing the time and the length would result in producing the same counter-blocks always. 
+
+#### Leaking `FLAG` length
+
+We know that there is already an entry in the database called `"flag" : FLAG`. We will use this entry to get the length. The idea is that we are going to use the `delete` query to delete *nothing* from the FLAG, that is, return the encrypted version of the flag itself.  Since we have already shown that CTR mode of operation gives the same length of encrypted text as the plain text, as padding is not needed. 
+
+But how do we simulate delete *nothing*? Notice the delete functio: `y = x[:i] + x[i+j:]`. That is, it takes the initial `i` bytes, rejects the next `j` bytes and takes the rest. Suppose that the flag is of $50$ bytes and we send $i := 100, j := 0$. The script would *try* to take the initial $100$ bytes of the flag, but since the flag is capped at $50$ bytes, it will take all the $50$ bytes, and since `j` is $0$, it would reject nothing, thus sending us the whole `AES-CTR(FLAG)`. Actually it would send extra 4 bytes, which is the UNIX time. But we can simply reject them and keep the rest. 
+
+Thus the query is `delete("flag", 100, 0)`. 
+
+We get $45$ bytes in return, which means our flag consists of $41$ bytes.
+
+#### How to **fix** the time
+
+We can create two instances at the same time, and make them run parallely. Assume that the instances were created at time $T$. As per the `_getUIV` function, each nonce generation costs $2$ seconds.
+
+**Instance I**:
+
+1. `delete(flag, 41, 100)`: done to kill some time for parallelization.
+2. `delete(flag, 41, 100)`: done to get the encryted text: $c_1 = \mathcal{E}(T + 4, 41) \oplus \text{FLAG}$.
+
+**Instance II**:
+
+1. `delete(flag, 0, 41)`: done to delete the flag itself.
+2. `insert(flag, 0, 'aa...aa')`: we send $41$ a's to get $c_2 = \mathcal{E}(T + 4, 41) \oplus "aa...aa"$.
+
+This can be visualized as follows: \
+\
+<img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz_2.svg?raw=true" style="width: 100%; height: auto;" />
+
+#### Finishing the exploit
+
+Now it's just some simple xors to retrieve the flag.
+
+$$
+\begin{aligned}
+c_1 \oplus c_2 &= (\mathcal{E}(T + 4, 41) \oplus \text{FLAG}) \oplus (\mathcal{E}(T + 4, 41) \oplus "aa...aa") \\\
+               &= \text{FLAG} \oplus "aa...aa" \\\
+            \Longrightarrow \text{FLAG} &= (c_1 \oplus c_2) \oplus "aa...aa"
+\end{aligned}
+$$
+
+The solution script is as follows:
+
+```python
+import json
+import threading
+from Crypto.Util.number import bytes_to_long as b2l
+
+
+def fun1(results, index):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(('54.78.163.105', 32556))
+    
+    recvuntil(sock, b"|  > ")
+    sendline(sock, b"d")
+    recvuntil(sock, b") ")
+    key = json.dumps(
+        {"f" : 'flag', "i" : 41, "j" : 100}
+    )
+    sendline(sock, str(key).encode())
+    stuff = bytes.fromhex(recvline(sock).decode().strip().split('0x')[1])
+    
+    recvuntil(sock, b"|  > ")
+    sendline(sock, b"d")
+    recvuntil(sock, b") ")
+    key = json.dumps(
+        {"f" : 'flag', "i" : 41, "j" : 100}
+    )
+    sendline(sock, str(key).encode())
+    stuff = bytes.fromhex(recvline(sock).decode().strip().split('0x')[1])
+    
+    results[index] = [b2l(stuff[:4]), stuff[4:]]
+
+def fun2(results,index):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(('54.78.163.105', 32556))
+    
+    recvuntil(sock, b"|  > ")
+    sendline(sock, b"d")
+    recvuntil(sock, b") ")
+    key = json.dumps(
+        {"f" : 'flag', "i" : 0, "j" : 41}
+    )
+    sendline(sock, str(key).encode())
+    stuff = bytes.fromhex(recvline(sock).decode().strip().split('0x')[1])
+    
+    recvuntil(sock, b"|  > ")
+    sendline(sock, b"i")
+    recvuntil(sock, b") ")
+    key = json.dumps(
+        {"f" : 'flag', "i" : 0, "j" : 'a' * 41}
+    )
+    sendline(sock, str(key).encode())
+    stuff = bytes.fromhex(recvline(sock).decode().strip().split('0x')[1])
+    results[index] = [b2l(stuff[:4]), stuff[4:]]
+
+results = [None, None]
+
+# Running both functions in parallel using threading
+thread1 = threading.Thread(target=fun1, args=(results, 0))
+thread2 = threading.Thread(target=fun2, args=(results, 1))
+
+# Start both threads
+thread1.start()
+thread2.start()
+
+# Wait for both threads to complete
+thread1.join()
+thread2.join()
+
+t0, ct0 = results[0]
+t1, ct1 = results[1]
+
+t0, ct0, t1, ct1
+```
+
+```python
+def xor(sa, sb):
+    return bytes([a ^ b for a, b in zip(sa, sb)])
+
+pad = xor(b'a' * 41, ct1)
+flag = xor(pad, ct0)
+```
