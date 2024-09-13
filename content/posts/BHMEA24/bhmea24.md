@@ -480,7 +480,7 @@ This can be visualized as follows: \
 \
 <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz_2.svg?raw=true" style="width: 100%; height: auto;" />
 
-#### Finishing the exploit
+#### Finishing off the exploit
 
 Now it's just some simple xors to retrieve the flag.
 
