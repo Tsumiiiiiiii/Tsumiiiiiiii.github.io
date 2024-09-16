@@ -16,9 +16,6 @@ lightgallery: true
 math:
   enable: true
 
-toc:
-  enable: true
-  position : "left"
 ---
 
 Writeup for  Trypanophobia and Cheeky from BlackHat MEA 24 Quals.
