@@ -419,7 +419,11 @@ Suppose we have $iv := \text{7f} \ \text{03} \ \text{78} \ \text{69} \ \text{a4}
 
 As we can see, the <span style="color:red;"> counter</span> gradually increases with each block. The entire `AES-CTR` mode of operation has been visualized below, where $CB, P, C$ represents counter block, plaintext block and ciphertext block respectively: \
 \
-<img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz-1.svg?raw=true" style="width: 100%; height: auto;" />
+<div style="text-align: center;">
+  <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz-1.svg?raw=true"
+       style="max-width: 700px; width: 100%; height: auto;" alt="Centered responsive image" />
+</div>
+
 
 #### Can this be *hacked*?
 
@@ -475,7 +479,10 @@ We can create two instances at the same time, and make them run parallely. Assum
 
 This can be visualized as follows: \
 \
-<img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz_2.svg?raw=true" style="width: 100%; height: auto;" />
+<div style="text-align: center;">
+  <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz_2.svg?raw=true"
+       style="max-width: 800px; width: 100%; height: auto;" alt="Centered responsive image" />
+</div>
 
 #### Finishing off the exploit
 
