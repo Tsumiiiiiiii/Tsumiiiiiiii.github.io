@@ -17,8 +17,6 @@ markup:
   highlight:
     lineNos: false
 
-toc:
-  enable: true
 ---
 
 Writeup for the EASY RSA cryptography challenge.
