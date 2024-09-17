@@ -16,9 +16,6 @@ lightgallery: true
 math:
   enable: true
 
-toc:
-  enable: true
-  position : "left"
 ---
 
 Writeup for some Cryptography challenges from UIU CTF 24.
