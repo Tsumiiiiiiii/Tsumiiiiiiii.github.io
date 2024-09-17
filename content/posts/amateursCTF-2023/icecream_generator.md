@@ -13,8 +13,6 @@ categories: ["Writeups"]
 
 lightgallery: true
 
-toc:
-  enable: true
 ---
 
 Writeup for the Ice cream generator Cryptography challenge.
