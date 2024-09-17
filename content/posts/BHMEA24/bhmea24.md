@@ -8,7 +8,7 @@ author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
 description: "Writeup for  Trypanophobia and Cheeky from BlackHat MEA 24 Quals."
 
-tags: ["crypto", "BlackHatMEA", "RSA", "math", "nth-roots", "english"]
+tags: ["crypto", "BlackHatMEA", "RSA", "math", "nth-roots", "symmetric", "AES", "english"]
 categories: ["Writeups"]
 
 lightgallery: true
