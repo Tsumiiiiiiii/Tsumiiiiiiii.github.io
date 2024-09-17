@@ -16,8 +16,6 @@ lightgallery: true
 math:
   enable: true
 
-toc:
-  enable: true
 ---
 
 Writeup for my easy-medium Cryptography challenges from iutCTF 24.
