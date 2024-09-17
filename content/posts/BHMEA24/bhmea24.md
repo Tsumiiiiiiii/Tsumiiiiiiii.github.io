@@ -419,10 +419,10 @@ Suppose we have $iv := \text{7f} \ \text{03} \ \text{78} \ \text{69} \ \text{a4}
 
 
 
-As we can see, the <span style="color:red;"> counter</span> gradually increases with each block. The entire `AES-CTR` mode of operation has been visualized below, where $CB, P, C$ represents counter block, plaintext block and ciphertext block respectively: \
+As we can see, the <span style="color:red;"> counter</span> gradually increases with each block. The entire `AES-CTR` mode of operation has been visualized below, where $CB, P, C$ represents counter block, plaintext block and ciphertext block respectively: 
 
 <div style="text-align: center;">
-  <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz-1.svg?raw=true"
+  <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikzz.svg?raw=true"
        style="max-width: 700px; width: 100%; height: auto;" alt="Centered responsive image" />
 </div>
 
@@ -479,7 +479,7 @@ We can create two instances at the same time, and make them run parallely. Assum
 1. `delete(flag, 0, 41)`: done to delete the flag itself.
 2. `insert(flag, 0, 'aa...aa')`: we send $41$ a's to get $c_2 = \mathcal{E}(T + 4, 41) \oplus "aa...aa"$.
 
-This can be visualized as follows: \
+This can be visualized as follows: 
 
 <div style="text-align: center;">
   <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/BHMEA24/tikz_2.svg?raw=true"
