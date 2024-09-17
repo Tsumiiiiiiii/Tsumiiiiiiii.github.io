@@ -13,8 +13,7 @@ categories: ["Writeups"]
 
 lightgallery: true
 
-toc:
-  enable: true
+
 ---
 
 Writeup for some Cryptography challenges.
