@@ -400,7 +400,7 @@ How the `COUNTER` is generated is rather interesting. A counter block is the com
 
 Suppose we have $iv := \text{7f} \ \text{03} \ \text{78} \ \text{69} \ \text{a4} \ \text{f8} \ \text{42} \ \text{64} \ \text{aa} \ \text{d8} \ \text{bf} \ \text{c4}$
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px;">
+<div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
     <div style="text-align: center;">
         <div style="border: 1px solid #555; padding: 5px; white-space: nowrap;">7f 03 ... bf c4 <span style="color: red;"> 00 00 00 00 </span></div>
         <p>Counter Block #0</p>
@@ -415,6 +415,7 @@ Suppose we have $iv := \text{7f} \ \text{03} \ \text{78} \ \text{69} \ \text{a4}
         <p>Counter Block #25</p>
     </div>
 </div>
+
 
 
 
