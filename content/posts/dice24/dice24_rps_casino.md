@@ -16,8 +16,7 @@ lightgallery: true
 math:
   enable: true
 
-toc:
-  enable: true
+
 ---
 
 Writeup for the rps-casino Cryptography challenge.
