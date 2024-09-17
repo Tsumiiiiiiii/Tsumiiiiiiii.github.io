@@ -16,9 +16,7 @@ lightgallery: true
 math:
   enable: true
 
-toc:
-  enable: true
-  position : "left"
+
 ---
 
 Writeup for Raul Rosas from DeadSec CTF 24.
