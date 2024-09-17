@@ -13,8 +13,6 @@ categories: ["Writeups"]
 
 lightgallery: true
 
-toc:
-  enable: true
 ---
 
 Short, descriptive write-ups for challenges I did from the competition.
