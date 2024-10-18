@@ -20,10 +20,9 @@ math:
 
 Writeups for my authored crypto challenges from BUET CTF 24 quals.
 
-I made 3 challenges this time - *Isshin the sword saint*, *One line crypto*, *Damaged wooden log*, each having 
-respectively $23, 15, 0$ solves. The last problem was difficult, but I was expecting $1-2$ teams to solve
-it. Maybe the concept is not known to them, or even if they knew, they were not able to come up with the proper
-formulation with so many other challenges to solve. 
+<!--more-->
+
+Well, from winning this last year to co-authoring for the same contest this year feels amazing. I  made 3 challenges this time - *Isshin the sword saint*, *One line crypto*, *Damaged wooden log*, each having respectively $23, 15, 0$ solves. The last problem was difficult, but I was expecting $1-2$ teams to solve it. Maybe the concept is not known to them, or even if they knew, they were not able to come up with the proper formulation with so many other challenges to solve. 
 
 Anyway, the problem(*Damaged wooden log*) was a special tribute to the *Super Strike Fault* challenge
 from [AngstromCTF 2022](https://2022.angstromctf.com/challenges) (which, by the way, is an amazing CTF that everyone should play).This was the challenge that hooked me to CTFs, and to cryptography
