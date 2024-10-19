@@ -15,17 +15,15 @@ math:
 I am **Sumit Alam Khan** (aka lolipop 🍭), a Crypto player from team [IUT GENESIS](https://ctftime.org/team/175924), Islamic University of Technology, Bangladesh. I have been studying Computer Science and Engineering at Islamic University of Technology since **January 2020**.
 
 Started playing CTFs regularly since **June 2021**. When I'm not playing with my university team, 
-I play solo with the most random team names possible. (**Update: As I've graduated, I'm looking for a new team to play with.**)
+I play solo with the most random team names possible. (**Update: I have been recruited by the well known international team called [DeadSec](https://ctftime.org/team/19339/).**)
 
-Also a competitive programmer(**used to be** actually). My coding profiles are [codeforces](https://codeforces.com/profile/sad_panda), [codechef](https://www.codechef.com/users/sumitalamkhan), [atcoder](https://atcoder.jp/users/iloveSNP).
-
-Was an intern at [Tree plus plus](http://treepp.org), I am also looking forward to learning more about **Blockchain** in the future.
-
-I want to pursue a career in cryptographic research in the future(even though I am terrible at math 😫).
+Also a competitive programmer(**used to be** actually).
 
 I have graduated University on June 28th 2024. And currently joined as a lecturer at a private university(BUBT). 
 
-Currently looking for PhD opportunities abroad related to Cryptography. Preferebly zero-knowledge proofs or Homomorphic Encryption. 
+Was an intern at [Tree plus plus](http://treepp.org), 
+
+I want to pursue a career in cryptographic research in the future(even though I am terrible at math 😫). Currently looking for PhD opportunities abroad related to Cryptography. Preferebly zero-knowledge proofs or Homomorphic Encryption. 
 
 ## Noticeable Achievements
 
@@ -44,6 +42,9 @@ Ranked **55<sup>th</sup>** in 2021 ACM-ICPC Asia Dhaka Regional Contest
 Ranked **72<sup>nd</sup>** in 2020 ACM-ICPC Asia Dhaka Regional Contest
 
 ## CTF Problem Setting
+* BUET CTF 24 quals
+    * 3 problems in crypto:
+        [Isshin the sword saint](https://tsumiiiiiiii.github.io/bctd24_quals/#isshin-the-sword-saint), [One line crypto](https://tsumiiiiiiii.github.io/bctd24_quals/#one-line-crypto), [Damaged wooden log](https://tsumiiiiiiii.github.io/bctd24_quals/#damaged-wooden-log).
 * IUT CTF 24
     * 6 problems in crypto:
         * 2 easy: [Cow](https://tsumiiiiiiii.github.io/easy_mid/#cow), [ps3](https://tsumiiiiiiii.github.io/easy_mid/#ps3)
