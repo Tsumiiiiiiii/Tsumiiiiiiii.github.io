@@ -6,7 +6,7 @@ lastmod: 2024-10-18T22:30:00+06:00
 draft: false
 author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
-description: "Writeups for my authored crypto challenges from BUET CTF 24 quals."
+description: "Writeups for Isshin the sword saint, One line crypto, Damaged wooden log from BUET CTF 24 quals."
 
 tags: ["crypto", "BUETCTF", "math", "binary-search", "mitm", "dlog", "english"]
 categories: ["Writeups"]
