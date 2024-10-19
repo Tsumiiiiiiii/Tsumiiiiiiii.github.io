@@ -21,7 +21,7 @@ Also a competitive programmer(**used to be** actually).
 
 I have graduated University on June 28th 2024. And currently joined as a lecturer at a private university(BUBT). 
 
-Was an intern at [Tree plus plus](http://treepp.org), 
+Was an intern at [Tree plus plus](http://treepp.org). 
 
 I want to pursue a career in cryptographic research in the future(even though I am terrible at math 😫). Currently looking for PhD opportunities abroad related to Cryptography. Preferebly zero-knowledge proofs or Homomorphic Encryption. 
 
