@@ -33,7 +33,7 @@ I want to pursue a career in cryptographic research in the future(even though I 
 
 **Won** National University Cyberdrill 2022 in **Dhaka, Bangladesh**.
 
-**Writeup prizes** at [Amateurs CTF 2023](https://tsumiiiiiiii.github.io/icecream_generator/), [LA CTF 2024](https://tsumiiiiiiii.github.io/lacrypto/#shuffle)
+**Writeup prizes** at [Amateurs CTF 2023](https://tsumiiiiiiii.github.io/icecream_generator/), [LA CTF 2024](https://tsumiiiiiiii.github.io/lacrypto/#shuffle), [UIU CTF 2024](https://tsumiiiiiiii.github.io/uiu24/).
 
 Ranked **31<sup>st</sup>** in 2022 ACM-ICPC Asia Dhaka Regional Contest
 
