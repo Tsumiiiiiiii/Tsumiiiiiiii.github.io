@@ -152,7 +152,7 @@ We make two queries of type $2$:
 In both the queries, the $n$ is unknown and we have no control over them, unlike type `1` queries (where we could control them as willed). 
 
 {{< admonition type=tip title="Update on remaining queries" open=true >}}
-The last $2$ queries are spend on this step, meaning no more queries remain.
+The last $2$ queries are spent on this step, meaning no more queries remain.
 {{< /admonition >}}
 
 This is where the issue of probability comes in. We assume (<strike>pray and hope</strike>) that the $3$ primes we have recovered so far ($p_1, p_2, p_3$) will be the factors of $n_1, n_2$ (there might be another unknown factor but that is not important for now).
