@@ -37,9 +37,9 @@ I want to pursue a career in cryptographic research in the future(even though I 
 
 Ranked **31<sup>st</sup>** in 2022 ACM-ICPC Asia Dhaka Regional Contest
 
-Ranked **55<sup>th</sup>** in 2021 ACM-ICPC Asia Dhaka Regional Contest
+Ranked **21<sup>st</sup>** in 2022 RUET IUPC
 
-Ranked **72<sup>nd</sup>** in 2020 ACM-ICPC Asia Dhaka Regional Contest
+Ranked **55<sup>th</sup>** in 2021 ACM-ICPC Asia Dhaka Regional Contest
 
 ## CTF Problem Setting
 * BUET CTF 24 finals
