@@ -118,7 +118,7 @@ The LHS in this equation is known to us. And the $k_1$ in the RHS is some unknow
 
 In the same way, we can write $2^e - ct_2 = k_2 \cdot p_1 \cdot p_2$ for the second equation as well. If we take the GCD of these two LHS terms, we get $\text{GCD}(2^e - ct_1, 2^e - ct_2) = \text{GCD}(k_1 \cdot p_0 \cdot p_1, k_2 \cdot p_1 \cdot p_2) = k \cdot p_1$. With extremely high probability, $k$ is going to be some random low value which we can "clean up" by dividing with numbers in a small range (say upto $10000$). And then what we are left with is $p_1$ itself. 
 
-{{< admonition type=tip title="Update on remaining queries" open=false >}}
+{{< admonition type=tip title="Update on remaining queries" open=true >}}
 We have spent $2$ queries on this step, meaning only $4$ queries remain.
 {{< /admonition >}}
 
@@ -134,7 +134,7 @@ Using the method shown in the previous step, we can :
 - Leak $p_2$ using $ct_2, ct_3$.
 - Leak $p_3$ using $ct_3, ct_4$. 
 
-{{< admonition type=tip title="Update on remaining queries" open=false >}}
+{{< admonition type=tip title="Update on remaining queries" open=true >}}
 We have spent $2$ more queries on this step, meaning only $2$ queries remain.
 {{< /admonition >}}
 
@@ -151,7 +151,7 @@ We make two queries of type $2$:
 
 In both the queries, the $n$ is unknown and we have no control over them, unlike type `1` queries (where we could control them as willed). 
 
-{{< admonition type=tip title="Update on remaining queries" open=false >}}
+{{< admonition type=tip title="Update on remaining queries" open=true >}}
 The last $2$ queries are spend on this step, meaning no more queries remain.
 {{< /admonition >}}
 
