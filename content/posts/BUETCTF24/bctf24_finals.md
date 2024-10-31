@@ -23,7 +23,7 @@ Writeups for Military Grader Counter, baby RSA revenge from BUET CTF 24 finals
 
 BUET CTF 2024 ended on a high note. From the infrastructure to the management - everything deserves a solid 10, no less. Although not unexpected, quite a lot of problems from the finals went unsolved, with a substantial jump in difficulty from the qualifiers. Very often we see that teams topping nationals CTFs fumble during quality international CTFs, especially when they encounter a "hard" problem, as the national CTFs mostly host "easy" problems. The difficult problems in this round, hence, was a small attempt to "bridge" that difficulty gap. We hope the contestants would be more motivated to approach relatively harder poblems the next time they attempt a quality CTF.
 
-That said, I wrote $2$ problems for this round, both of them being crypto. `Military Grade Counter` was on the easier side, having $4$ solves only (I exptected more than $10$ solves though), while the baby RSA revenge problem went unsolved, which was on the more difficult side of things.  
+That said, I wrote $2$ problems for this round, both of them being crypto. `Military Grade Counter` was on the easier side, having $4$ solves only (I exptected more than $10$ solves though), while the `baby RSA revenge` problem went unsolved, which was on the more difficult side of things.  
 
 ## baby RSA revenge
 
