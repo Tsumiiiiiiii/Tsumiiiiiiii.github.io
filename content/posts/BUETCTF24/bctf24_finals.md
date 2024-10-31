@@ -334,7 +334,7 @@ To put it simply, the encryption function can be represented as:
 
 $$
 \begin{aligned}
-\mathcal{E}(\text{block}) = \text{AES-ECB}(iv \ || \ \text{to-bytes}(\text{counter})) \oplus \text{block}
+\mathcal{E}(\text{block}) = \text{AES-ECB}(iv \ || \ \text{to-bytes}(\text{counter}) \ \\& \ \text{0xFF}) \oplus \text{block}
 \end{aligned}
 $$
 
@@ -342,14 +342,14 @@ As is the main property of a counter mode of operation - the text to be encrypte
 
 ### Exploiting this encryption method
 
-As you have guessed, we are done if we can recover the $\text{AES-ECB}(iv \ || \ \text{to-bytes}(\text{counter}))$ portion somehow, because then just a simple xor is enough to reveal the plaintext. The main point of exploitation lies here : `iv + int(self.counter & 0xFF).to_bytes(2, 'big'))`. To be more specific, the "AND"ing with `0xFF`. 
+As you have guessed, we are done if we can recover the $\text{AES-ECB}(iv \ || \ \text{to-bytes}(\text{counter}) \ \\& \ \text{0xFF})$ portion somehow, because then just a simple xor is enough to reveal the plaintext. The main point of exploitation lies here : `iv + int(self.counter & 0xFF).to_bytes(2, 'big'))`. To be more specific, the "AND"ing with `0xFF`. 
 
-For a moment, lets forget about all the AES gimmic there is, and concentrate solely on what "AND"ing with `0xFF` implies. `0xFF` in hex is simply $1111111$ in binary. Which means, "AND"ing any number with this particular number will ommit any bit higher than $8$, and keep the lower $8$ bits "intact". It works as a mask per se. 
+For a moment, lets forget about all the AES gimmic there is, and concentrate solely on what "AND"ing with `0xFF` implies. `0xFF` in hex is simply $11111111$ in binary. Which means, "AND"ing any number with this particular number will ommit any bit higher than $8$, and keep the lower $8$ bits "intact". It works as a mask per se. 
 
 $$
 \begin{align*}
-11010101 \ \& \ 11111111 &= \underbrace{11010101}\_{\text{the whole number remains unchanged}} \\\
-1101\textcolor{blue}{10101101} \ \& \ 11111111 &= \underbrace{0000}\_{\substack{\text{4 high} \\ \text{bits omitted}}} \ \underbrace{\textcolor{blue}{10101101}}\_{\substack{\text{lower 8 bits} \\ \text{remain unchanged}}}
+11010101 \ \\& \ 11111111 &= \underbrace{11010101}\_{\text{the whole number remains unchanged}} \\\
+1101\textcolor{blue}{10101101} \ \\& \ 11111111 &= \underbrace{0000}\_{\substack{\text{4 high} \\ \text{bits omitted}}} \ \underbrace{\textcolor{blue}{10101101}}\_{\substack{\text{lower 8 bits} \\ \text{remain unchanged}}}
 \end{align*}
 $$
 
