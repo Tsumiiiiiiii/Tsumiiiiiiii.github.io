@@ -108,8 +108,8 @@ Suppose we want to leak the second prime $p_1$. This can be done with two querie
 
 $$
 \begin{aligned}
-ct_1 &\equiv 2^e &&\mod p_0 \cdot p_1 \\
-2^e - ct_1 &\equiv 0 &&\mod p_0 \cdot p_1 \\
+ct_1 &\equiv 2^e &&\mod p_0 \cdot p_1 \\\
+2^e - ct_1 &\equiv 0 &&\mod p_0 \cdot p_1 \\\
 2^e - ct_1 &= k_1 \cdot p_0 \cdot p_1 
 \end{aligned}
 $$
