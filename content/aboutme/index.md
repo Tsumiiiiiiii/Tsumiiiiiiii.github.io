@@ -42,6 +42,9 @@ Ranked **55<sup>th</sup>** in 2021 ACM-ICPC Asia Dhaka Regional Contest
 Ranked **72<sup>nd</sup>** in 2020 ACM-ICPC Asia Dhaka Regional Contest
 
 ## CTF Problem Setting
+* BUET CTF 24 finals
+    * 2 problems in crypto:
+      [baby RSA revenge](https://tsumiiiiiiii.github.io/bctf24_finals/#baby-rsa-revenge), [Military Grade Counter](https://tsumiiiiiiii.github.io/bctf24_finals/#military-grade-counter).
 * BUET CTF 24 quals
     * 3 problems in crypto:
         [Isshin the sword saint](https://tsumiiiiiiii.github.io/bctd24_quals/#isshin-the-sword-saint), [One line crypto](https://tsumiiiiiiii.github.io/bctd24_quals/#one-line-crypto), [Damaged wooden log](https://tsumiiiiiiii.github.io/bctd24_quals/#damaged-wooden-log).
