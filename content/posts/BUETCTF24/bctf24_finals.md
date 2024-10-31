@@ -348,7 +348,7 @@ For a moment, lets forget about all the AES gimmic there is, and concentrate sol
 
 $$
 \begin{align*}
-11010101 \ \& \ 11111111 &= \underbrace{11010101}\_{\text{the whole number remains unchanged}} \\
+11010101 \ \& \ 11111111 &= \underbrace{11010101}\_{\text{the whole number remains unchanged}} \\\
 1101\textcolor{blue}{10101101} \ \& \ 11111111 &= \underbrace{0000}\_{\substack{\text{4 high} \\ \text{bits omitted}}} \ \underbrace{\textcolor{blue}{10101101}}\_{\substack{\text{lower 8 bits} \\ \text{remain unchanged}}}
 \end{align*}
 $$
@@ -363,9 +363,9 @@ Since we can send a message of any length to be encrypted, we can send in around
 
 $$
 \begin{aligned}
-&\mathcal{E}(\text{block}\_0) \oplus \text{AES-ECB}(iv_{256}) \\
-&= (\text{block}\_0 \oplus \text{AES-ECB}(iv_{0})) \oplus \text{AES-ECB}(iv_{256}) \\
-&= (\text{block}\_0 \oplus \text{AES-ECB}(iv_{0})) \oplus \text{AES-ECB}(iv_{0}) \\
+&\mathcal{E}(\text{block}\_0) \oplus \text{AES-ECB}(iv_{256}) \\\
+&= (\text{block}\_0 \oplus \text{AES-ECB}(iv_{0})) \oplus \text{AES-ECB}(iv_{256}) \\\
+&= (\text{block}\_0 \oplus \text{AES-ECB}(iv_{0})) \oplus \text{AES-ECB}(iv_{0}) \\\
 &= \text{block}_0
 \end{aligned}
 $$
