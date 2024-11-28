@@ -74,10 +74,12 @@ But the primes seem to be generated in an *oddly specific* way.  The prime $p_1$
 
 Two other primes $q_1, q_2$ is generated which are both $300$ bits.
 
-```sequence
-    Alice->Byron: init handshake
-    Byron->Alice: receive handshake
-    Alice->Byron: finalize handshake
+```sequenceDiagram
+    participant A as Alice
+    participant J as Byron
+    A->>J: init handshake
+    J->>A: receive handshake
+    A->>J: finalize handshake
 ```
 
 ## Thinking of a solution
