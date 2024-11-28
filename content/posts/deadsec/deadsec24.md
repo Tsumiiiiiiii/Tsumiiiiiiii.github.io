@@ -74,6 +74,12 @@ But the primes seem to be generated in an *oddly specific* way.  The prime $p_1$
 
 Two other primes $q_1, q_2$ is generated which are both $300$ bits.
 
+```sequence
+    Alice->Byron: init handshake
+    Byron->Alice: receive handshake
+    Alice->Byron: finalize handshake
+```
+
 ## Thinking of a solution
 
 An important observation is that, most of the lower bits of $p_2$ will be $0$. This is because of how it was generated, remember it is the next prime of $p_1'$ and the next prime number is not far (maximum $2000$ difference). So out of the lower $419$ bits of $p_2$, the lowest $11$ bits might be non-$0$ and the remaining $408$ bit will be $0$. But the higher bits of $p_2$ is unknown. So we can write:
