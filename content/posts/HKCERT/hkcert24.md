@@ -265,8 +265,8 @@ This property of Counter mode lets us retrieve the xor-pad in case the plaintext
 ```
 
 We could possibly deploy a strategy to guess the flag by forcing it to match the proper format, but for that we need the corresponding encrypted ciphertext. That is, suppose we wanted to check for the validity of b'the flag is hkcert24{a}", so we would require $\text{AES-CTR}(\text{"the flag is hkcert24\{a\}"})$. For this method to work, that is to encrypt a message of our choice, we need a xor-pad. This is how we are going to retrieve the pad:
-1. Retrieve $ct_1 := \textbf{AES-CTR}(\textbf{"done!"})$ from the output of `finalize_handshake` as Alice.
-2. Use the $ct_1$ from previous query to communicate as Bob this time to get $ct_2 := \textbf{AES-CTR}(\textbf{"what is the flag? I have the secret "} \ || \ secret)$. Knowing the secret is unnecessary.
+1. Retrieve $ct_1 := \textbf{AES-CTR}(\text{"done!"})$ from the output of `finalize_handshake` as Alice.
+2. Use the $ct_1$ from previous query to communicate as Bob this time to get $ct_2 := \textbf{AES-CTR}(\text{"what is the flag? I have the secret "} \ || \ secret)$. Knowing the secret is unnecessary.
 3. Much like the previous step, we send $ct_2$ to Alice and she returns us with $ct_3 := \textbf{AES-CTR}(\text{"the flag is hkcert24\\{"} \ || \ secret || \ \text{"\\}"})$ . This particular secret is what we need.
 
 From $ct_3$ we can deduce the length of the whole flag, as well as get the xor-pad of the portion we know. That is, 
