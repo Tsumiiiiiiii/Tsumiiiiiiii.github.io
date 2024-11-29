@@ -369,7 +369,11 @@ One the other hand, we could "batch" our queries. Suppose we divide our 256 quer
     
 We reduced the time from more than half a minute to barely a second and a half. This is a drastic improvement, and can be understood even better when the number of queries increases. A chart for comparison:
     
-![batching performance chart](https://docs.google.com/spreadsheets/d/e/2PACX-1vTJBLCsa7y604nCJXenD_SpE091vSADJGlkIXwq3w1ZAnpsHD2_Z51WnVw-jfGg3GvkviL2tCopXBIC/pubchart?oid=776153530&format=image)
+
+<div style="text-align: center;">
+  <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/HKCERT/comparison.svg?raw=true"
+       style="max-width: 400px; width: 75%; height: auto;" alt="Centered responsive image" />
+</div>
     
 ### Finshing things off
     
