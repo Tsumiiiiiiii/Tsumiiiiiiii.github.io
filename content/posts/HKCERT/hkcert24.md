@@ -298,7 +298,7 @@ $$
 \textbf{response}^{\text{Byron}}(ct \ || \ x) = 
 \begin{cases}
 \begin{aligned}
-&\textbf{AES-CTR}(\text{"nice flag!"})  \ \ &&if  \ x  \ =  \ G \\
+&\textbf{AES-CTR}(\text{"nice flag!"})  \ \ &&if  \ x  \ =  \ G \\\
 &\textbf{AES-CTR}(\text{"too bad..."})  \ \ &&otherwise
 \end{aligned}
 \end{cases}
@@ -330,7 +330,7 @@ $$
 \textbf{response}^{\text{Alice}}(r) = 
 \begin{cases}
 \begin{aligned}
-&\textbf{AES-CTR}(\text{":)"})  \ \ &&if  \ r  \ =  \ r_1 \\
+&\textbf{AES-CTR}(\text{":)"})  \ \ &&if  \ r  \ =  \ r_1 \\\
 &\textbf{AES-CTR}(\text{"what happened?"})  \ \ &&if  \ r  \ =  \ r_2
 \end{aligned}
 \end{cases}
