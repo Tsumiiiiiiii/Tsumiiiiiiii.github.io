@@ -372,7 +372,7 @@ We reduced the time from more than half a minute to barely a second and a half. 
 
 <div style="text-align: center;">
   <img src="https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/HKCERT/yo.png?raw=true"
-       style="max-width: 400px; width: 75%; height: auto;" alt="Centered responsive image" />
+       style="max-width: 400px; width: 100%; height: auto;" alt="Centered responsive image" />
 </div>
     
 ### Finshing things off
