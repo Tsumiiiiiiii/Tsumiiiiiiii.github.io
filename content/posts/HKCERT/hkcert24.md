@@ -21,7 +21,7 @@ math:
 Writeups for Pigeon Post(2) from HKCERT CTF 24 quals.
 <!--more-->
 
-This is the second problem of the   `Pigeon post` series, and naturally it's difficulty level is much higher compared to its predecessor. This is the script that we are provided with:
+This is the second problem of the   `Pigeon post` series, and naturally, it's difficulty level is much higher compared to its predecessor. This is the script that we are provided with:
 
 ```python
 import json
@@ -199,7 +199,7 @@ if __name__ == '__main__':
 
 ## Understanding the given code
 
-In short, it defines a protocol similar to the diffie hellma message exchange  protocol. Apart from some utility functions, which are very easy to understand, most of the "important" stuffs happen in the "User" class. That is where will aim to take a closer look at. A prime and a base ($P, G$) are given.
+In short, it defines a protocol similar to the diffie hellman message exchange  protocol. Apart from some utility functions, which are very easy to understand, most of the "important" stuffs happen in the "User" class. That is where we aim to take a closer look at. A prime and a base ($P, G$) are given.
 
 1. `Initialize` Some secret variables are initialized, and a id variable which stores the name(Alice or Byron). The private keys and session keys are left uninitialized for now. 
 2. `handle_message` Works like a "middleman" function - based on the interaction, directs to some other functions as asked.
