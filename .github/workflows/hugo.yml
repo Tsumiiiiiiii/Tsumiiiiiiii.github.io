@@ -58,7 +58,7 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4 # <<< THIS IS THE CRITICAL LINE: ENSURE IT'S @v3 (or @v4 if you prefer, but @v3 is common with configure-pages@v4)
+        uses: actions/upload-pages-artifact@v3 # <<< THIS IS THE CRITICAL LINE: ENSURE IT'S @v3 (or @v4 if you prefer, but @v3 is common with configure-pages@v4)
         with:
           path: ./public
 
