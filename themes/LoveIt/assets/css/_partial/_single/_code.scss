@@ -51,7 +51,7 @@ pre {
   //position: fixed;
   //outline-offset: -2px;
   //box-shadow: 0 0 0 1px #555;  
-  //border: 1px solid #555;
+  //border: 1px solid #555; /* This border will be moved to .pre-container */
   //border-left: none;       /* Remove left border */
   //border-right: none;      /* Remove right border */
   //white-space: pre;        /*
@@ -61,8 +61,9 @@ pre {
   //overflow-x: auto;              /* Horizontal scroll */
   //position: relative;   
   
-  border: 1px solid #555;             /* Border on all sides */
-  overflow-x: auto;                   /* Horizontal scroll */
+  // Remove this border, it will be on the .pre-container
+  //border: 1px solid #555;             /* Border on all sides */
+  //overflow-x: auto;                   /* Horizontal scroll will be on .pre-container pre */
   box-sizing: border-box;             /* Include padding and borders in the element’s width */
   
   //scrollbar-gutter: stable both-edges; /* Reserve space for the scrollbar */
@@ -108,7 +109,8 @@ pre, .highlight table, .highlight tr, .highlight td {
   font-family: var(--code-font-family);
   font-size: var(--code-font-size);
   line-height: 1.4em;
-  margin: .5rem 0;
+  // Adjust margin to account for the new .pre-container padding and border
+  margin: .5rem 0; 
 
   .table-wrapper {
     > table,
