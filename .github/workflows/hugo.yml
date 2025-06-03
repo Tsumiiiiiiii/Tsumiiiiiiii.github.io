@@ -52,7 +52,7 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2  # Fallback to v2 if v3 fails
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./public
   # Deployment job
