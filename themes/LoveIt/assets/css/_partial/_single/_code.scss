@@ -119,7 +119,7 @@ pre, .highlight table, .highlight tr, .highlight td {
   background: $code-background-color !important;
 
   [theme=dark] & {
-    background: $code-background-color !important; // Change this line
+    background: #231f20 !important; // Change this line
   }
 }
 
