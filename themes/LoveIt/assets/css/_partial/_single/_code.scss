@@ -95,7 +95,25 @@ pre {
   }
 }
 
+// Wrapper for code blocks to create a persistent border
+.code-wrapper {
+  position: relative;
+  margin: 1.5em 0; // Vertical spacing for the block
+  border-radius: 4px;
+  border: 1px solid #e0e0e0; // Light theme border
 
+  [theme=dark] & {
+    border-color: #4a4a4a; // Dark theme border
+  }
+}
+
+// Adjust the original highlight block to live inside the wrapper
+.code-wrapper > .highlight {
+  margin: 0 !important; // Remove original margin
+  border-radius: 0; // Wrapper handles the rounded corners
+  overflow-x: auto; // Makes the code scrollable horizontally inside the wrapper
+  // The background is already handled by the theme's .highlight styles
+}
 
 pre, .highlight table, .highlight tr, .highlight td {
   background: $code-background-color !important;
