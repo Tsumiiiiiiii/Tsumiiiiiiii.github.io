@@ -6,7 +6,7 @@ lastmod: 2024-07-28T17:30:00+06:00
 draft: false
 author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
-description: "Elliptic curve shenanigans, followed by some sagemath magic, some meet in the middle and some bits of the Hidden Number problem"
+description: "Elliptic curve shenanigans, followed by some sagemath magic, some meet in the middle with an instance of the Hidden Number problem"
 
 tags: ["crypto", "DEADSEC", "elliptic curve", "LLL", "HNP", "MITM", "groebner basis", "english"]
 categories: ["Writeups"]
@@ -20,9 +20,9 @@ math:
 
 <!--more-->
 
-DeadSec CTF ended a few hours back, and I think as a team we are quite happy with how we managed to pull if off, from creating a set of exciting and engaging challenges, to providing support to the players in the discord, and not to mention the smooth infrastructure(thanks to @Buckley for that).
+DeadSec CTF wrapped up just a few hours ago, and as a team, we are quite happy with how we managed everything, from creating a set of exciting and engaging challenges, to providing prompt real time support on the discord, and ensuring a smooth infrastructure experienc(thanks to @Buckley for that).
 
-As for me, I wrote 3 problems this time around, all being in the crypto category. The harder one, called EBG is definitely the hardest challenge I have written so far and fortunately many players deemed it educational, which in fact was my goal. This particular writeup will hence be a detailed analysis of this particular challenge.
+As for me, I wrote 3 problems this time around, all in the crypto category. The harder one, called EBG is definitely the hardest challenge I have written till date, and fortunately many players deemed it educational, which in fact was my goal. This particular writeup will hence be a detailed analysis of this particular challenge. By the way, you can find the scripts and solution codes for my other two challenges [here](https://github.com/Tsumiiiiiiii/Writeups/tree/main/Deadsec%20CTF%2025)
 
 The problem deals with elliptic curves, LCGs, and a few other elements that are somewhat common as far as CTFs are concerned. To begin with, this is the relevant source
 
@@ -219,7 +219,9 @@ $$
 
 That means, right now we have two polynomials in two variables modulo the order. Allthough not impossible, it's far easier to solve a polynomial in one unknown, rather than dealing with two, and this is what we aim to do - convert the two polynomials into one with a single unknown. Time for some sage math shenanigans. Credit goes to [@blupper](https://github.com/TheBlupper) for showing this on the CH discord!
 
-<img width="1045" height="265" alt="image" src="https://github.com/user-attachments/assets/f81930a0-c0f9-4dc6-9fa9-0504bba1ac23" />
+<div style="text-align: center;">
+<img alt="image" src="https://github.com/user-attachments/assets/f81930a0-c0f9-4dc6-9fa9-0504bba1ac23" style="max-width:100%; height:auto;" />
+</div>
 
 We modify the approach shown, and hence comes the following snippet of code that nicely does the job
 
