@@ -461,9 +461,9 @@ Alright, we have everything that we need to calculate the key and finally recove
 
 ## An unintended solution
 
-As it turns out, the first hint was rather useless, thanks to the fact that we don't need many equations to solve for the seed of the truncated LCG in part 4. We can use, say 7 equations and in the process bruting the sign of those 7 states, and for each of them, apply LLL to find the seed and try to recover the flag. 
+As it turns out, the first hint was rather useless, thanks to the fact that we don't need that many equations to solve for the seed of the truncated LCG in part 4. We can use, say 7 equations and in the process brute the sign of those 7 states, and for each of them, apply LLL to find the seed and try to recover the flag. 
 
-What this means is,  we can skip part 3 entirely, and still manage with the rest of the challenge. Thanks to @warri for mentioning this. To be fair, I don't think any of the players used the first hint at all, now that I know of this solve path.Though this does not decrease the challenge difficulty in any way, it's still a fun blupper, or an oversight on my part. This code below is due warri
+What this means is that we can skip part 3 entirely, and still manage with the rest of the challenge. Thanks to @warri for pointing this out. To be fair, I don't think any of the players used the first hint at all, now that I know of this solve path.Though this does not decrease the challenge difficulty in any way, it's still a fun blunder, or an oversight on my part. This code below is due warri
 
 ```python
 def sqrt(x):
