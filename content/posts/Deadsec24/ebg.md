@@ -334,7 +334,6 @@ Before we proceed any further, it is reccommended that you do know how LCGs work
 Alright, we can rewrite the lcg states as, $s_i = y_i + l_i \cdot p$, where $l_i$ is a random integer within the 40 bits range. If we denote the seed as $s_0$, we have,
 
 $$
-\left.
 \begin{aligned}
 s_1 &= as_0 + b \\
 s_2 &= a^2s_0 + ab + b \\
@@ -342,27 +341,26 @@ s_3 &= a^3s_0 + a^2b + ab + b \\
 \vdots \\
 s_i &= a^is_0 + (a^{i-1} + a^{i-2} + \cdots + 2 + 1)b
 \end{aligned}
-\right\} \mod q
+\quad \mod q
 $$
 
 
 The fact that LCGs can be expressed as a geometric series will be particularly useful in the next phase. Anyway, the LHS of these equations can be written in terms of known $y_i's$,
 
 $$
-\left.\begin{aligned}
+\begin{aligned}
 y_1 + l_1p &= as_0 + b \\\
 y_2 + l_2p &= a^2s_0 + ab + b \\\
 y_3 + l_3p &= a^3s_0 + a^2b + ab + b \\\
 \vdots \\\
 y_i + l_ip &= a^is_0 + (a^{i-1} + a^{1-2} + \cdots + 2 + 1)b
 \end{aligned}
-\right\}  \mod q
+\quad  \mod q
 $$
 
 Let's change these equations a bit to make them look more friendly
 
 $$
-\left.
 \begin{aligned}
 l_1 p &- a s_0 &= T_1 b - y_1 \\
 l_2 p &- a^2 s_0 &= T_2 b - y_2 \\
@@ -370,7 +368,7 @@ l_3 p &- a^3 s_0 &= T_3 b - y_3 \\
 \vdots \\
 l_i p &- a^i s_0 &= T_i b - y_i
 \end{aligned}
-\right\} \mod q
+\quad \mod q
 $$
 
 
@@ -382,14 +380,14 @@ Following the blog linked above, we define a basis:
 
 $$
 \begin{bmatrix}
--a   & -a^2   & \cdots & -a^7   & 1 & 0 & 0 & \cdots & 0 \\
-p    & 0      & \cdots & 0      & 0 & 1 & 0 & \cdots & 0 \\
-0    & p      & \cdots & 0      & 0 & 0 & 1 & \cdots & 0 \\
-\vdots & \vdots &      & \vdots & \vdots & \vdots & \vdots & & \vdots \\
-0    & 0      & \cdots & p      & 0 & 0 & 0 & \cdots & 1 \\
-T_1 b - y_1    & T_2 b - y_2      & \cdots & T_7 b - y_7     & 0 & 0 & 0 & \cdots & 0 \\
-q   & 0      & \cdots & 0      & 0 & 0 & 0 & \cdots & 0 \\
-\vdots & \vdots &     & \vdots & \vdots & \vdots & \vdots & & \vdots \\
+-a   & -a^2   & \cdots & -a^7   & 1 & 0 & 0 & \cdots & 0 \\\
+p    & 0      & \cdots & 0      & 0 & 1 & 0 & \cdots & 0 \\\
+0    & p      & \cdots & 0      & 0 & 0 & 1 & \cdots & 0 \\\
+\vdots & \vdots &      & \vdots & \vdots & \vdots & \vdots & & \vdots \\\
+0    & 0      & \cdots & p      & 0 & 0 & 0 & \cdots & 1 \\\
+T_1 b - y_1    & T_2 b - y_2      & \cdots & T_7 b - y_7     & 0 & 0 & 0 & \cdots & 0 \\\
+q   & 0      & \cdots & 0      & 0 & 0 & 0 & \cdots & 0 \\\
+\vdots & \vdots &     & \vdots & \vdots & \vdots & \vdots & & \vdots \\\
 0    & 0      & \cdots &    q      & 0 & 0 & 0 & \cdots & 0\
 \end{bmatrix}
 $$
