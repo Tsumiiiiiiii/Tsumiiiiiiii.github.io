@@ -18,7 +18,6 @@ math:
 
 ---
 
-Elliptic curve shenanigans, followed by some sagemath magic, some meet in the middle and some bits of the Hidden Number problem
 <!--more-->
 
 DeadSec CTF ended a few hours back, and I think as a team we are quite happy with how we managed to pull if off, from creating a set of exciting and engaging challenges, to providing support to the players in the discord, and not to mention the smooth infrastructure(thanks to @Buckley for that).
@@ -340,20 +339,23 @@ Before we proceed any further, it is reccommended that you do know how LCGs work
 Alright, we can rewrite the lcg states as, $s_i = y_i + l_i \cdot p$, where $l_i$ is a random integer within the 40 bits range. If we denote the seed as $s_0$, we have,
 
 $$
+\begin{rcases}
 \begin{aligned}
-s_1 &= as_0 + b \\
-s_2 &= a^2s_0 + ab + b \\
-s_3 &= a^3s_0 + a^2b + ab + b \\
-\vdots \\
+s_1 &= as_0 + b \\\
+s_2 &= a^2s_0 + ab + b \\\
+s_3 &= a^3s_0 + a^2b + ab + b \\\
+\vdots \\\
 s_i &= a^is_0 + (a^{i-1} + a^{i-2} + \cdots + 2 + 1)b
 \end{aligned}
-\quad \mod q
+\end{rcases}
+\mod q
 $$
 
 
 The fact that LCGs can be expressed as a geometric series will be particularly useful in the next phase. Anyway, the LHS of these equations can be written in terms of known $y_i's$,
 
 $$
+\begin{rcases}
 \begin{aligned}
 y_1 + l_1p &= as_0 + b \\\
 y_2 + l_2p &= a^2s_0 + ab + b \\\
@@ -361,20 +363,23 @@ y_3 + l_3p &= a^3s_0 + a^2b + ab + b \\\
 \vdots \\\
 y_i + l_ip &= a^is_0 + (a^{i-1} + a^{1-2} + \cdots + 2 + 1)b
 \end{aligned}
-\quad  \mod q
+\end{rcases}
+\mod q
 $$
 
 Let's change these equations a bit to make them look more friendly
 
 $$
+\begin{rcases}
 \begin{aligned}
-l_1 p &- a s_0 &= T_1 b - y_1 \\
-l_2 p &- a^2 s_0 &= T_2 b - y_2 \\
-l_3 p &- a^3 s_0 &= T_3 b - y_3 \\
-\vdots \\
+l_1 p &- a s_0 &= T_1 b - y_1 \\\
+l_2 p &- a^2 s_0 &= T_2 b - y_2 \\\
+l_3 p &- a^3 s_0 &= T_3 b - y_3 \\\
+\vdots \\\
 l_i p &- a^i s_0 &= T_i b - y_i
 \end{aligned}
-\quad \mod q
+\end{rcases}
+\mod q
 $$
 
 
@@ -385,7 +390,7 @@ Honestly speaking, lattices are not at all an easy concept to grasp, but given h
 Following the blog linked above, we define a basis:
 
 $$
-\begin{bmatrix}
+\begin{pmatrix}
 -a   & -a^2   & \cdots & -a^7   & 1 & 0 & 0 & \cdots & 0 \\\
 p    & 0      & \cdots & 0      & 0 & 1 & 0 & \cdots & 0 \\\
 0    & p      & \cdots & 0      & 0 & 0 & 1 & \cdots & 0 \\\
@@ -394,11 +399,11 @@ p    & 0      & \cdots & 0      & 0 & 1 & 0 & \cdots & 0 \\\
 T_1 b - y_1    & T_2 b - y_2      & \cdots & T_7 b - y_7     & 0 & 0 & 0 & \cdots & 0 \\\
 q   & 0      & \cdots & 0      & 0 & 0 & 0 & \cdots & 0 \\\
 \vdots & \vdots &     & \vdots & \vdots & \vdots & \vdots & & \vdots \\\
-0    & 0      & \cdots &    q      & 0 & 0 & 0 & \cdots & 0\
-\end{bmatrix}
+0    & 0      & \cdots &    q      & 0 & 0 & 0 & \cdots & 0
+\end{pmatrix}
 $$
 
-{{< admonition type=tip title="Some notes" open=true >}} As you might have already recognized, this is a variant of the well known  Hidden Number Problem(HNP). {{< /admonition >}}
+{{< admonition type=tip title="Some notes" open=true >}} As you might have already recognized, this is an instance of the well known  Hidden Number Problem(HNP). {{< /admonition >}}
 
 Thanks to the very small size of the unknowns, we can manage with around 6-7 equations roughly. Although working with 50 equtaions is fine as well. We weigh the columns accordingly before applying LLL
 
