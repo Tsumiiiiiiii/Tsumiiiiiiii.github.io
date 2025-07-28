@@ -114,6 +114,8 @@ This writeup assumes you have a basic familiarity with elliptic curves, at the v
 
 Namely, the Weierstrass form of Elliptic Curve over $GF(p)$ is defined as $y^2 = x^3 + a\cdot x + b$. Nothing complicated, a simple polynomial defined over $x,y$ and calculations defined under modulo $p$. We don't know $a, b$ neither do we know $p$. Instead, we know a set of points given as hint. Particularly, we have $(x, y^2)$ which will come in handy to recover the unknowns. By the way, $y$ squared is actually reduced modulo $p$, in case you were thinking of infering the LCG states directly :anguished: 
 
+{{< admonition type=tip title="Some notes" open=true >}} Weierstrass curve in fact is vastly difficult from what I have explained above. But the simpler variant does more than well to do the job here, hence the simplification. {{< /admonition >}}
+
 Let us jot down what we have and work from there:
 
 $$
@@ -217,6 +219,10 @@ v_2 &= (q_{hi}^3\cdot420 + q_{lo}^2) &&\mod o
 $$
 
 That means, right now we have two polynomials in two variables modulo the order. Allthough not impossible, it's far easier to solve a polynomial in one unknown, rather than dealing with two, and this is what we aim to do - convert the two polynomials into one with a single unknown. Time for some sage math shenanigans. Credit goes to [@blupper](https://github.com/TheBlupper) for showing this on the CH discord!
+
+<img width="1045" height="265" alt="image" src="https://github.com/user-attachments/assets/f81930a0-c0f9-4dc6-9fa9-0504bba1ac23" />
+
+We modify the approach shown, and hence comes the following snippet of code that nicely does the job
 
 ```python
 P.<qhi,qlo, v1, v2> = QQ[]
@@ -391,6 +397,8 @@ q   & 0      & \cdots & 0      & 0 & 0 & 0 & \cdots & 0 \\\
 0    & 0      & \cdots &    q      & 0 & 0 & 0 & \cdots & 0\
 \end{bmatrix}
 $$
+
+{{< admonition type=tip title="Some notes" open=true >}} As you might have already recognized, this is a variant of the well known  Hidden Number Problem(HNP). {{< /admonition >}}
 
 Thanks to the very small size of the unknowns, we can manage with around 6-7 equations roughly. Although working with 50 equtaions is fine as well. We weigh the columns accordingly before applying LLL
 
