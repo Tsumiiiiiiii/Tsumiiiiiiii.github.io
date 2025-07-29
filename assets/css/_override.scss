@@ -9,3 +9,138 @@ $code-background-color-dark: #231f20;
 $code-font-family:  monospace, Fira Code, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New" !important;
 $code-font-size:  calc(0.9375rem + 0vw);
 $page-width: 100%;
+
+// assets/css/_override.scss
+// This file will override the default theme variables to apply the "Tomorrow Night" theme.
+
+// =============================================================================
+// 1. DEFINE THE "TOMORROW NIGHT" COLOR PALETTE
+// =============================================================================
+$tomorrow-base00: #2d2d2d; // Background
+$tomorrow-base01: #393939; // Lighter Background
+$tomorrow-base02: #515151; // Selection Background
+$tomorrow-base03: #999999; // Comments
+$tomorrow-base04: #b4b7b4; // Dark Foreground
+$tomorrow-base05: #cccccc; // Default Foreground
+$tomorrow-base08: #f2777a; // Red
+$tomorrow-base09: #f99157; // Orange
+$tomorrow-base0a: #ffcc66; // Yellow
+$tomorrow-base0b: #99cc99; // Green
+$tomorrow-base0c: #66cccc; // Cyan
+$tomorrow-base0d: #6699cc; // Blue
+$tomorrow-base0e: #cc99cc; // Purple
+$tomorrow-base0f: #a3685a; // Brown
+
+// =============================================================================
+// 2. OVERRIDE THE MAIN THEME VARIABLES FOR DARK MODE
+// =============================================================================
+
+// Global Colors
+$global-background-color-dark: $tomorrow-base00;
+$global-font-color-dark: $tomorrow-base05;
+$global-font-secondary-color-dark: $tomorrow-base03;
+$global-link-color-dark: $tomorrow-base0d;
+$global-link-hover-color-dark: $tomorrow-base0c;
+$global-border-color-dark: $tomorrow-base01;
+
+// Scrollbar & Selection
+$scrollbar-color: $tomorrow-base02;
+$scrollbar-hover-color: $tomorrow-base03;
+$selection-color-dark: rgba(204, 153, 204, 0.25); // Purple selection
+
+// Header
+$header-background-color-dark: $tomorrow-base00;
+$header-hover-color-dark: $tomorrow-base0a; // Yellow for hover
+$search-background-color-dark: $tomorrow-base01;
+
+// Single Content (Blog Posts, etc.)
+$single-link-color-dark: $tomorrow-base0d;
+$single-link-hover-color-dark: $tomorrow-base0c;
+$table-background-color-dark: $tomorrow-base01;
+$table-thead-color-dark: $tomorrow-base02;
+$blockquote-color-dark: $tomorrow-base0e; // Purple for blockquote bar
+
+// Pagination
+$pagination-link-color-dark: $tomorrow-base05;
+$pagination-link-hover-color-dark: $tomorrow-base0a;
+
+// Inline Code (not the big code blocks)
+$code-color-dark: $tomorrow-base0b; // Green
+$code-background-color-dark: $tomorrow-base01;
+
+// =============================================================================
+// 3. OVERRIDE THE SYNTAX HIGHLIGHTING MAP FOR DARK MODE
+// This replaces the need for syntax.css
+// =============================================================================
+$code-highlight-color-map-dark: (
+  /* Parentheses */ "p": $tomorrow-base05,
+  /* Keyword */ "k": $tomorrow-base0e,
+  /* KeywordConstant */ "kc": $tomorrow-base0e,
+  /* KeywordDeclaration */ "kd": $tomorrow-base0e,
+  /* KeywordNamespace */ "kn": $tomorrow-base0e,
+  /* KeywordPseudo */ "kp": $tomorrow-base0e,
+  /* KeywordReserved */ "kr": $tomorrow-base0e,
+  /* KeywordType */ "kt": $tomorrow-base0e,
+  /* Name */ "n": $tomorrow-base05,
+  /* NameAttribute */ "na": $tomorrow-base0d,
+  /* NameBuiltin */ "nb": $tomorrow-base0d,
+  /* NameBuiltinPseudo */ "bp": $tomorrow-base08,
+  /* NameClass */ "nc": $tomorrow-base0a,
+  /* NameConstant */ "no": $tomorrow-base09,
+  /* NameDecorator */ "nd": $tomorrow-base0d,
+  /* NameEntity */ "ni": $tomorrow-base0a,
+  /* NameException */ "ne": $tomorrow-base08,
+  /* NameFunction */ "nf": $tomorrow-base0d,
+  /* NameFunctionMagic */ "fm": $tomorrow-base0d,
+  /* NameLabel */ "nl": $tomorrow-base0a,
+  /* NameNamespace */ "nn": $tomorrow-base0a,
+  /* NameOther */ "nx": $tomorrow-base05,
+  /* NameProperty */ "py": $tomorrow-base05,
+  /* NameTag */ "nt": $tomorrow-base08,
+  /* NameVariable */ "nv": $tomorrow-base08,
+  /* NameVariableClass */ "vc": $tomorrow-base08,
+  /* NameVariableGlobal */ "vg": $tomorrow-base08,
+  /* NameVariableInstance */ "vi": $tomorrow-base08,
+  /* NameVariableMagic */ "vm": $tomorrow-base08,
+  /* Literal */ "l": $tomorrow-base0b,
+  /* LiteralDate */ "ld": $tomorrow-base0b,
+  /* LiteralString */ "s": $tomorrow-base0b,
+  /* LiteralStringAffix */ "sa": $tomorrow-base0b,
+  /* LiteralStringBacktick */ "sb": $tomorrow-base0b,
+  /* LiteralStringChar */ "sc": $tomorrow-base0b,
+  /* LiteralStringDelimiter */ "dl": $tomorrow-base0b,
+  /* LiteralStringDoc */ "sd": $tomorrow-base03,
+  /* LiteralStringDouble */ "s2": $tomorrow-base0b,
+  /* LiteralStringEscape */ "se": $tomorrow-base0c,
+  /* LiteralStringHeredoc */ "sh": $tomorrow-base0b,
+  /* LiteralStringInterpol */ "si": $tomorrow-base08,
+  /* LiteralStringOther */ "sx": $tomorrow-base0b,
+  /* LiteralStringRegex */ "sr": $tomorrow-base0c,
+  /* LiteralStringSingle */ "s1": $tomorrow-base0b,
+  /* LiteralStringSymbol */ "ss": $tomorrow-base09,
+  /* LiteralNumber */ "m": $tomorrow-base09,
+  /* LiteralNumberBin */ "mb": $tomorrow-base09,
+  /* LiteralNumberFloat */ "mf": $tomorrow-base09,
+  /* LiteralNumberHex */ "mh": $tomorrow-base09,
+  /* LiteralNumberInteger */ "mi": $tomorrow-base09,
+  /* LiteralNumberIntegerLong */ "il": $tomorrow-base09,
+  /* LiteralNumberOct */ "mo": $tomorrow-base09,
+  /* Operator */ "o": $tomorrow-base0c,
+  /* OperatorWord */ "ow": $tomorrow-base0e,
+  /* Comment */ "c": $tomorrow-base03,
+  /* CommentHashbang */ "ch": $tomorrow-base03,
+  /* CommentMultiline */ "cm": $tomorrow-base03,
+  /* CommentSingle */ "c1": $tomorrow-base03,
+  /* CommentSpecial */ "cs": $tomorrow-base03,
+  /* CommentPreproc */ "cp": $tomorrow-base03,
+  /* CommentPreprocFile */ "cpf": $tomorrow-base03,
+  /* GenericDeleted */ "gd": $tomorrow-base08,
+  /* GenericEmph */ "ge": (font-style: italic),
+  /* GenericError */ "gr": (color: $tomorrow-base08),
+  /* GenericHeading */ "gh": (color: $tomorrow-base0d, font-weight: bold),
+  /* GenericInserted */ "gi": $tomorrow-base0b,
+  /* GenericOutput */ "go": $tomorrow-base02,
+  /* GenericStrong */ "gs": (font-weight: bold),
+  /* GenericSubheading */ "gu": (color: $tomorrow-base0d),
+  /* GenericTraceback */ "gt": $tomorrow-base08
+);
