@@ -72,6 +72,10 @@ $code-background-color-dark: $tomorrow-base01;
 // 3. OVERRIDE THE SYNTAX HIGHLIGHTING MAP FOR DARK MODE
 // This replaces the need for syntax.css
 // =============================================================================
+// =============================================================================
+// 3. OVERRIDE THE SYNTAX HIGHLIGHTING MAP FOR DARK MODE (Corrected Version)
+// This replaces the need for syntax.css
+// =============================================================================
 $code-highlight-color-map-dark: (
   /* Parentheses */ "p": $tomorrow-base05,
   /* Keyword */ "k": $tomorrow-base0e,
@@ -134,13 +138,16 @@ $code-highlight-color-map-dark: (
   /* CommentSpecial */ "cs": $tomorrow-base03,
   /* CommentPreproc */ "cp": $tomorrow-base03,
   /* CommentPreprocFile */ "cpf": $tomorrow-base03,
-  /* GenericDeleted */ "gd": $tomorrow-base08,
-  /* GenericEmph */ "ge": (font-style: italic),
-  /* GenericError */ "gr": (color: $tomorrow-base08),
-  /* GenericHeading */ "gh": (color: $tomorrow-base0d, font-weight: bold),
-  /* GenericInserted */ "gi": $tomorrow-base0b,
-  /* GenericOutput */ "go": $tomorrow-base02,
-  /* GenericStrong */ "gs": (font-weight: bold),
-  /* GenericSubheading */ "gu": (color: $tomorrow-base0d),
-  /* GenericTraceback */ "gt": $tomorrow-base08
+  /* Generic */ "g": $tomorrow-base05, // FIXED
+  /* GenericDeleted */ "gd": $tomorrow-base08, // FIXED
+  /* GenericEmph */ "ge": $tomorrow-base0e, // FIXED - Used purple for emphasis/italic
+  /* GenericError */ "gr": $tomorrow-base08, // FIXED
+  /* GenericHeading */ "gh": $tomorrow-base0d, // FIXED
+  /* GenericInserted */ "gi": $tomorrow-base0b, // FIXED
+  /* GenericOutput */ "go": $tomorrow-base02, // FIXED
+  /* GenericPrompt */ "gp": $tomorrow-base03, // FIXED
+  /* GenericStrong */ "gs": $tomorrow-base0a, // FIXED - Used yellow for strong/bold
+  /* GenericSubheading */ "gu": $tomorrow-base0d, // FIXED
+  /* GenericTraceback */ "gt": $tomorrow-base08, // FIXED
+  /* TextWhitespace */ "w": $tomorrow-base00 // FIXED - Whitespace should be invisible
 );
