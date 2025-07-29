@@ -113,9 +113,9 @@ This writeup assumes you have a basic familiarity with elliptic curves, at the v
 
 Namely, the Weierstrass form of Elliptic Curve over $GF(p)$ is defined as $y^2 = x^3 + a\cdot x + b$. Nothing complicated, a simple polynomial defined over $x,y$ and calculations defined under modulo $p$. We don't know $a, b$ neither do we know $p$. Instead, we know a set of points given as hint. Particularly, we have $(x, y^2)$ which will come in handy to recover the unknowns. By the way, $y$ squared is actually reduced modulo $p$, in case you were thinking of infering the LCG states directly :anguished: 
 
-{{< admonition type=tip title="Some notes" open=true >}} Weierstrass curve in fact is vastly difficult from what I have explained above. But the simpler variant does more than well to do the job here, hence the simplification. {{< /admonition >}}
+{{< admonition type=tip title="Some notes" open=true >}} Weierstrass curve, in fact, is considerably more complex from what I have explained above. But the simpler variant does more than well here, hence the simplification. {{< /admonition >}}
 
-Let us jot down what we have and work from there:
+Let us jot down what we have and work from there
 
 $$
 \begin{aligned}
