@@ -17,7 +17,7 @@ math:
   enable: true
 
 toc:
-  enable: true
+  enable: false
 ---
 
 Writeup for my misc challenge Ghost of the Past challenge from iutCTF24.
