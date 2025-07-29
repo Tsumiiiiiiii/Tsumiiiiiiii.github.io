@@ -6,9 +6,9 @@ lastmod: 2024-07-28T17:30:00+06:00
 draft: false
 author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
-description: "Elliptic curve shenanigans, followed by some sagemath magic, some meet in the middle with an instance of the Hidden Number problem"
+description: "Elliptic curve shenanigans, followed by some sagemath magic, some meet in the middle, and truncated LCGs with an instance of the Hidden Number problem"
 
-tags: ["crypto", "DEADSEC", "elliptic curve", "LLL", "HNP", "MITM", "groebner basis", "english"]
+tags: ["crypto", "DEADSEC", "elliptic curve", "LLL", "HNP", "LCG", "MITM", "groebner basis", "english"]
 categories: ["Writeups"]
 
 lightgallery: true
