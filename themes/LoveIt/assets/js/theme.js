@@ -827,6 +827,7 @@ var Theme = /*#__PURE__*/function () {
         this.initMermaid();
         this.initEcharts();
         this.initMapbox();
+        this.initTypeit();
       } catch (err) {
         console.error(err);
       }
