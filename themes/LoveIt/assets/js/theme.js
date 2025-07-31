@@ -494,23 +494,7 @@ var Theme = /*#__PURE__*/function () {
           var $code = $codeElements[$codeElements.length - 1];
           var $header = document.createElement('div');
           $header.className = 'code-header ' + $code.className.toLowerCase();
-          document.addEventListener("DOMContentLoaded", function() {
-            const preElements = document.querySelectorAll("pre");
-          
-            preElements.forEach(pre => {
-              // Check if the <pre> element is already wrapped by a div to avoid duplication
-              if (pre.parentElement.tagName.toLowerCase() !== 'div') {
-                const wrapper = document.createElement('div');
-                wrapper.style.border = '1px solid #555';  // Add desired border here
-                wrapper.style.overflowX = 'auto';         // Ensure horizontal scroll
-                wrapper.style.padding = '0.25rem';        // Adjust padding
-                pre.parentNode.insertBefore(wrapper, pre);  // Insert the wrapper before <pre>
-                wrapper.appendChild(pre);                 // Move <pre> inside the wrapper
-              }
-            });
-          });
 
-          
           var $title = document.createElement('span');
           $title.classList.add('code-title');
           $title.insertAdjacentHTML('afterbegin', '<i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i>');
@@ -543,6 +527,16 @@ var Theme = /*#__PURE__*/function () {
 
           $chroma.insertBefore($header, $chroma.firstChild);
         }
+      });
+    }
+  }, {
+    key: "initCodeWrapper",
+    value: function initCodeWrapper() {
+      this.util.forEach(document.querySelectorAll('.highlight'), function ($highlight) {
+        var $wrapper = document.createElement('div');
+        $wrapper.className = 'code-wrapper';
+        $highlight.parentNode.insertBefore($wrapper, $highlight);
+        $wrapper.appendChild($highlight);
       });
     }
   }, {
@@ -745,65 +739,31 @@ var Theme = /*#__PURE__*/function () {
               lng = _this9$data$$mapbox$i.lng,
               lat = _this9$data$$mapbox$i.lat,
               zoom = _this9$data$$mapbox$i.zoom,
-              lightStyle = _this9$data$$mapbox$i.lightStyle,
-              darkStyle = _this9$data$$mapbox$i.darkStyle,
               marked = _this9$data$$mapbox$i.marked,
               navigation = _this9$data$$mapbox$i.navigation,
               geolocate = _this9$data$$mapbox$i.geolocate,
               scale = _this9$data$$mapbox$i.scale,
-              fullscreen = _this9$data$$mapbox$i.fullscreen;
+              fullscreen = _this9$data$$mapbox$i.fullscreen,
+              style = _this9$data$$mapbox$i.style;
           var mapbox = new mapboxgl.Map({
             container: $mapbox,
+            style: style,
             center: [lng, lat],
-            zoom: zoom,
-            minZoom: .2,
-            style: _this9.isDark ? darkStyle : lightStyle,
-            attributionControl: false
+            zoom: zoom
           });
-
-          if (marked) {
-            new mapboxgl.Marker().setLngLat([lng, lat]).addTo(mapbox);
-          }
-
-          if (navigation) {
-            mapbox.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-          }
-
-          if (geolocate) {
-            mapbox.addControl(new mapboxgl.GeolocateControl({
-              positionOptions: {
-                enableHighAccuracy: true
-              },
-              showUserLocation: true,
-              trackUserLocation: true
-            }), 'bottom-right');
-          }
-
-          if (scale) {
-            mapbox.addControl(new mapboxgl.ScaleControl());
-          }
-
-          if (fullscreen) {
-            mapbox.addControl(new mapboxgl.FullscreenControl());
-          }
-
-          mapbox.addControl(new MapboxLanguage());
+          if (marked) new mapboxgl.Marker().setLngLat([lng, lat]).addTo(mapbox);
+          if (navigation) mapbox.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+          if (geolocate) mapbox.addControl(new mapboxgl.GeolocateControl({
+            positionOptions: {
+              enableHighAccuracy: true
+            },
+            trackUserLocation: true
+          }), 'bottom-right');
+          if (scale) mapbox.addControl(new mapboxgl.ScaleControl());
+          if (fullscreen) mapbox.addControl(new mapboxgl.FullscreenControl());
 
           _this9._mapboxArr.push(mapbox);
         });
-
-        this._mapboxOnSwitchTheme = this._mapboxOnSwitchTheme || function () {
-          _this9.util.forEach(_this9._mapboxArr, function (mapbox) {
-            var $mapbox = mapbox.getContainer();
-            var _this9$data$$mapbox$i2 = _this9.data[$mapbox.id],
-                lightStyle = _this9$data$$mapbox$i2.lightStyle,
-                darkStyle = _this9$data$$mapbox$i2.darkStyle;
-            mapbox.setStyle(_this9.isDark ? darkStyle : lightStyle);
-            mapbox.addControl(new MapboxLanguage());
-          });
-        };
-
-        this.switchThemeEventSet.add(this._mapboxOnSwitchTheme);
       }
     }
   }, {
@@ -845,151 +805,43 @@ var Theme = /*#__PURE__*/function () {
       }
     }
   }, {
-    key: "initComment",
-    value: function initComment() {
-      var _this11 = this;
+    key: "init",
+    value: function init() {
+      var _this10 = this;
 
-      if (this.config.comment) {
-        if (this.config.comment.gitalk) {
-          this.config.comment.gitalk.body = decodeURI(window.location.href);
-          var gitalk = new Gitalk(this.config.comment.gitalk);
-          gitalk.render('gitalk');
-        }
-
-        if (this.config.comment.valine) new Valine(this.config.comment.valine);
-
-        if (this.config.comment.utterances) {
-          var utterancesConfig = this.config.comment.utterances;
-          var script = document.createElement('script');
-          script.src = 'https://utteranc.es/client.js';
-          script.type = 'text/javascript';
-          script.setAttribute('repo', utterancesConfig.repo);
-          script.setAttribute('issue-term', utterancesConfig.issueTerm);
-          if (utterancesConfig.label) script.setAttribute('label', utterancesConfig.label);
-          script.setAttribute('theme', this.isDark ? utterancesConfig.darkTheme : utterancesConfig.lightTheme);
-          script.crossOrigin = 'anonymous';
-          script.async = true;
-          document.getElementById('utterances').appendChild(script);
-
-          this._utterancesOnSwitchTheme = this._utterancesOnSwitchTheme || function () {
-            var message = {
-              type: 'set-theme',
-              theme: _this11.isDark ? utterancesConfig.darkTheme : utterancesConfig.lightTheme
-            };
-            var iframe = document.querySelector('.utterances-frame');
-            iframe.contentWindow.postMessage(message, 'https://utteranc.es');
-          };
-
-          this.switchThemeEventSet.add(this._utterancesOnSwitchTheme);
-        }
-
-        if (this.config.comment.giscus) {
-          var giscusConfig = this.config.comment.giscus;
-          var giscusScript = document.createElement('script');
-          giscusScript.src = 'https://giscus.app/client.js';
-          giscusScript.type = 'text/javascript';
-          giscusScript.setAttribute('data-repo', giscusConfig.repo);
-          giscusScript.setAttribute('data-repo-id', giscusConfig.repoId);
-          giscusScript.setAttribute('data-category', giscusConfig.category);
-          giscusScript.setAttribute('data-category-id', giscusConfig.categoryId);
-          giscusScript.setAttribute('data-lang', giscusConfig.lang);
-          giscusScript.setAttribute('data-mapping', giscusConfig.mapping);
-          giscusScript.setAttribute('data-reactions-enabled', giscusConfig.reactionsEnabled);
-          giscusScript.setAttribute('data-emit-metadata', giscusConfig.emitMetadata);
-          giscusScript.setAttribute('data-input-position', giscusConfig.inputPosition);
-          if (giscusConfig.lazyLoading) giscusScript.setAttribute('data-loading', 'lazy');
-          giscusScript.setAttribute('data-theme', this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme);
-          giscusScript.crossOrigin = 'anonymous';
-          giscusScript.async = true;
-          document.getElementById('giscus').appendChild(giscusScript);
-
-          this._giscusOnSwitchTheme = this._giscusOnSwitchTheme || function () {
-            var message = {
-              setConfig: {
-                theme: _this11.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme,
-                reactionsEnabled: false
-              }
-            };
-            var iframe = document.querySelector('iframe.giscus-frame');
-            if (!iframe) return;
-            iframe.contentWindow.postMessage({
-              giscus: message
-            }, 'https://giscus.app');
-          };
-
-          this.switchThemeEventSet.add(this._giscusOnSwitchTheme);
-        }
-      }
-    }
-  }, {
-    key: "initCookieconsent",
-    value: function initCookieconsent() {
-      if (this.config.cookieconsent) cookieconsent.initialise(this.config.cookieconsent);
-    }
-  }, {
-    key: "onScroll",
-    value: function onScroll() {
-      var _this12 = this;
-
-      var $headers = [];
-      if (document.body.getAttribute('data-header-desktop') === 'auto') $headers.push(document.getElementById('header-desktop'));
-      if (document.body.getAttribute('data-header-mobile') === 'auto') $headers.push(document.getElementById('header-mobile'));
-
-      if (document.getElementById('comments')) {
-        var $viewComments = document.getElementById('view-comments');
-        $viewComments.href = "#comments";
-        $viewComments.style.display = 'block';
+      try {
+        this.initRaw();
+        this.initSVGIcon();
+        this.initTwemoji();
+        this.initMenuMobile();
+        this.initSwitchTheme();
+        this.initSearch();
+        this.initDetails();
+        this.initLightGallery();
+        this.initHighlight();
+        this.initCodeWrapper();
+        this.initTable();
+        this.initHeaderLink();
+        this.initToc();
+        this.initMath();
+        this.initMermaid();
+        this.initEcharts();
+        this.initMapbox();
+      } catch (err) {
+        console.error(err);
       }
 
-      var $fixedButtons = document.getElementById('fixed-buttons');
-      var ACCURACY = 20,
-          MINIMUM = 100;
       window.addEventListener('scroll', function () {
-        _this12.newScrollTop = _this12.util.getScrollTop();
-        var scroll = _this12.newScrollTop - _this12.oldScrollTop;
+        _this10.newScrollTop = _this10.util.getScrollTop();
+        var scroll = _this10.newScrollTop - _this10.oldScrollTop;
 
-        var isMobile = _this12.util.isMobile();
-
-        _this12.util.forEach($headers, function ($header) {
-          if (scroll > ACCURACY) {
-            $header.classList.remove('animate__fadeInDown');
-
-            _this12.util.animateCSS($header, ['animate__fadeOutUp', 'animate__faster'], true);
-          } else if (scroll < -ACCURACY) {
-            $header.classList.remove('animate__fadeOutUp');
-
-            _this12.util.animateCSS($header, ['animate__fadeInDown', 'animate__faster'], true);
-          }
-        });
-
-        if (_this12.newScrollTop > MINIMUM) {
-          if (isMobile && scroll > ACCURACY) {
-            $fixedButtons.classList.remove('animate__fadeIn');
-
-            _this12.util.animateCSS($fixedButtons, ['animate__fadeOut', 'animate__faster'], true);
-          } else if (!isMobile || scroll < -ACCURACY) {
-            $fixedButtons.style.display = 'block';
-            $fixedButtons.classList.remove('animate__fadeOut');
-
-            _this12.util.animateCSS($fixedButtons, ['animate__fadeIn', 'animate__faster'], true);
-          }
-        } else {
-          if (!isMobile) {
-            $fixedButtons.classList.remove('animate__fadeIn');
-
-            _this12.util.animateCSS($fixedButtons, ['animate__fadeOut', 'animate__faster'], true);
-          }
-
-          $fixedButtons.style.display = 'none';
-        }
-
-        var _iterator2 = _createForOfIteratorHelper(_this12.scrollEventSet),
+        var _iterator2 = _createForOfIteratorHelper(_this10.scrollEventSet),
             _step2;
 
         try {
           for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
             var event = _step2.value;
-            event();
+            event(scroll);
           }
         } catch (err) {
           _iterator2.e(err);
@@ -997,49 +849,32 @@ var Theme = /*#__PURE__*/function () {
           _iterator2.f();
         }
 
-        _this12.oldScrollTop = _this12.newScrollTop;
+        _this10.oldScrollTop = _this10.newScrollTop;
       }, false);
-    }
-  }, {
-    key: "onResize",
-    value: function onResize() {
-      var _this13 = this;
-
       window.addEventListener('resize', function () {
-        if (!_this13._resizeTimeout) {
-          _this13._resizeTimeout = window.setTimeout(function () {
-            _this13._resizeTimeout = null;
+        if (!_this10.util.isMobile() && _this10.util.isTocStatic()) {
+          _this10.initToc();
+        }
 
-            var _iterator3 = _createForOfIteratorHelper(_this13.resizeEventSet),
-                _step3;
+        _this10.initSearch();
 
-            try {
-              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-                var event = _step3.value;
-                event();
-              }
-            } catch (err) {
-              _iterator3.e(err);
-            } finally {
-              _iterator3.f();
-            }
+        var _iterator3 = _createForOfIteratorHelper(_this10.resizeEventSet),
+            _step3;
 
-            _this13.initToc();
-
-            _this13.initMermaid();
-
-            _this13.initSearch();
-          }, 100);
+        try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+            var event = _step3.value;
+            event();
+          }
+        } catch (err) {
+          _iterator3.e(err);
+        } finally {
+          _iterator3.f();
         }
       }, false);
-    }
-  }, {
-    key: "onClickMask",
-    value: function onClickMask() {
-      var _this14 = this;
-
-      document.getElementById('mask').addEventListener('click', function () {
-        var _iterator4 = _createForOfIteratorHelper(_this14.clickMaskEventSet),
+      var $mask = document.getElementById('mask');
+      $mask.addEventListener('click', function () {
+        var _iterator4 = _createForOfIteratorHelper(_this10.clickMaskEventSet),
             _step4;
 
         try {
@@ -1056,57 +891,12 @@ var Theme = /*#__PURE__*/function () {
         document.body.classList.remove('blur');
       }, false);
     }
-  }, {
-    key: "init",
-    value: function init() {
-      var _this15 = this;
-
-      try {
-        this.initRaw();
-        this.initSVGIcon();
-        this.initTwemoji();
-        this.initMenuMobile();
-        this.initSwitchTheme();
-        this.initSearch();
-        this.initDetails();
-        this.initLightGallery();
-        this.initHighlight();
-        this.initTable();
-        this.initHeaderLink();
-        this.initMath();
-        this.initMermaid();
-        this.initEcharts();
-        this.initTypeit();
-        this.initMapbox();
-        this.initCookieconsent();
-      } catch (err) {
-        console.error(err);
-      }
-
-      window.setTimeout(function () {
-        _this15.initToc();
-
-        _this15.initComment();
-
-        _this15.onScroll();
-
-        _this15.onResize();
-
-        _this15.onClickMask();
-      }, 100);
-    }
   }]);
 
   return Theme;
 }();
 
-var themeInit = function themeInit() {
-  var theme = new Theme();
+var theme = new Theme();
+document.addEventListener('DOMContentLoaded', function () {
   theme.init();
-};
-
-if (document.readyState !== 'loading') {
-  themeInit();
-} else {
-  document.addEventListener('DOMContentLoaded', themeInit, false);
-}
+});
