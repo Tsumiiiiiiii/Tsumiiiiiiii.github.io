@@ -1,14 +1,7 @@
 code {
-  display:inline-block;
-  //max-width: 100%;
-  padding: .4rem; /* Corrected: Removed the '@' symbol */
-
-  //border: 1px solid #555;
-  //border-radius: 4px;
-  //border-style: solid; //changed
-  //border-width: 1px; // changed
-  @include overflow-wrap(break-word); //og
-  //@include overflow-wrap(anywhere);
+  display: inline-block;
+  padding: .4rem;
+  @include overflow-wrap(break-word);
   @include line-break(anywhere);
   font-size: var(--code-font-size);
   font-family: var(--code-font-family);
@@ -20,72 +13,19 @@ code {
   }
 }
 
-/* Outer container to handle the persistent border */
-.pre-container {
-  position: relative;        /* Position relative to the viewport */
-  border: 1px solid #555;    /* The border you want to remain visible */
-  padding: 0.5rem;           /* Padding inside the border */
-  overflow: hidden;          /* Hide overflow to contain the border */
-}
-
-/* Inner scrollable pre element */
-.pre-container pre {
-  margin: 0;
-  padding: 0.25rem;
-  overflow-x: auto;          /* Enable horizontal scrolling */
-  max-height: 100%;          /* Ensure it takes the height available */
-  white-space: pre-wrap;     /* Preserve formatting with wrapping */
-  position: relative;
-}
-
-
 pre {
   margin: 0;
-
-  //padding: .5rem .5rem .5rem .5rem; //og
-  //border-style: solid; //changed
-  //border-width: 1px; // changed  
-  //border-top: 1px solid #555;   /* Top border */
-  //border-bottom: 1px solid #555; /* Bottom border */
-  
-  //position: fixed;
-  //outline-offset: -2px;
-  //box-shadow: 0 0 0 1px #555;  
-  //border: 1px solid #555; /* This border will be moved to .pre-container */
-  //border-left: none;       /* Remove left border */
-  //border-right: none;      /* Remove right border */
-  //white-space: pre;        /*
-  
-  //border-top: 1px solid #555;    /* Top border */
-  //border-bottom: 1px solid #555; /* Bottom border */
-  //overflow-x: auto;              /* Horizontal scroll */
-  //position: relative;   
-  
-  // Remove this border, it will be on the .pre-container
-  //border: 1px solid #555;             /* Border on all sides */
-  //overflow-x: auto;                   /* Horizontal scroll will be on .pre-container pre */
-  box-sizing: border-box;             /* Include padding and borders in the element’s width */
-  
-  //scrollbar-gutter: stable both-edges; /* Reserve space for the scrollbar */
-  //border: 1px solid #555;
-  //max-width: 100%;
-  //border-left: 1px solid #555;
-   //border-right: 1px solid #555;
-   //border-bottom: 1px solid #555;
-   //white-space: pre-wrap;
-  //padding: 1rem 1 1rem 1rem;
+  box-sizing: border-box;
   @include tab-size(4);
 
   code {
-    padding: 0;
-    padding: .75rem .5rem 1rem 1rem; 
+    padding: .75rem .5rem 1rem 1rem;
     border: none;
-    
-      [theme=dark] & {
-        color: $code-color-dark;
-        background-color: $code-background-color-dark;
-      }
-    //padding: .25rem 0 .25rem .5rem;
+
+    [theme=dark] & {
+      color: $code-color-dark;
+      background-color: $code-background-color-dark;
+    }
   }
 
   img {
@@ -95,31 +35,11 @@ pre {
   }
 }
 
-// Wrapper for code blocks to create a persistent border
-.code-wrapper {
-  position: relative;
-  margin: 1.5em 0; // Vertical spacing for the block
-  border-radius: 4px;
-  border: 1px solid #e0e0e0; // Light theme border
-
-  [theme=dark] & {
-    border-color: #4a4a4a; // Dark theme border
-  }
-}
-
-// Adjust the original highlight block to live inside the wrapper
-.code-wrapper > .highlight {
-  margin: 0 !important; // Remove original margin
-  border-radius: 0; // Wrapper handles the rounded corners
-  overflow-x: auto; // Makes the code scrollable horizontally inside the wrapper
-  // The background is already handled by the theme's .highlight styles
-}
-
 pre, .highlight table, .highlight tr, .highlight td {
   background: $code-background-color !important;
 
   [theme=dark] & {
-    background: #231f20 !important; // Change this line
+    background: #231f20 !important; // Your desired background color
   }
 }
 
@@ -127,8 +47,7 @@ pre, .highlight table, .highlight tr, .highlight td {
   font-family: var(--code-font-family);
   font-size: var(--code-font-size);
   line-height: 1.4em;
-  // Adjust margin to account for the new .pre-container padding and border
-  margin: .5rem 0; 
+  margin: .5rem 0;
 
   .table-wrapper {
     > table,
@@ -149,14 +68,11 @@ pre, .highlight table, .highlight tr, .highlight td {
     position: relative;
 
     .code-header {
-      //display: flex; //og
       display: none;
       justify-content: space-between;
       align-items: center;
       box-sizing: border-box;
       width: 100%;
-      //border-style: solid; //changed
-      //border-width: 1px; // changed
       border: 1px solid #555;
       font-family: var(--global-font-family);
       font-weight: bold;
@@ -165,8 +81,7 @@ pre, .highlight table, .highlight tr, .highlight td {
 
       [theme=dark] & {
         color: $code-info-color-dark;
-        background: #231f20; // changed
-        // background: darken($code-background-color-dark, 6%); original
+        background: #231f20;
       }
 
       &:hover {
@@ -258,8 +173,7 @@ pre, .highlight table, .highlight tr, .highlight td {
         background: darken($code-background-color, 3%);
 
         [theme=dark] & {
-          background: #231f20; // changed
-          //background: darken($code-background-color-dark, 3%); //og
+          background: #231f20;
         }
       }
 
@@ -282,14 +196,14 @@ pre, .highlight table, .highlight tr, .highlight td {
     }
   }
 
-  /* Comment */  .c,
-  /* CommentHashbang */  .ch,
-  /* CommentMultiline */  .cm,
-  /* CommentSingle */  .c1,
-  /* CommentSpecial */  .cs,
-  /* CommentPreproc */  .cp,
-  /* CommentPreprocFile */  .cpf { font-style: italic }
-  /* GenericUnderline */  .gl { text-decoration: underline }
+  /* Comment */ .c,
+  /* CommentHashbang */ .ch,
+  /* CommentMultiline */ .cm,
+  /* CommentSingle */ .c1,
+  /* CommentSpecial */ .cs,
+  /* CommentPreproc */ .cp,
+  /* CommentPreprocFile */ .cpf { font-style: italic }
+  /* GenericUnderline */ .gl { text-decoration: underline }
 
   @each $class, $color in $code-highlight-color-map {
     .#{$class} { color: $color; }
