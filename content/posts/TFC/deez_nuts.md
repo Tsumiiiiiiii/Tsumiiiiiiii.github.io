@@ -6,7 +6,7 @@ lastmod: 2024-09-09T17:30:00+06:00
 draft: false
 author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
-description: "Solving an instance of the LWE problem with errors sourced from a known trinomial distibution"
+description: "Solving an instance of the LWE problem with errors sourced from a known trinomial distribution"
 
 tags: ["crypto", "TFC", "LWE", "LLL", "primal attack", "english"]
 categories: ["Writeups"]
@@ -80,13 +80,13 @@ e_{51}
 $$
 
 
-This is the well known LWE(learning with error) setup where the $b$ vector and $A$ matrix is known, whereas the secret $S$ vector and the error vector $e$ is unknown. Our goal is to recover $S$. However, we do know a crucial information about the error terms - they come from a trinomial distribution. In fact, the pool is known, and $e_i \in \{97491, 14061, 55776\}$.
+This is the well known LWE(learning with error) setup where the $b$ vector and $A$ matrix is known, whereas the secret $S$ vector and the error vector $e$ is unknown. Our goal is to recover $S$. However, we do know a crucial information about the error terms - they come from a trinomial distribution. In fact, the pool is known, and $e_i \in \\{97491, 14061, 55776\\}$.
 
 We have to take advantage of this very short distribution somehow, as it seems like the weakest point in the link. Because, if we can shorten the error terms further, we can apply some well known lattice reduction attack on it somehow. Maybe we can replace the errors with some other variable terms?
 
 ## An equation in 3 unknowns - The baby step
 
-$e_i = t_0 * 97491 + t_1 * 14061 + t_2 * 55776$ where $t_i \in \{0,1\}$
+$e_i = t_0 * 97491 + t_1 * 14061 + t_2 * 55776$ where $t_i \in \\{0,1\\}$
 
 
 | e    | $t_0$ | $t_1$ | $t_2$|
@@ -123,9 +123,9 @@ e_i &= 55776 + t_0 * (-41715) + t_1*(41715) \\\
 \end{aligned}
 $$
 
-where $t \in \{-1, 0, 1\}$
+where $t \in \\{-1, 0, 1\\}$
 
-This lets us write $b_i = \langle A_i, S \rangle + 55776 + 41715 * t_i$. Rearrenging a bit, we have $\frac{b_i - 55776}{41715} = \frac{\langle A_i, S \rangle}{41715} + t_i$. Or simply write it as $b'_i = \langle A'_i, S \rangle + t_i$, where the $b'_i$ and $A'_i$ can be calculated. We now have an error vector which is extremely small $\in \{-1, 0, 1\}$. 
+This lets us write $b_i = \langle A_i, S \rangle + 55776 + 41715 * t_i$. Rearrenging a bit, we have $\frac{b_i - 55776}{41715} = \frac{\langle A_i, S \rangle}{41715} + t_i$. Or simply write it as $b'_i = \langle A'_i, S \rangle + t_i$, where the $b'_i$ and $A'_i$ can be calculated. We now have an error vector which is extremely small $\in \\{-1, 0, 1\\}$. 
 
 ## The finishing touch
 
@@ -155,12 +155,12 @@ print('BKZ done')
 for row in M_:
     if len(set(row)) == 3:
         print('eh??')
-        errors = [e3 + 41715*bit for bit in row]
+        errors = [e3 + 41715*bit for bit in row] # or it could be e3 - 41715*bit; in my case taking (+) gave a determined system of equations
         print(errors)
         break
 ```
 
-Once the secret is leaked, this reduces to the problem of solving a properly determined system of equations(46 equations in 46 unknowns)
+Once the secret is leaked, this reduces to the problem of solving a properly determined system of equations(43 equations in 43 unknowns)
 
 ```python
 rem = vector(F, b_values) - vector(F, errors)
