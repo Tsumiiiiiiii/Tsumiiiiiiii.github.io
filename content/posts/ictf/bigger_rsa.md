@@ -84,7 +84,7 @@ If we take the first equation, we can write,
 
 $$
 \begin{aligned}
-& num && + k_1\cdotp_4 = x_1 \\\
+& num && + k_1\cdot p_4 = x_1 \\\
 \rightarrow \ & num && + k_1 \cdot (m / (p_1\*p_2\*p_3)) = x_1 \\\
 \rightarrow \ & num \cdot(p_1\*p_2\*p_3) &&+ k_1\cdot m = x_1 \cdot (p_1 \* p_2 \* p_3) \\\
 \rightarrow \ & num \cdot q_4 &&+ k_1\cdot m = x_1 \cdot q4 
