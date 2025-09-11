@@ -129,7 +129,54 @@ This lets us write $b_i = \langle A_i, S \rangle + 55776 + 41715 * t_i$. Rearren
 
 ## The finishing touch
 
-This is a well studied problem now, thanks to the shortened error pool. We can mount a primal attack using lattices that yields us the errors.
+This is a well studied problem now, thanks to the shortened error pool. We can mount a primal attack using lattices that yields us the errors.The following basis does the job for us,
+
+$$
+\begin{bmatrix}
+A_{0,0} & A_{0,1} & \dots & A_{0,43} & b_0 & q & 0 & \dots & 0 \\\
+A_{1,0} & A_{1,1} & \dots & A_{1,43} & b_1 & 0 & q & \dots & 0 \\\
+\vdots  & \vdots  & \ddots & \vdots  & \vdots & \vdots & \vdots & \ddots \\\
+A_{51,0} & A_{51,1} & \dots & A_{51,43} & b_{51} & 0 & 0 & \dots & q
+\end{bmatrix}
+$$
+
+The error is extremely short and is guaranteed to be in the reduced basis
+
+$$
+s_0 
+\begin{bmatrix}
+A_{0,0} \\\ A_{1,0} \\\ \vdots \\\ A_{51,0}
+\end{bmatrix}
++s_1 
+\begin{bmatrix}
+A_{0,1} \\\ A_{1,1} \\\ \vdots \\\ A_{51,1}
+\end{bmatrix}
++\cdots + s_{43} 
+\begin{bmatrix}
+A_{0,43} \\\ A_{1,43} \\\ \vdots \\\ A_{51,43}
+\end{bmatrix}
+-1
+\begin{bmatrix}
+b_{0} \\\ b_{1} \\\ \vdots \\\ b_{51}
+\end{bmatrix}
++k_1
+\begin{bmatrix}
+q \\\ 0 \\\ \vdots \\\ 0
+\end{bmatrix}
++k_2
+\begin{bmatrix}
+0 \\\ q \\\ \vdots \\\ 0
+\end{bmatrix}
++\cdots + k_{51}
+\begin{bmatrix}
+0 \\\ 0 \\\ \vdots \\\ q
+\end{bmatrix}
+= \\
+\begin{bmatrix}
+t_0 \\\ t_1 \\\ \vdots \\\ t_{51}
+\end{bmatrix}
+$$
+
 
 ```python
 A_ = []
