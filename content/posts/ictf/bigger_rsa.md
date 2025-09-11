@@ -6,7 +6,7 @@ lastmod: 2024-09-10T17:30:00+06:00
 draft: false
 author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
-description: "Factoring RSA modulus with an instance similar to the Approximate Common Divisor problem"
+description: "Factoring RSA modulus with a setup similar to the Approximate Common Divisor problem"
 
 tags: ["crypto", "ictf", "AGCD", "LLL", "RSA", "english"]
 categories: ["Writeups"]
