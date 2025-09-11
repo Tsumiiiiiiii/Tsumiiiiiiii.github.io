@@ -126,7 +126,7 @@ Reducing this basis gives us $q_4$, and in turn $p_4$.
 
 We have recovered one factor so far, and by how the problem has been set, we have to recover the other 3 primes as well. It is not so difficult, as we can repeat the similar process as before. We reduce each hint modulo $q_4$ i.e. $num'_i = num_i \mod q_4$. This is repeated until m is fully factored.
 
-```python!
+```python
 
 def get_primes(L):
     st = set()
