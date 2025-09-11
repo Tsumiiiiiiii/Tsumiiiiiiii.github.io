@@ -22,7 +22,7 @@ math:
 
 The following sage script is given to us,
 
-```python=
+```python
 from Crypto.Util.number import getPrime, bytes_to_long
 import secrets
 
