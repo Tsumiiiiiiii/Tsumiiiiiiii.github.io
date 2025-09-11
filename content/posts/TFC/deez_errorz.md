@@ -109,7 +109,7 @@ $e_i = 97491 + t_0*(14061 - 97491) + t_1*(55776 - 97491)$
 | 14061| 0   | 1   |
 | 55776| 1   | 0   |
 
-We are essentialy representing the same equation, but using 2 bits instead of 1.
+We are essentialy representing the same equation, but using 2 bits instead of 3.
 
 ## Shortening it even further
 
