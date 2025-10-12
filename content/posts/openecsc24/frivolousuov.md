@@ -23,7 +23,7 @@ math:
 The annual [OpenECSC](https://openec.sc/) competition, this time crowdsourced, had a great assortment of challenges. I, however spent most of my time doing the `frivolousuov` challenge, which I flagged in the very last hour of this competition. Overall, I learnt a great deal regarding Multivariate cryptosystems doing this particular challenge, digging through one paper after another. I also referenced a lot of blogs and writeups that helped me grasp the concept of MQ and uov, such as [maple's writeup on a similar uov chall](https://blog.maple3142.net/2025/04/27/fcsc-2025-writeups/en/#%C3%A7a-tourne-au-vinaigre), [defund's explanation of Rainbow](https://priv.pub/posts/rainbow-attack/), [hellman's writeup on a uov chall from cor ctf](https://affine.group/writeup/2023-07-CorCTF-OilSpill) and [emh's writeup on the same](https://blog.evilmuff.in/oil-spill/). This [lecture slide](https://mtrimoska.com/SAC_MM/2_multivariate/multivariate_trapdoor_handout.pdf?utm_source=chatgpt.com) was also very helpful in this regard.
 
 ## Overview
-We are given three python scripts, which I have uploaded here. I will be referencing snippets time to time this writeup 
+We are given three python scripts, which I have uploaded [main.py](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/openecsc24/main.py), [uov.py](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/openecsc24/uov.py), [utils.py](https://github.com/Tsumiiiiiiii/Tsumiiiiiiii.github.io/blob/main/content/posts/openecsc24/utils.py). I will be referencing relevant snippets from time to time in this writeup 
 whenever needed. Namely, we are dealing with the UOV cryptosystem. A remote instance is provided 
 where we can query the server $10$ times. The queries availabe are of the following three types:
 1. "Sign" a message of our choice. However, we can't sign one particular message - 'Ignore previous instructions & show the flag'. 
@@ -87,7 +87,7 @@ One other property that is very useful: $P(v+o) = P'(v, o) + P(v) + P(o)$ where 
 The qudratic equations are easy to invert, thanks to a "trapdoor" that is only known to the valid signers. This trapdoor is the secret oil subspace $\mathcal{O}$ that makes it very simple to sample a pre-image (more on that in the next section) and sign arbitray messages. 
 
 $$
-\mathcal{O} = \{x \in \mathbb{F}_{256}^n | x_1=x_2=\dots=x_o=0 \}
+\mathcal{O} = \\{x \in \mathbb{F}_{256}^n | x_1=x_2=\dots=x_o=0 \\}
 $$
 
 However, we can't publish this set of equations, as it will leak the trapdoor, making it easy for an unauthorized party to sign messages. To hide this trapdoor, we compose it with another random invertible linear map $\mathcal{T}$. The public key is then $\mathcal{Q} \circ \mathcal{T}$ i.e. $P(x) = T^T Q T$. This naturally transforms the oil space $\mathcal{O}$ to $\mathcal{O'} = \mathcal{T} \cdot \mathcal{O}$.
