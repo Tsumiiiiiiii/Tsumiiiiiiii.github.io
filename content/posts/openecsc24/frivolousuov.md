@@ -307,7 +307,7 @@ $$
 This can be written as a linear system of equations,
 
 $$
-\underbrace{(v^T(Q+Q^T) + L)}_{A'}o = \underbrace{t - Q(v) - L(v) - C}_{b}
+\underbrace{(v^T(Q+Q^T) + L)}\_{A'}o = \underbrace{t - Q(v) - L(v) - C}\_{b}
 $$
 
 We are essentially solving for $A'o = b$ where $o \in \mathcal{O'}$.  But the question remains, how do we constrain $o$ to the span of $\mathcal{O'}$?
