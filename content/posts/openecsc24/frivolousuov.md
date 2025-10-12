@@ -62,7 +62,7 @@ $$
 \begin{pmatrix}
 \textcolor{red}{x_1} & \textcolor{red}{x_2} & x_3 & x_4 & x_5
 \end{pmatrix}
-\
+\cdot
 \begin{pmatrix}
 0 & 0 & \alpha_{1,3} & \alpha_{1,4} & \alpha_{1,5} \\\
 0 & 0 & \alpha_{2,3} & \alpha_{2,4} & \alpha_{2,5} \\\
@@ -70,7 +70,7 @@ $$
 \alpha_{4,1} & \alpha_{4,2} & \alpha_{4,3} & \alpha_{4,4} & \alpha_{4,5} \\\
 \alpha_{5,1} & \alpha_{5,2} & \alpha_{5,3} & \alpha_{5,4} & \alpha_{5,5}
 \end{pmatrix}
-\
+\cdot
 \begin{pmatrix}
 \textcolor{red}{x_1} \\\
 \textcolor{red}{x_2} \\\
