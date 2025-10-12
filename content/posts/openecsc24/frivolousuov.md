@@ -8,7 +8,7 @@ author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
 description: "Cryptanalysing UOV when the vinegar generation process is deterministic and controllable"
 
-tags: ["crypto", "openecsc", "uov", "mq", "english"]
+tags: ["crypto", "openecsc", "UOV", "MQ", "english"]
 categories: ["Writeups"]
 
 lightgallery: true
