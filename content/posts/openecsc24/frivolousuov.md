@@ -1,6 +1,6 @@
 ---
 weight: 1
-title: "openESCS 25 - Writeup for the frivolousuov crypto challenge"
+title: "openECSC 25 - Writeup for the frivolousuov crypto challenge"
 date: 2025-10-11T21:30:00+06:00
 lastmod: 2024-10-11T22:30:00+06:00
 draft: false
