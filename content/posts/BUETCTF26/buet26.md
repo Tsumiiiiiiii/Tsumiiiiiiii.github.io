@@ -6,7 +6,7 @@ lastmod: 2026-01-31T00:30:00+06:00
 draft: false
 author: "lolipop"
 authorLink: "https://tsumiiiiiiii.github.io"
-description: ""
+description: "Solving discrete logs with unknown bases and faulty DSA signatures using HNP, and Python random cracking with truncated outputs."
 
 tags: ["crypto", "BUETCTF", "math", "dlog", "HNP", "randcrack", "english"]
 categories: ["Writeups"]
