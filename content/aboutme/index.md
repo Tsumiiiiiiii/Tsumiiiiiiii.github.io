@@ -66,4 +66,4 @@ Ranked **55<sup>th</sup>** in 2021 ACM-ICPC Asia Dhaka Regional Contest
 
 ## Contact Me
 
-You can contact me via [Email](mailto:sumitalam@iut-dhaka.edu), or [Github](https://github.com/Tsumiiiiiiii).
+You can contact me via [Email](mailto:sumitalam@bubt.edu.bd), or [Github](https://github.com/Tsumiiiiiiii).
